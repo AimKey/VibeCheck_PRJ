@@ -1,3 +1,6 @@
+--!!! MERGE THIS FILE WITH OTHERS FOR THE FUNCTIONS FILE
+
+
 -- Delete a song by songId
 CREATE PROCEDURE DeleteSong
     @songId INT
