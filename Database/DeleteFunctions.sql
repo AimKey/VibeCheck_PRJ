@@ -1,5 +1,5 @@
---!!! MERGE THIS FILE WITH OTHERS FOR THE FUNCTIONS FILE
-
+USE AppMusicDatabase
+GO
 
 -- Delete a song by songId
 CREATE PROCEDURE DeleteSong
@@ -12,7 +12,6 @@ BEGIN
     -- Delete the song from Song table
     DELETE FROM Song WHERE songId = @songId;
 END
-
 GO
 
 -- Delete a playlist by playlistId
@@ -41,5 +40,20 @@ BEGIN
     
     -- Delete the artist from Artist table
     DELETE FROM Artist WHERE artistId = @artistId;
+END
+GO
+
+-- Get the file path of a song by songId
+CREATE FUNCTION GetSongFilePath (@songId INT)
+RETURNS VARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @filePath VARCHAR(MAX);
+    
+    SELECT @filePath = filePath
+    FROM Song
+    WHERE songId = @songId;
+    
+    RETURN @filePath;
 END
 GO
