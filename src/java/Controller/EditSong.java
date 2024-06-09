@@ -38,6 +38,8 @@ public class EditSong extends HttpServlet {
             stmt.setString(4, genre);
             stmt.setString(5, coverPictureLink);
             stmt.setInt(6, songId);
+            stmt.executeUpdate();
+            stmt.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
