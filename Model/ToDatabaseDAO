@@ -1,0 +1,112 @@
+package Model;
+
+import Connection.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.io.File;
+
+public class ToDatabaseDAO {
+
+    private Connection connection = DBConnection.getConnection();
+
+    /**
+     * Call delete song function in SQL with songId
+     *
+     * @param songId
+     */
+    public void deleteSong(int songId) {
+        String songFilePath = getSongFilePath(songId);
+        if (songFilePath != null) {
+            deleteFile(songFilePath);
+        }
+
+        String sql = "{call DeleteSong(?)}";
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, songId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    /**
+     * Call delete playlist function in SQL with playlistId delete a playlist
+     *
+     * @param playlistId
+     */
+    public void deletePlaylist(int playlistId) {
+        String sql = "{call DeletePlaylist(?)}";
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, playlistId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    /**
+     * Call delete artist function in SQL with artistId removing all songs
+     * belongs to that artist
+     *
+     * @param artistId
+     */
+    public void deleteArtist(int artistId) {
+        // Fetch and delete all songs of the artist from the disk
+        String sqlFetchSongs = "SELECT dbo.GetSongFilePath(songId) AS filePath FROM Song WHERE artistId = ?";
+        try ( PreparedStatement statement = connection.prepareStatement(sqlFetchSongs)) {
+            statement.setInt(1, artistId);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                String songFilePath = resultSet.getString("filePath");
+                if (songFilePath != null) {
+                    deleteFile(songFilePath);
+                }
+            }
+        } catch (SQLException e) {
+        }
+
+        String sql = "{call DeleteArtist(?)}";
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, artistId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    /**
+     * Fetch the file path of a song from the database using SQL function
+     *
+     * @param songId
+     * @return the file path of the song
+     */
+    private String getSongFilePath(int songId) {
+        String sql = "SELECT dbo.GetSongFilePath(?) AS filePath";
+        try ( PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, songId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("filePath");
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    /**
+     * Delete a file from the disk
+     *
+     * @param filePath
+     */
+    private void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            boolean deleted = file.delete();
+            if (!deleted) {
+                System.out.println("Failed to delete the file: " + filePath);
+            }
+        } else {
+            System.out.println("File not found: " + filePath);
+        }
+    }
+}
