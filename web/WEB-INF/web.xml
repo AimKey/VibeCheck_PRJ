@@ -4,8 +4,16 @@
         <servlet-name>LoginHandler</servlet-name>
         <servlet-class>Controller.LoginHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadSong</servlet-name>
+        <servlet-class>Controller.UploadSong</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/LoginHandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadSong</servlet-name>
+        <url-pattern>/UploadSong</url-pattern>
     </servlet-mapping>
 </web-app>
