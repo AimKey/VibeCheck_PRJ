@@ -3,11 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/FPT/Summer%202024/PRJ301/Projects/WebMusicPlayer/web/success.html</file>
-            <file>file:/E:/FPT/Summer%202024/PRJ301/Projects/WebMusicPlayer/web/login.jsp</file>
-            <file>file:/E:/FPT/Summer%202024/PRJ301/Projects/WebMusicPlayer/web/index.html</file>
-            <file>file:/E:/FPT/Summer%202024/PRJ301/Projects/WebMusicPlayer/src/java/Misc/DatabaseInformation.java</file>
-            <file>file:/E:/FPT/Summer%202024/PRJ301/Projects/WebMusicPlayer/src/java/Controller/LoginHandler.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/SongDAO.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/Song.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Controller/LoginHandler.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/Dao.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/Playlist.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/Artist.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/web/WEB-INF/web.xml</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/AppUser.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Controller/UploadSong.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/PlaylistSongsDAO.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Controller/EditSong.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Misc/DatabaseInformation.java</file>
+            <file>file:/E:/FPT/Study%20stuffs/4.SU24/PRJ301/BIG%20BOI/PRJ_WebMusicPlayer/src/java/Model/PlaylistSongs.java</file>
         </group>
     </open-files>
 </project-private>
