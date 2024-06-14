@@ -1,19 +1,16 @@
 package Model;
 
-// @author phamm
 
+ // @author phamm
 import java.util.ArrayList;
 import java.util.Optional;
 
-public interface Dao<T> {
 
-    // READ
-    Optional<T> get(long id);
-    ArrayList<T> getAll();
-    // POST
-    boolean save(T t);
-    // UPDATE
-    boolean update(T t, String[] params);
-    // DELETE
-    boolean delete(T t);
+public interface Dao<T> {
+    
+    public Optional<T> get(long id);
+    public ArrayList<T> getAll();
+    public boolean insert(T t);
+    public boolean update(T t, String[] params);
+    public boolean delete(int id);
 }
