@@ -13,27 +13,26 @@ import java.util.ArrayList;
 public class Song {
     private int songId, artistId, duration;
     private String tittle, filePath;
-    private String album;
-
-    public Song(int artistId, int duration, String tittle, String filePath, String album) {
-        this.artistId = artistId;
+    private ArrayList<String> genres;
+    
+    public Song(int duration, String tittle, String filePath, ArrayList<String> genres) {
         this.duration = duration;
         this.tittle = tittle;
         this.filePath = filePath;
-        this.album = album;
+        this.genres = genres;
     }
 
-    public Song(int songId, int artistId, int duration, String tittle, String filePath, String album) {
+    public Song(int songId, int artistId, int duration, String tittle, String filePath, ArrayList<String> genres) {
         this.songId = songId;
         this.artistId = artistId;
         this.duration = duration;
         this.tittle = tittle;
         this.filePath = filePath;
-        this.album = album;
+        this.genres = genres;
     }
-    
-    
 
+    
+    
     public int getSongId() {
         return songId;
     }
@@ -74,15 +73,13 @@ public class Song {
         this.filePath = filePath;
     }
 
-    public String getAlbum() {
-        return album;
+    public ArrayList<String> getGenres() {
+        return genres;
     }
 
-    public void setAlbum(String album) {
-        this.album = album;
+    public void setGenres(ArrayList<String> genres) {
+        this.genres = genres;
     }
-    
-    
     
     
 }
