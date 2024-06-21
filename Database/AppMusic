@@ -10,7 +10,7 @@ CREATE TABLE AppUser (
     email VARCHAR(100),
     password VARCHAR(100) NOT NULL,
     date_joined DATE,
-    role VARCHAR(50),
+    role BIT,
     profile_picture_link VARCHAR(100)
 );
 
