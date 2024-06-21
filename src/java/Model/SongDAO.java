@@ -1,13 +1,14 @@
 package Model;
 
-import Misc.DatabaseInformation;
+import Database.DatabaseInformation;
+import Model.Daos.Dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class SongDAO implements Dao<Song> {
 
-    private DatabaseInformation db = new DatabaseInformation("KUUL", "TestingUploadFiles");
+    private DatabaseInformation db = new DatabaseInformation();
 
     @Override
     public Optional<Song> get(long id) {
@@ -18,14 +19,7 @@ public class SongDAO implements Dao<Song> {
                 stmt.setLong(1, id);
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
-                        song = new Song(
-                                rs.getInt("songId"),
-                                rs.getInt("artistId"),
-                                rs.getInt("duration"),
-                                rs.getString("title"),
-                                rs.getString("filePath"),
-                                new ArrayList<>() // Placeholder for genres
-                        );
+                        
                     }
                 }
             }
@@ -42,15 +36,7 @@ public class SongDAO implements Dao<Song> {
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Song")) {
             while (rs.next()) {
-                Song song = new Song(
-                        rs.getInt("songId"),
-                        rs.getInt("artistId"),
-                        rs.getInt("duration"),
-                        rs.getString("title"),
-                        rs.getString("filePath"),
-                        new ArrayList<>() // Placeholder for genres
-                );
-                songs.add(song);
+                
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -59,14 +45,14 @@ public class SongDAO implements Dao<Song> {
     }
 
     @Override
-    public boolean save(Song song) {
+    public boolean insert(Song song) {
         boolean result = false;
         try (Connection con = db.getConnection()) {
             try (PreparedStatement stmt = con.prepareStatement(
                     "INSERT INTO Song (artistId, duration, title, filePath) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, song.getArtistId());
                 stmt.setInt(2, song.getDuration());
-                stmt.setString(3, song.getTittle());
+                stmt.setString(3, song.getTitle());
                 stmt.setString(4, song.getFilePath());
                 int affectedRows = stmt.executeUpdate();
                 if (affectedRows > 0) {
@@ -104,12 +90,12 @@ public class SongDAO implements Dao<Song> {
     }
 
     @Override
-    public boolean delete(Song song) {
+    public boolean delete(int songId) {
         boolean result = false;
         try (Connection con = db.getConnection()) {
             try (PreparedStatement stmt = con.prepareStatement(
                     "DELETE FROM Song WHERE songId = ?")) {
-                stmt.setInt(1, song.getSongId());
+//                stmt.setInt(1, song.getSongId());
                 result = stmt.executeUpdate() > 0;
             }
         } catch (Exception e) {

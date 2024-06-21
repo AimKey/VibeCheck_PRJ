@@ -1,13 +1,14 @@
 package Model;
 
-import Misc.DatabaseInformation;
+import Database.DatabaseInformation;
+import Model.Daos.Dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
 
-    private DatabaseInformation db = new DatabaseInformation("KUUL", "TestingUploadFiles");
+    private DatabaseInformation db = new DatabaseInformation();
 
     @Override
     public Optional<PlaylistSongs> get(long id) {
@@ -44,7 +45,6 @@ public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
         return playlistSongsList;
     }
 
-    @Override
     public boolean save(PlaylistSongs playlistSongs) {
         boolean result = false;
         try (Connection con = db.getConnection()) {
@@ -76,7 +76,6 @@ public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
         return result;
     }
 
-    @Override
     public boolean delete(PlaylistSongs playlistSongs) {
         boolean result = false;
         try (Connection con = db.getConnection()) {
@@ -90,5 +89,15 @@ public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
             System.err.println(e.getMessage());
         }
         return result;
+    }
+
+    @Override
+    public boolean insert(PlaylistSongs t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

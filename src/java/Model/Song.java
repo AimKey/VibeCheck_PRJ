@@ -11,28 +11,56 @@ import java.util.ArrayList;
  * @author phamm
  */
 public class Song {
+
     private int songId, artistId, duration;
-    private String tittle, filePath;
+    // Song filePath is songs/sth/sth.mp3
+    // Song img path is songs/sth/sth.jpeg;
+    private String title, songFilePath, songImagePath;
     private String album;
 
     public Song(int artistId, int duration, String tittle, String filePath, String album) {
         this.artistId = artistId;
         this.duration = duration;
-        this.tittle = tittle;
-        this.filePath = filePath;
+        this.title = tittle;
+        this.songFilePath = filePath;
         this.album = album;
     }
 
-    public Song(int songId, int artistId, int duration, String tittle, String filePath, String album) {
+    public Song(int songId, int artistId, int duration, String title, String songFilePath, String songImagePath, String album) {
         this.songId = songId;
         this.artistId = artistId;
         this.duration = duration;
-        this.tittle = tittle;
-        this.filePath = filePath;
+        this.title = title;
+        this.songFilePath = songFilePath;
+        this.songImagePath = songImagePath;
         this.album = album;
     }
     
     
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSongFilePath() {
+        return songFilePath;
+    }
+
+    public void setSongFilePath(String songFilePath) {
+        this.songFilePath = songFilePath;
+    }
+
+    public String getSongImagePath() {
+        return songImagePath;
+    }
+
+    public void setSongImagePath(String songImagePath) {
+        this.songImagePath = songImagePath;
+    }
 
     public int getSongId() {
         return songId;
@@ -58,20 +86,12 @@ public class Song {
         this.duration = duration;
     }
 
-    public String getTittle() {
-        return tittle;
-    }
-
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
-    }
-
     public String getFilePath() {
-        return filePath;
+        return songFilePath;
     }
 
     public void setFilePath(String filePath) {
-        this.filePath = filePath;
+        this.songFilePath = filePath;
     }
 
     public String getAlbum() {
@@ -81,8 +101,5 @@ public class Song {
     public void setAlbum(String album) {
         this.album = album;
     }
-    
-    
-    
-    
+
 }
