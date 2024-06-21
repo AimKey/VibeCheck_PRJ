@@ -12,6 +12,10 @@
         <servlet-name>GetSongServlet</servlet-name>
         <servlet-class>Controller.Servlets.GetSongServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditSong</servlet-name>
+        <servlet-class>Controller.EditSong</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/LoginHandler</url-pattern>
