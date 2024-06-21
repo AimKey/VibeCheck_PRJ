@@ -1,0 +1,407 @@
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary: #222831;
+  --secondary: #31363f;
+  --primary2: #76abae;
+  --links: #5c98d3;
+  --orange: #d08770;
+  --red: #bf616a;
+  --text: #eeeeee;
+  --sub-text: #b0b0b0;
+  --yellow: #ebcb8b;
+}
+
+.hide {
+  display: none;
+}
+
+img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.main {
+  background-color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 60px 24px;
+  color: var(--text);
+  font-size: 18px;
+}
+
+body::-webkit-scrollbar {
+  background-color: var(--primary);
+  width: 6px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--text);
+  border-radius: 4px;
+}
+
+.main__menus {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  text-align: center;
+}
+
+.section {
+  background-color: var(--secondary);
+  padding: 60px 80px;
+  border-radius: 24px;
+}
+
+.title {
+  font-size: 32px;
+  text-align: center;
+}
+
+.green-text {
+  color: var(--primary2);
+}
+.blue-text {
+  color: var(--links);
+}
+.yellow-text {
+  color: var(--yellow);
+}
+
+.orange-text {
+  color: var(--orange);
+}
+
+.picture__container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.picture__container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar__edit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: var(--primary);
+  padding: 10px;
+  background-color: var(--text);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease 0.2s;
+}
+.avatar__edit,
+.avatar__edit i {
+  cursor: pointer;
+}
+
+.avatar__edit:hover {
+  background-color: var(--primary);
+  color: var(--text);
+}
+
+.user__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 50%;
+  max-width: 420px;
+}
+
+.user__form button {
+  margin-top: 36px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.input label {
+  font-weight: bold;
+  text-align: start;
+}
+
+.input input {
+  outline: none;
+  background-color: transparent;
+  padding: 6px 14px;
+  border: none;
+  border-bottom: 1px solid white;
+  color: var(--text);
+  transition: all ease 0.2s;
+}
+
+.input input::placeholder {
+  color: var(--sub-text);
+}
+
+.input input:focus {
+  border-bottom: 1px solid var(--links);
+}
+
+.button {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: var(--text);
+  border-radius: 12px;
+  padding: 8px 24px;
+  border: none;
+  outline: none;
+  font-size: 24px;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+
+.button-confirm {
+  background-color: #57898b;
+}
+.button-confirm:hover {
+  background-color: var(--primary2);
+}
+
+.button-danger {
+  background-color: #9b4951;
+}
+.button-danger:hover {
+  background-color: var(--red);
+}
+
+.button-action {
+  background-color: #487bad;
+}
+.button-action:hover {
+  background-color: var(--links);
+}
+
+.button-grey {
+  background-color: #757070;
+}
+.button-grey:hover {
+  background-color: var(--sub-text);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.songs-display {
+  width: 100%;
+  background-color: var(--primary);
+  padding: 24px 16px;
+  border-radius: 12px;
+  overflow-y: scroll;
+  height: 640px;
+}
+
+.songs-display::-webkit-scrollbar {
+  background-color: none;
+  width: 6px;
+}
+
+.songs-display::-webkit-scrollbar-thumb {
+  background-color: var(--links);
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0 30px;
+}
+
+.songs-display__table th {
+  color: var(--sub-text);
+}
+
+.songs-display__table tr {
+  border-bottom: 1px solid var(--links) !important;
+  min-height: 82px;
+}
+
+.songs-display__table tr img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  margin: 12px;
+}
+
+.songs-display__table td {
+  padding: 12px;
+}
+
+td button {
+  background-color: transparent;
+  border: none;
+  transition: all ease 0.2s;
+}
+td button:hover {
+  transform: scale(1.2);
+}
+
+.fa-solid {
+  font-size: 28px;
+}
+
+.fa-trash-can {
+  color: var(--red) !important;
+}
+
+.fa-xmark {
+  color: var(--red) !important;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar input {
+  background-color: transparent;
+  border: 1px solid var(--primary2);
+  outline: none;
+  padding: 8px 42px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 512px;
+  caret-color: var(--text);
+  color: var(--text);
+}
+
+.search-bar i {
+  position: absolute;
+  font-size: 18px;
+  top: 50%;
+  left: 24px;
+  transform: translate(-50%, -50%);
+}
+
+.song-selection {
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+
+.song-selection:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.detail {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 24px 84px;
+  gap: 24px;
+}
+
+.song-img-container {
+  width: 300px;
+  height: 300px;
+  border-radius: 12px;
+  margin: 0;
+}
+
+.song-img-container img {
+  border-radius: 12px;
+}
+
+.songs-display__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-playlist__select {
+  background-color: var(--primary);
+  color: var(--text);
+  border: 1px solid var(--primary2);
+  border-radius: 12px;
+}
+
+.select-playlist {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.fa-circle-plus {
+  color: var(--links);
+}
+
+.modal-dialog {
+  width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.modal-content {
+  background-color: var(--primary);
+}
+
+.fa-x {
+  color: var(--text);
+}
+
+.fa-circle-check {
+  color: var(--primary2);
+}
+
+.fa-angles-up {
+  color: var(--yellow);
+}
+
+.user-list__table {
+  color: var(--text);
+  background-color: var(--primary);
+}
+
+.user-list__table tr,
+.user-list__table th,
+.user-list__table td {
+  background-color: var(--primary);
+  border-bottom: 1px solid var(--links) !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.userImg-mini img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  margin: 12px;
+}
+
+.admin > .role {
+  font-weight: bold;
+  color: var(--links);
+}
+
+.owner > .role {
+  font-weight: bold;
+  color: var(--orange);
+}

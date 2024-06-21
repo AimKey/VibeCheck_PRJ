@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>LoginHandler</servlet-name>
+        <servlet-class>Controller.Servlets.LoginHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadSong</servlet-name>
+        <servlet-class>Controller.Servlets.UploadSong</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSongServlet</servlet-name>
+        <servlet-class>Controller.Servlets.GetSongServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSong</servlet-name>
+        <servlet-class>Controller.EditSong</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginHandler</servlet-name>
+        <url-pattern>/LoginHandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadSong</servlet-name>
+        <url-pattern>/UploadSong</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSongServlet</servlet-name>
+        <url-pattern>/GetSongServlet</url-pattern>
+    </servlet-mapping>
+    <!-- Admin route -->
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <jsp-file>/Pages/Admin/admin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <!-- Main route -->
+    <servlet>
+        <servlet-name>Main</servlet-name>
+        <jsp-file>/Pages/Common/main.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Main</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>Pages/Common/login.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
