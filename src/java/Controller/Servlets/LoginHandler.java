@@ -33,7 +33,6 @@ public class LoginHandler extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     @Override
@@ -89,10 +88,7 @@ public class LoginHandler extends HttpServlet {
             response.addCookie(idC);
 
             // Setting the user session
-            request.getSession().setAttribute("user", aUser.getUsername());
-            request.getSession().setAttribute("id", aUser.getUserId());
-            request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
-            request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+            request.getSession().setAttribute("user", aUser);
 
             // Dispatch
             if (aUser.getIsAdmin()) {
@@ -100,7 +96,7 @@ public class LoginHandler extends HttpServlet {
                 response.sendRedirect("admin");
             } else {
 //                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                response.sendRedirect("Pages/Common/main.html");
+                response.sendRedirect("login");
             }
         }
 

@@ -1,7 +1,8 @@
-package Model;
+package Model.Daos;
 
 import Database.DatabaseInformation;
 import Model.Daos.Dao;
+import Model.Song;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;

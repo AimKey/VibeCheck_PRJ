@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter>
+        <filter-name>SettingPageOnLoad</filter-name>
+        <filter-class>Controller.Filters.SettingPageOnLoad</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SettingPageOnLoad</filter-name>
+        <url-pattern>/admin</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginHandler</servlet-name>
         <servlet-class>Controller.Servlets.LoginHandler</servlet-class>
@@ -28,6 +36,17 @@
         <servlet-name>GetSongServlet</servlet-name>
         <url-pattern>/GetSongServlet</url-pattern>
     </servlet-mapping>
+    
+    <!-- Admin route -->
+    <servlet>
+        <servlet-name>LoginPage</servlet-name>
+        <jsp-file>/Pages/Common/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginPage</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
     <!-- Admin route -->
     <servlet>
         <servlet-name>Admin</servlet-name>

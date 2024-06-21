@@ -27,9 +27,9 @@ public class AppUserDao implements Dao {
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 String dateJoined = DateTimeFormatter.ofPattern("yyyy-MM-dd").format((TemporalAccessor) rs.getDate("dateJoined"));
-                String proflePicPath = rs.getString("profilePicPath");
+                String profilePicPath = rs.getString("profilePicPath");
                 Boolean isAdmin = rs.getBoolean("isAdmin");
-                a = new AppUser(id, name, email, password, proflePicPath, dateJoined, isAdmin);
+                a = new AppUser(id, name, email, password, profilePicPath, dateJoined, isAdmin);
             }
 
             stmt.close();
@@ -44,7 +44,6 @@ public class AppUserDao implements Dao {
     public ArrayList getAll() {
         ArrayList<AppUser> list = new ArrayList<>();
         try (Connection con = db.getConnection();) {
-
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM AppUser a");
             while (rs.next()) {
@@ -52,7 +51,7 @@ public class AppUserDao implements Dao {
                 String name = rs.getString("username");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                String dateJoined = DateTimeFormatter.ofPattern("yyyy-MM-dd").format((TemporalAccessor) rs.getDate("dateJoined"));
+                String dateJoined = DateTimeFormatter.ofPattern("yyyy-MM-dd").format((rs.getDate("dateJoined").toLocalDate()));
                 String proflePicPath = rs.getString("profilePicPath");
                 Boolean isAdmin = rs.getBoolean("isAdmin");
                 AppUser a = new AppUser(id, name, email, password, proflePicPath, dateJoined, isAdmin);
