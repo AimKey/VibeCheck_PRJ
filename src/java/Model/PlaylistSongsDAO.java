@@ -11,7 +11,7 @@ public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
     private DatabaseInformation db = new DatabaseInformation();
 
     @Override
-    public Optional<PlaylistSongs> get(long id) {
+    public Optional<PlaylistSongs> get(int id) {
         PlaylistSongs playlistSongs = null;
         try (Connection con = db.getConnection()) {
             try (PreparedStatement stmt = con.prepareStatement(

@@ -40,14 +40,14 @@
                         <span class="icon">
                             <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type="text" required value="Minhkiet"/>
+                        <input type="text" name="username" required value="Minhkiet"/>
                         <label>Username</label>
                     </div>
                     <div class="input-box">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
-                        <input type="password" required value="123456"/>
+                        <input type="password" name="pass" required value="123456"/>
                         <label>Password</label>
                     </div>
                     <div class="forgot">

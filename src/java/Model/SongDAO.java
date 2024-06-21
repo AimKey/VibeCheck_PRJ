@@ -11,7 +11,7 @@ public class SongDAO implements Dao<Song> {
     private DatabaseInformation db = new DatabaseInformation();
 
     @Override
-    public Optional<Song> get(long id) {
+    public Optional<Song> get(int id) {
         Song song = null;
         try (Connection con = db.getConnection()) {
             try (PreparedStatement stmt = con.prepareStatement(
