@@ -6,16 +6,14 @@ package Model;
  */
 public class Artist {
     private int artistId;
-    private String artistName, bio, picturePath;
+    private String artistName, bio, profilePicPath;
 
     public Artist(int artistId, String artistName, String bio, String picturePath) {
         this.artistId = artistId;
         this.artistName = artistName;
         this.bio = bio;
-        this.picturePath = picturePath;
+        this.profilePicPath = picturePath;
     }
-
-    
     
     public int getArtistId() {
         return artistId;
@@ -42,11 +40,11 @@ public class Artist {
     }
 
     public String getPicturePath() {
-        return picturePath;
+        return profilePicPath;
     }
 
     public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+        this.profilePicPath = picturePath;
     }
     
     

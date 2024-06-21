@@ -8,25 +8,30 @@ import java.time.format.DateTimeFormatter;
  * @author phamm
  */
 public class AppUser {
-    private int userId;
-    private String username, email, password, pictureLink;
+    private Long userId;
+    private String username, email, password, profilePicPath;
     private LocalDate dateJoined;
+    private boolean isAdmin;
+    
+    public AppUser(){};
     
     // Because SQL and HTML use yyyy-MM-dd format, we will also try to do so.
-    public AppUser(int userId, String username, String email, String password, String pictureLink, String dateJoined) {
+    public AppUser(Long userId, String username, String email, String password, String profilePicPath, String dateJoined, Boolean isAdmin) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.pictureLink = pictureLink;
+        this.profilePicPath = profilePicPath;
         this.dateJoined = LocalDate.parse(dateJoined, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.isAdmin = isAdmin;
     }
     
-    public int getUserId() {
+    
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -54,14 +59,6 @@ public class AppUser {
         this.password = password;
     }
 
-    public String getPictureLink() {
-        return pictureLink;
-    }
-
-    public void setPictureLink(String pictureLink) {
-        this.pictureLink = pictureLink;
-    }
-
     public String getDateJoined() {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateJoined);
     }
@@ -74,7 +71,23 @@ public class AppUser {
     public String toString() {
         return "AppUser{" + "userId=" + userId + ", username=" + username + 
                 ", email=" + email + ", password=" + password + 
-                ", pictureLink=" + pictureLink + ", dateJoined=" + getDateJoined() + '}';
+                ", pictureLink=" + profilePicPath + ", dateJoined=" + getDateJoined() + '}';
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
     
     
