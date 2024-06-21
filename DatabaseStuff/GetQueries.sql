@@ -2,13 +2,9 @@ USE AppMusicDatabase
 GO
 
 -- Insert some random values
-INSERT INTO AppUser (username, password, email, dateJoined ,profilePicPath)
-VALUES ('Minh Kiet', '123456', 'phamminhkiet24@gmail.com', GETDATE(), 'users/Minh Kiet.jpg');
+INSERT INTO AppUser (username, password, email, dateJoined ,profilePicPath, isAdmin)
+VALUES ('Minhkiet', '123456', 'phamminhkiet24@gmail.com', GETDATE(), 'users/Minhkiet.jpg', 1);
 
--- Fallback artist if not found
-INSERT INTO Artist (artistId, artistName, profilePicturePath)
-VALUES (0, 'Various Artist', 'artists/fallback.jpeg');
-GO
 -- Other artist
 INSERT INTO Artist (artistName, bio, profilePicturePath)
 VALUES ('Shibayan Records', 'A touhou circle', 'artists/fallback.jpeg'),
@@ -18,6 +14,7 @@ INSERT INTO Song (artistId, title, album, duration, songFilePath, songImagePath)
 VALUES (1, 'Full Moon Samba', 'Song album here', 248, 'songs/Full Moon Samba/Full Moon Samba.mp3', 'songs/fallback.jpg'),
  (2, 'Night dancer', 'Song album here', 248, 'songs/NIGHT DANCER/NIGHT DANCER.mp3', 'songs/fallback.jpg');
 
+ -- If encounter any errors, check the id of the songs and artists
  -- INSERT some playlist
  INSERT INTO Playlist (name, numberOfSongs, userId, creationDate)
  VALUES ('AimKey playlist', 2, 1, GETDATE())
