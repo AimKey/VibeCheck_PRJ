@@ -1,5 +1,4 @@
 # Netbeans dummy dumb stuff
-/build/
 nbproject/build-impl.xml
 nbproject/genfiles.properties
 nbproject/private/private.properties
@@ -11,3 +10,4 @@ build.xml
 src/java/Database 
 # Wars file ?
 /dist/
+/build/

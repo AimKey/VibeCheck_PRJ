@@ -46,9 +46,8 @@ public class LoginHandler extends HttpServlet {
         String pass = request.getParameter("pass");
         System.out.println("Request user: " + user + ", pass: " + pass);
         int count = 0;
-        try (Connection con = db.getConnection()) {
-            PreparedStatement stmt = con.prepareStatement(
-                    "SELECT * FROM AppUser a WHERE a.username = ? AND a.password = ?");
+        try (Connection con = db.getConnection(); PreparedStatement stmt = con.prepareStatement(
+                "SELECT * FROM AppUser a WHERE a.username = ? AND a.password = ?")) {
             stmt.setString(1, user);
             stmt.setString(2, pass);
             ResultSet rs = stmt.executeQuery();
@@ -62,51 +61,47 @@ public class LoginHandler extends HttpServlet {
                 count++;
                 aUser = new AppUser(id, name, email, profilePicPath, isAdmin);
             }
-
-            stmt.close();
             rs.close();
-
-            System.out.println("User information: ");
-            System.out.println(aUser);
-
-            // No user found
-            if (aUser == null) {
-                request.setAttribute("msg", "Wrong user account!");
-                request.getRequestDispatcher("Pages/Common/login.jsp").forward(request, response);
-            } else {
-                // Found user, logging in
-                // Creating cookies
-                Cookie userC = new Cookie("user", aUser.getUsername());
-                Cookie adminC = new Cookie("admin", String.valueOf(aUser.getIsAdmin()));
-                Cookie idC = new Cookie("id", String.valueOf(aUser.getUserId()));
-
-                // Set cookies age
-                userC.setMaxAge(60 * 60 * 24);
-                adminC.setMaxAge(60 * 60 * 24);
-                idC.setMaxAge(60 * 60 * 24);
-
-                // Add cookies
-                response.addCookie(userC);
-                response.addCookie(adminC);
-                response.addCookie(idC);
-
-                // Setting the user session
-                request.getSession().setAttribute("user", aUser.getUsername());
-                request.getSession().setAttribute("id", aUser.getUserId());
-                request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
-                                request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
-
-                // Dispatch
-                if (aUser.getIsAdmin()) {
-//                    request.getRequestDispatcher("admin.jsp").forward(request, response);
-                    response.sendRedirect("admin");
-                } else {
-//                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                    response.sendRedirect("Pages/Common/main.html");
-                }
-            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        System.out.println("User information: ");
+        System.out.println(aUser);
+        // No user found
+        if (aUser == null) {
+            request.setAttribute("msg", "Wrong user account!");
+            request.getRequestDispatcher("Pages/Common/login.jsp").forward(request, response);
+        } else {
+            // Found user, logging in
+            // Creating cookies
+            Cookie userC = new Cookie("user", aUser.getUsername());
+            Cookie adminC = new Cookie("admin", String.valueOf(aUser.getIsAdmin()));
+            Cookie idC = new Cookie("id", String.valueOf(aUser.getUserId()));
+
+            // Set cookies age
+            userC.setMaxAge(60 * 60 * 24);
+            adminC.setMaxAge(60 * 60 * 24);
+            idC.setMaxAge(60 * 60 * 24);
+
+            // Add cookies
+            response.addCookie(userC);
+            response.addCookie(adminC);
+            response.addCookie(idC);
+
+            // Setting the user session
+            request.getSession().setAttribute("user", aUser.getUsername());
+            request.getSession().setAttribute("id", aUser.getUserId());
+            request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+            request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+
+            // Dispatch
+            if (aUser.getIsAdmin()) {
+//                    request.getRequestDispatcher("admin.jsp").forward(request, response);
+                response.sendRedirect("admin");
+            } else {
+//                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                response.sendRedirect("Pages/Common/main.html");
+            }
         }
 
     }
