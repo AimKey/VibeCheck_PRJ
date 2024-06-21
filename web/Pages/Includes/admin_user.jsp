@@ -5,7 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <div class="section" id="user">
+    <h3>Hello ${user}, ${id}</h3>
     <h3 class="user__title title green-text">Edit user profile</h3>
     <div class="user__avatar">
         <!-- On changed change user image too -->

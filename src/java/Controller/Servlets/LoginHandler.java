@@ -5,12 +5,13 @@
 package Controller.Servlets;
 
 import Database.DatabaseInformation;
+import Model.AppUser;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*; // What the frick netbeans frick yourself
 
 /**
@@ -32,40 +33,79 @@ public class LoginHandler extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-      
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        int count = 0;
-        try (Connection con = db.getConnection()) {
-            PreparedStatement stmt = con.prepareStatement(
-                    "SELECT COUNT(*) FROM AppUser a WHERE a.username = ? AND a.password = ?");
-            stmt.setString(1, user);
-            stmt.setString(2, pass);
-            ResultSet rs = stmt.executeQuery();
-            
-            rs.next(); // Move to the first row
-            count = rs.getInt(1); // If count = 0 equals no user 
-            
-            stmt.close();
-            rs.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        if (count == 1) {
-            request.setAttribute("r", true);
-            request.getRequestDispatcher("success.html").forward(request, response);
-        } else {
-            request.setAttribute("r", false);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        AppUser aUser = null;
+        String user = request.getParameter("username");
+        String pass = request.getParameter("pass");
+        System.out.println("Request user: " + user + ", pass: " + pass);
+        int count = 0;
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement(
+                    "SELECT * FROM AppUser a WHERE a.username = ? AND a.password = ?");
+            stmt.setString(1, user);
+            stmt.setString(2, pass);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("userId");
+                String name = rs.getString("username");
+                String profilePicPath = rs.getString("profilePicPath");
+                Boolean isAdmin = rs.getBoolean("isAdmin");
+                count++;
+                aUser = new AppUser(id, name, profilePicPath, isAdmin);
+            }
+
+            stmt.close();
+            rs.close();
+
+            System.out.println("User information: ");
+            System.out.println(aUser);
+
+            // No user found
+            if (aUser == null) {
+                request.setAttribute("msg", "Wrong user account!");
+                request.getRequestDispatcher("login").forward(request, response);
+            } else {
+                // Found user, logging in
+                // Creating cookies
+                Cookie userC = new Cookie("user", aUser.getUsername());
+                Cookie adminC = new Cookie("admin", String.valueOf(aUser.getIsAdmin()));
+                Cookie idC = new Cookie("id", String.valueOf(aUser.getUserId()));
+
+                // Set cookies age
+                userC.setMaxAge(60 * 60 * 24);
+                adminC.setMaxAge(60 * 60 * 24);
+                idC.setMaxAge(60 * 60 * 24);
+
+                // Add cookies
+                response.addCookie(userC);
+                response.addCookie(adminC);
+                response.addCookie(idC);
+
+                // Setting the user session
+                request.getSession().setAttribute("user", aUser.getUsername());
+                request.getSession().setAttribute("id", aUser.getUserId());
+                request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+                // Dispatch
+                if (aUser.getIsAdmin()) {
+//                    request.getRequestDispatcher("admin.jsp").forward(request, response);
+                    response.sendRedirect("admin");
+                } else {
+//                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     @Override

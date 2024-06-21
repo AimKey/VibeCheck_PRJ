@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface Dao<T> {
     
-    Optional<T> get(long id);
+    Optional<T> get(int id);
     ArrayList<T> getAll();
     boolean insert(T t);
     boolean update(T t, String[] params);

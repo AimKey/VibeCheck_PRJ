@@ -14,12 +14,12 @@ public class AppUserDao implements Dao {
     DatabaseInformation db = new DatabaseInformation();
 
     @Override
-    public Optional get(long id) {
+    public Optional get(int id) {
         AppUser a = new AppUser();
         try (Connection con = db.getConnection();) {
 
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM AppUser a WHERE a.userId = ?");
-            stmt.setLong(1, id);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -48,7 +48,7 @@ public class AppUserDao implements Dao {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM AppUser a");
             while (rs.next()) {
-                Long id = rs.getLong("userId");
+                Integer id = rs.getInt("userId");
                 String name = rs.getString("username");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
