@@ -13,7 +13,7 @@ public class DatabaseInformation {
     
     // TODO: Change this to your database configs
     public DatabaseInformation() {
-        this("KUUL", "AppMusicDatabase", "sa", "123456");
+        this("LAPTOP-V78Q2HU6", "AppMusicDatabase", "sa", "123");
     }
 
     public DatabaseInformation(String serverName, String dbName, String dbUser, String dbPassword) {
@@ -37,7 +37,7 @@ public class DatabaseInformation {
             con = DriverManager.getConnection(dbURL, dbUser, dbPassword);
         } catch (SQLException e) {
             System.out.println("Error: " + e);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
             System.out.print(e.getMessage());
         }
         return con;

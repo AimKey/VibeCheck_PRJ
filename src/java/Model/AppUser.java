@@ -8,15 +8,19 @@ import java.time.format.DateTimeFormatter;
  * @author phamm
  */
 public class AppUser {
-    private Long userId;
+
+    private int userId;
     private String username, email, password, profilePicPath;
     private LocalDate dateJoined;
     private boolean isAdmin;
-    
-    public AppUser(){};
+
+    public AppUser() {
+    }
+
+    ;
     
     // Because SQL and HTML use yyyy-MM-dd format, we will also try to do so.
-    public AppUser(Long userId, String username, String email, String password, String profilePicPath, String dateJoined, Boolean isAdmin) {
+    public AppUser(int userId, String username, String email, String password, String profilePicPath, String dateJoined, Boolean isAdmin) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -25,13 +29,12 @@ public class AppUser {
         this.dateJoined = LocalDate.parse(dateJoined, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.isAdmin = isAdmin;
     }
-    
-    
-    public Long getUserId() {
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -69,9 +72,9 @@ public class AppUser {
 
     @Override
     public String toString() {
-        return "AppUser{" + "userId=" + userId + ", username=" + username + 
-                ", email=" + email + ", password=" + password + 
-                ", pictureLink=" + profilePicPath + ", dateJoined=" + getDateJoined() + '}';
+        return "AppUser{" + "userId=" + userId + ", username=" + username
+                + ", email=" + email + ", password=" + password
+                + ", pictureLink=" + profilePicPath + ", dateJoined=" + getDateJoined() + '}';
     }
 
     public String getProfilePicPath() {
@@ -89,7 +92,5 @@ public class AppUser {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
-    
-    
-    
+
 }
