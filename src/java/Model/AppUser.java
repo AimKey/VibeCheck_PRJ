@@ -16,6 +16,14 @@ public class AppUser {
 
     public AppUser() {
     }
+
+    public AppUser(int userId, String username, String email, String profilePicPath, boolean isAdmin) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.profilePicPath = profilePicPath;
+        this.isAdmin = isAdmin;
+    }
     
     
     public AppUser(int userId, String username, String profilePicPath, boolean isAdmin) {

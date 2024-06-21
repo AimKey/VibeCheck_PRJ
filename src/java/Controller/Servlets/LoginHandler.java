@@ -56,10 +56,11 @@ public class LoginHandler extends HttpServlet {
             while (rs.next()) {
                 int id = rs.getInt("userId");
                 String name = rs.getString("username");
+                String email = rs.getString("email");
                 String profilePicPath = rs.getString("profilePicPath");
                 Boolean isAdmin = rs.getBoolean("isAdmin");
                 count++;
-                aUser = new AppUser(id, name, profilePicPath, isAdmin);
+                aUser = new AppUser(id, name, email, profilePicPath, isAdmin);
             }
 
             stmt.close();
@@ -71,7 +72,7 @@ public class LoginHandler extends HttpServlet {
             // No user found
             if (aUser == null) {
                 request.setAttribute("msg", "Wrong user account!");
-                request.getRequestDispatcher("login").forward(request, response);
+                request.getRequestDispatcher("Pages/Common/login.jsp").forward(request, response);
             } else {
                 // Found user, logging in
                 // Creating cookies
@@ -93,13 +94,15 @@ public class LoginHandler extends HttpServlet {
                 request.getSession().setAttribute("user", aUser.getUsername());
                 request.getSession().setAttribute("id", aUser.getUserId());
                 request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+                                request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+
                 // Dispatch
                 if (aUser.getIsAdmin()) {
 //                    request.getRequestDispatcher("admin.jsp").forward(request, response);
                     response.sendRedirect("admin");
                 } else {
 //                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                    response.sendRedirect("index");
+                    response.sendRedirect("Pages/Common/main.html");
                 }
             }
         } catch (Exception e) {
