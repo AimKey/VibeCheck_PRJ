@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="section" id="edit-playlist">
     <h3 class="title orange-text">Edit playlist</h3>
 
@@ -14,10 +14,12 @@
             class="form-select edit-playlist__select"
             name="selectPlaylist"
             id="selectPlaylist"
+            onchange="handleSelectPlaylist(this)"
             >
             <option value="null">Select a playlist</option>
-            <option value="1">Playlist one</option>
-            <option value="2">Playlist two</option>
+            <c:forEach var="p" items="${playlists}">
+                <option value="${p.playlistId}">${p.name}</option>
+            </c:forEach>
         </select>
         <button class="button button-confirm">Select</button>
     </form>
@@ -60,6 +62,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- TODO: User javascript to render this part -->
                 <tr class="song-selection">
                     <th class="song-img">
                         <img src="assets/images/demo.jpg" alt="User picture here" />

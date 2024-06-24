@@ -1,34 +1,12 @@
 USE AppMusicDatabase
 GO
 
--- Insert some random values
-INSERT INTO AppUser (username, password, email, dateJoined ,profilePicPath, isAdmin)
-VALUES ('Minhkiet', '123456', 'phamminhkiet24@gmail.com', GETDATE(), 'users/Minhkiet.jpg', 1);
-
--- Other artist
-INSERT INTO Artist (artistName, bio, profilePicturePath)
-VALUES ('Shibayan Records', 'A touhou circle', 'artists/fallback.jpeg'),
-('Imase', 'A 23-years old male singer from Gifu', 'artists/fallback.jpeg');
--- INSERT Some song
-INSERT INTO Song (artistId, title, album, duration, songFilePath, songImagePath)
-VALUES (1, 'Full Moon Samba', 'Song album here', 248, 'songs/Full Moon Samba/Full Moon Samba.mp3', 'songs/fallback.jpg'),
- (2, 'Night dancer', 'Song album here', 248, 'songs/NIGHT DANCER/NIGHT DANCER.mp3', 'songs/fallback.jpg');
-
- -- If encounter any errors, check the id of the songs and artists
- -- INSERT some playlist
- INSERT INTO Playlist (name, numberOfSongs, userId, creationDate)
- VALUES ('AimKey playlist', 2, 1, GETDATE())
--- INSERT some song to the playlist
-INSERT INTO PlaylistSongs (playlistId, songId)
-VALUES (1, 1),
-(1, 2)
-
  -- Get Song by ID
  GO
  CREATE PROC usp_Song_getBySongId
  @sId INT
  AS
-	 SELECT *
+	 SELECT s.songId, a.artistName, s.album, s.duration, s.title, s.songFilePath, s.songImagePath
 	 FROM Song AS s
 	 INNER JOIN Artist AS a 
 	 ON s.artistId = a.artistId
@@ -50,6 +28,12 @@ INNER JOIN Artist a
 ON s.artistId = a.artistId
 WHERE s.title LIKE N'%dancer%'
 
+-- Get all Song with corresponding artist
+SELECT s.songId, s.title, a.artistName, s.album, s.duration, s.songImagePath, s.songFilePath
+FROM Song s
+INNER JOIN Artist a
+ON s.artistId = a.artistId
+
 -- Get Artist by Id
 SELECT * FROM Artist a
 WHERE a.artistId = 1
@@ -65,14 +49,16 @@ LEFT JOIN Song s
 ON a.artistId = s.artistId
 WHERE a.artistId = 1
 
--- Get ALL available playlist
-SELECT * FROM Playlist
-
--- Get All songs from a playlist
-SELECT p.playlistId, pl.songId, s.title
+-- Get ALL available playlist of a User
+SELECT p.playlistId, p.userId, p.name, p.numberOfSongs, p.creationDate
 FROM Playlist p
-INNER JOIN PlaylistSongs pl
-ON p.playlistId = pl.playlistId
+WHERE p.userId = 1
+
+-- Get ALL songs from a playlist
+SELECT s.songId, s.title, a.artistName, s.album, s.duration, s.songFilePath, s.songImagePath
+FROM PlaylistSongs pl
 INNER JOIN Song s
 ON s.songId = pl.songId
-WHERE p.playlistId = 1
+INNER JOIN Artist a
+ON a.artistId = s.artistId
+WHERE pl.playlistId = 1

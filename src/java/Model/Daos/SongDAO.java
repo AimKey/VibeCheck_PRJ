@@ -20,7 +20,7 @@ public class SongDAO implements Dao<Song> {
                 stmt.setLong(1, id);
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
-                        
+
                     }
                 }
             }
@@ -30,17 +30,34 @@ public class SongDAO implements Dao<Song> {
         return Optional.ofNullable(song);
     }
 
+    /**
+     * Return an Arraylist of Song, null if empty
+     *
+     * @return
+     */
     @Override
     public ArrayList<Song> getAll() {
         ArrayList<Song> songs = new ArrayList<>();
-        try (Connection con = db.getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM Song")) {
+        try (Connection con = db.getConnection(); Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery("""
+                                                                                                                           SELECT s.songId, s.title, a.artistName, s.album, s.duration, s.songImagePath, s.songFilePath
+                                                                                                                           FROM Song s
+                                                                                                                           INNER JOIN Artist a
+                                                                                                                           ON s.artistId = a.artistId""")) {
             while (rs.next()) {
-                
+                int id = rs.getInt("songId");
+                String title = rs.getString("title");
+                String artist = rs.getString("artistName");
+                String album = rs.getString("album");
+                int duration = rs.getInt("duration");
+                String songFilePath = rs.getString("songFilePath");
+                String songImagePath = rs.getString("songImagePath");
+                songs.add(new Song(id, duration, artist, title, songFilePath, songImagePath, album));
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
+        }
+        if (songs.isEmpty()) {
+            return null;
         }
         return songs;
     }
@@ -51,8 +68,9 @@ public class SongDAO implements Dao<Song> {
         try (Connection con = db.getConnection()) {
             try (PreparedStatement stmt = con.prepareStatement(
                     "INSERT INTO Song (artistId, duration, title, filePath) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setInt(1, song.getArtistId());
-                stmt.setInt(2, song.getDuration());
+//                TODO: This one will actually have artist name instead, so handle it in SQL
+//                stmt.setInt(1, song.getArtistId());
+                stmt.setInt(2, song.getDurationInNumbers());
                 stmt.setString(3, song.getTitle());
                 stmt.setString(4, song.getFilePath());
                 int affectedRows = stmt.executeUpdate();
@@ -78,8 +96,9 @@ public class SongDAO implements Dao<Song> {
             try (PreparedStatement stmt = con.prepareStatement(
                     "UPDATE Song SET title = ?, artistId = ?, duration = ?, filePath = ? WHERE songId = ?")) {
                 stmt.setString(1, params[1]);
-                stmt.setInt(2, song.getArtistId());
-                stmt.setInt(3, song.getDuration());
+//                TODO: Fix me because now, song only contains artist name
+//                stmt.setInt(2, song.getArtistId());
+                stmt.setInt(3, song.getDurationInNumbers());
                 stmt.setString(4, song.getFilePath());
                 stmt.setInt(5, song.getSongId());
                 result = stmt.executeUpdate() > 0;

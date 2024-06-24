@@ -50,14 +50,6 @@ body::-webkit-scrollbar-thumb {
     border-radius: 4px;
 }
 
-.password {
-    pointer-events: none;
-    border: none;
-    text-align: center;
-    background-color: transparent;
-    color:white;
-}
-
 .main__menus {
     display: flex;
     flex-direction: column;
@@ -229,12 +221,17 @@ input[type="file"] {
 
 .songs-display::-webkit-scrollbar {
     background-color: none;
-    width: 6px;
+    width: 10px;
+    height: 10px;
 }
 
 .songs-display::-webkit-scrollbar-thumb {
     background-color: var(--links);
     border-radius: 4px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 table {
@@ -419,7 +416,13 @@ td button:hover {
 }
 
 .background-wrapper {
-    border-radius: 12px ;
-    padding: 24px 16px ;
+    border-radius: 12px;
+    padding: 24px 16px;
     background-color: var(--primary);
+    overflow-x: inherit;
+    width: 100%;
+}
+
+.box-shadow {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

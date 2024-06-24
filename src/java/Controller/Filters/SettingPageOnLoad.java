@@ -6,7 +6,9 @@ package Controller.Filters;
 
 import Model.AppUser;
 import Model.Daos.AppUserDao;
+import Model.Daos.PlaylistDao;
 import Model.Daos.SongDAO;
+import Model.Playlist;
 import Model.Song;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -54,9 +56,16 @@ public class SettingPageOnLoad implements Filter {
         AppUserDao dao = new AppUserDao();
         ArrayList<AppUser> appUsers = dao.getAll();
         ArrayList<Song> songs = new SongDAO().getAll();
-        System.out.println("Current user: ");
-        System.out.println(appUsers);
+        AppUser user = (AppUser) request.getSession().getAttribute("user");
+        System.out.println(user + ":: accessing admin page");
+        ArrayList<Playlist> playlists = new PlaylistDao().getAll(user.getUserId());
+        System.out.println("User playlist: ");
+        for (Playlist playlist : playlists) {
+            System.out.println(playlist);
+        }
         request.setAttribute("users", appUsers);
+        request.setAttribute("songs", songs);
+        request.setAttribute("playlists", playlists);
     }
     
     private void doAfterProcessing(RequestWrapper request, ResponseWrapper response)

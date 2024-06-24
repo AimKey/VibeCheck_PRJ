@@ -8,4 +8,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 window.onbeforeunload = function (e) {
     localStorage.setItem('scrollpos', window.scrollY);
 };
+// Turn password into aterisks
+document.addEventListener("DOMContentLoaded", function () {
+    var passwordElements = document.querySelectorAll('.password');
 
+    passwordElements.forEach(function (element) {
+        var length = element.textContent.length;
+        element.textContent = '*'.repeat(length);
+    });
+});

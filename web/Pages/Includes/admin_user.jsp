@@ -13,7 +13,7 @@
     <div class="user__avatar">
         <!-- On changed change user image too -->
         <form action="songUpload" method="get" onchange="changeUserAvatar(this)">
-            <div class="picture__container">
+            <div class="picture__container box-shadow">
                 <img src="${user.profilePicPath}" alt="User picture here" />
                 <label for="userImage"><i class="fa-solid fa-file-pen avatar__edit"></i></label>
                 <input type="file" name="userImage" id="userImage" />

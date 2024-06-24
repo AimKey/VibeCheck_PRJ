@@ -1,13 +1,13 @@
 package Model.Daos;
 
 import Database.DatabaseInformation;
-import Model.Daos.Dao;
 import Model.PlaylistSongs;
+import Model.Song;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
+public class PlaylistSongsDao implements Dao<PlaylistSongs> {
 
     private DatabaseInformation db = new DatabaseInformation();
 
@@ -30,23 +30,49 @@ public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
         return Optional.ofNullable(playlistSongs);
     }
 
-    @Override
-    public ArrayList<PlaylistSongs> getAll() {
-        ArrayList<PlaylistSongs> playlistSongsList = new ArrayList<>();
-        try (Connection con = db.getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM PlaylistSongs")) {
+    /**
+     * This one is a little bit special, we will get all Song that belong to a
+     * playlist instead, because get all song from playlistSongs has no value.
+     *
+     * @param playlistId
+     * @return
+     */
+    public ArrayList<Song> getAllSongFromPlayListSongs(int playlistId) {
+        ArrayList<Song> list = new ArrayList<>();
+        try (Connection con = db.getConnection()) {
+
+            PreparedStatement stmt = con.prepareStatement("""
+                                                          SELECT s.songId, s.title, a.artistName, s.album, s.duration, s.songFilePath, s.songImagePath
+                                                          FROM PlaylistSongs pl
+                                                          INNER JOIN Song s
+                                                          ON s.songId = pl.songId
+                                                          INNER JOIN Artist a
+                                                          ON a.artistId = s.artistId
+                                                          WHERE pl.playlistId = ?""");
+            stmt.setInt(1, playlistId);
+            ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
-                PlaylistSongs playlistSongs = new PlaylistSongs(rs.getInt("playlistId"), rs.getInt("songId"));
-                playlistSongsList.add(playlistSongs);
+                int songId = rs.getInt("songId");
+                String title = rs.getString("title");
+                String artistName = rs.getString("artistName");
+                String album = rs.getString("album");
+                int duration = rs.getInt("duration");
+                String songFilePath = rs.getString("songFilePath");
+                String songImagePath = rs.getString("songImagePath");
+                list.add(new Song(songId, duration, artistName, title, songFilePath, songImagePath, album));
             }
+
+            stmt.close();
+            rs.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return playlistSongsList;
+        return list;
     }
 
-    public boolean save(PlaylistSongs playlistSongs) {
+    @Override
+    public boolean insert(PlaylistSongs playlistSongs) {
         boolean result = false;
         try (Connection con = db.getConnection()) {
             try (PreparedStatement stmt = con.prepareStatement(
@@ -93,8 +119,8 @@ public class PlaylistSongsDAO implements Dao<PlaylistSongs> {
     }
 
     @Override
-    public boolean insert(PlaylistSongs t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<PlaylistSongs> getAll() {
+        throw new UnsupportedOperationException("Why would you want to call getAll on PlaylistSongs."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
