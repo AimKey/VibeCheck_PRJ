@@ -36,44 +36,41 @@ import java.util.ArrayList;
  * @author phamm
  */
 public class SettingPageOnLoad implements Filter {
-    
+
     private static final boolean debug = false;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured.
     private FilterConfig filterConfig = null;
-    
+
     public SettingPageOnLoad() {
     }
-    
+
     private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
-        if (debug) {
-            log("SettingPageOnLoad:DoBeforeProcessing");
-        }
-        System.out.println("[onAdminPageLoad]: Setting request attributes...");
+        System.out.println("[onAdminPageLoad]: Session: " + request.getSession().getId());
         AppUserDao dao = new AppUserDao();
         ArrayList<AppUser> appUsers = dao.getAll();
         ArrayList<Song> songs = new SongDAO().getAll();
         AppUser user = (AppUser) request.getSession().getAttribute("user");
-        System.out.println(user + ":: accessing admin page");
-        ArrayList<Playlist> playlists = new PlaylistDao().getAll(user.getUserId());
-        System.out.println("User playlist: ");
-        for (Playlist playlist : playlists) {
-            System.out.println(playlist);
+        if (user != null) {
+//            System.out.println(user + ":: accessing admin page");
+            ArrayList<Playlist> playlists = new PlaylistDao().getAllPlaylistFromUser(user.getUserId());
+            request.setAttribute("users", appUsers);
+            request.setAttribute("songs", songs);
+            request.setAttribute("playlists", playlists);
+        } else {
+            response.sendRedirect("login");
         }
-        request.setAttribute("users", appUsers);
-        request.setAttribute("songs", songs);
-        request.setAttribute("playlists", playlists);
     }
-    
+
     private void doAfterProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
         if (debug) {
             log("SettingPageOnLoad:DoAfterProcessing");
         }
-
+        
         // Write code here to process the request and/or response after
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log the attributes on the
@@ -123,7 +120,7 @@ public class SettingPageOnLoad implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         if (debug) {
             log("SettingPageOnLoad:doFilter()");
         }
@@ -138,11 +135,11 @@ public class SettingPageOnLoad implements Filter {
         // include requests.
         RequestWrapper wrappedRequest = new RequestWrapper((HttpServletRequest) request);
         ResponseWrapper wrappedResponse = new ResponseWrapper((HttpServletResponse) response);
-        
+
         doBeforeProcessing(wrappedRequest, wrappedResponse);
-        
+
         Throwable problem = null;
-        
+
         try {
             chain.doFilter(wrappedRequest, wrappedResponse);
         } catch (Throwable t) {
@@ -152,7 +149,7 @@ public class SettingPageOnLoad implements Filter {
             problem = t;
             t.printStackTrace();
         }
-        
+
         doAfterProcessing(wrappedRequest, wrappedResponse);
 
         // If there was a problem, we want to rethrow it if it is
@@ -214,12 +211,12 @@ public class SettingPageOnLoad implements Filter {
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-        
+
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
         String stackTrace = getStackTrace(t);
-        
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
@@ -246,7 +243,7 @@ public class SettingPageOnLoad implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -260,7 +257,7 @@ public class SettingPageOnLoad implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
     }
@@ -273,7 +270,7 @@ public class SettingPageOnLoad implements Filter {
      * access to the wrapped request using the method getRequest()
      */
     class RequestWrapper extends HttpServletRequestWrapper {
-        
+
         public RequestWrapper(HttpServletRequest request) {
             super(request);
         }
@@ -282,12 +279,12 @@ public class SettingPageOnLoad implements Filter {
         // you must also override the getParameter, getParameterValues, getParameterMap,
         // and getParameterNames methods.
         protected Hashtable localParams = null;
-        
+
         public void setParameter(String name, String[] values) {
             if (debug) {
                 System.out.println("SettingPageOnLoad::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
             }
-            
+
             if (localParams == null) {
                 localParams = new Hashtable();
                 // Copy the parameters from the underlying request.
@@ -301,7 +298,7 @@ public class SettingPageOnLoad implements Filter {
             }
             localParams.put(name, values);
         }
-        
+
         @Override
         public String getParameter(String name) {
             if (debug) {
@@ -320,7 +317,7 @@ public class SettingPageOnLoad implements Filter {
             }
             return (val == null ? null : val.toString());
         }
-        
+
         @Override
         public String[] getParameterValues(String name) {
             if (debug) {
@@ -331,7 +328,7 @@ public class SettingPageOnLoad implements Filter {
             }
             return (String[]) localParams.get(name);
         }
-        
+
         @Override
         public Enumeration getParameterNames() {
             if (debug) {
@@ -342,7 +339,7 @@ public class SettingPageOnLoad implements Filter {
             }
             return localParams.keys();
         }
-        
+
         @Override
         public Map getParameterMap() {
             if (debug) {
@@ -363,7 +360,7 @@ public class SettingPageOnLoad implements Filter {
      * get access to the wrapped response using the method getResponse()
      */
     class ResponseWrapper extends HttpServletResponseWrapper {
-        
+
         public ResponseWrapper(HttpServletResponse response) {
             super(response);
         }
@@ -392,5 +389,5 @@ public class SettingPageOnLoad implements Filter {
 	}
          */
     }
-    
+
 }

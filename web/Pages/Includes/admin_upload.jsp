@@ -42,7 +42,7 @@
                     <td class="song-duration">4:12</td>
                     <td>
                         <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile()">
+                        <button onclick="handleRemoveFile(this)">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </td>
@@ -62,7 +62,7 @@
                     <td class="song-duration">4:12</td>
                     <td>
                         <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile()">
+                        <button onclick="handleRemoveFile(this)">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </td>
@@ -81,7 +81,7 @@
                     <td class="song-duration">4:12</td>
                     <td>
                         <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile()">
+                        <button onclick="handleRemoveFile(this)">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </td>
@@ -100,7 +100,7 @@
                     <td class="song-duration">4:12</td>
                     <td>
                         <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile()">
+                        <button onclick="handleRemoveFile(this)">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </td>

@@ -4,8 +4,6 @@
  */
 package Model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author phamm
@@ -83,14 +81,6 @@ public class Song {
         this.duration = duration;
     }
 
-    public String getFilePath() {
-        return songFilePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.songFilePath = filePath;
-    }
-
     public String getAlbum() {
         return album;
     }
@@ -110,8 +100,6 @@ public class Song {
     @Override
     public String toString() {
         return "Song{" + "songId=" + songId + ", duration=" + duration + ", artist=" + artist + ", title=" + title + ", songFilePath=" + songFilePath + ", songImagePath=" + songImagePath + ", album=" + album + '}';
-    }
-    
-    
+    }    
 
 }

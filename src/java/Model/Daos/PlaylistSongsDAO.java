@@ -37,7 +37,7 @@ public class PlaylistSongsDao implements Dao<PlaylistSongs> {
      * @param playlistId
      * @return
      */
-    public ArrayList<Song> getAllSongFromPlayListSongs(int playlistId) {
+    public ArrayList<Song> getAllSongsByPlaylistId(int playlistId) {
         ArrayList<Song> list = new ArrayList<>();
         try (Connection con = db.getConnection()) {
 
@@ -49,6 +49,47 @@ public class PlaylistSongsDao implements Dao<PlaylistSongs> {
                                                           INNER JOIN Artist a
                                                           ON a.artistId = s.artistId
                                                           WHERE pl.playlistId = ?""");
+            stmt.setInt(1, playlistId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int songId = rs.getInt("songId");
+                String title = rs.getString("title");
+                String artistName = rs.getString("artistName");
+                String album = rs.getString("album");
+                int duration = rs.getInt("duration");
+                String songFilePath = rs.getString("songFilePath");
+                String songImagePath = rs.getString("songImagePath");
+                list.add(new Song(songId, duration, artistName, title, songFilePath, songImagePath, album));
+            }
+
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    /**
+     * This one will return a list of Songs that is not available in the current
+     * playlist with playlistId
+     *
+     * This is used for adding new songs to the current playlist (Or we can just 
+     * allow 2 songs in a playlist)
+     * @param playlistId
+     * @return
+     */
+    public ArrayList<Song> getUniqueSongs(int playlistId) {
+        ArrayList<Song> list = new ArrayList<>();
+        try (Connection con = db.getConnection()) {
+
+            PreparedStatement stmt = con.prepareStatement("""
+                                                          SELECT *
+                                                          FROM Song s
+                                                          INNER JOIN Artist a
+                                                          ON a.artistId = s.artistId
+                                                          WHERE s.songId NOT IN (SELECT pl.songId FROM PlaylistSongs pl WHERE pl.playlistId = ?)""");
             stmt.setInt(1, playlistId);
             ResultSet rs = stmt.executeQuery();
 

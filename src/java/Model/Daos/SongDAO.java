@@ -62,6 +62,7 @@ public class SongDAO implements Dao<Song> {
         return songs;
     }
 
+    
     @Override
     public boolean insert(Song song) {
         boolean result = false;
@@ -70,9 +71,6 @@ public class SongDAO implements Dao<Song> {
                     "INSERT INTO Song (artistId, duration, title, filePath) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 //                TODO: This one will actually have artist name instead, so handle it in SQL
 //                stmt.setInt(1, song.getArtistId());
-                stmt.setInt(2, song.getDurationInNumbers());
-                stmt.setString(3, song.getTitle());
-                stmt.setString(4, song.getFilePath());
                 int affectedRows = stmt.executeUpdate();
                 if (affectedRows > 0) {
                     try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -96,10 +94,9 @@ public class SongDAO implements Dao<Song> {
             try (PreparedStatement stmt = con.prepareStatement(
                     "UPDATE Song SET title = ?, artistId = ?, duration = ?, filePath = ? WHERE songId = ?")) {
                 stmt.setString(1, params[1]);
-//                TODO: Fix me because now, song only contains artist name
+//                TODO: Fix me because now, song only contains artist name, not artist ID
 //                stmt.setInt(2, song.getArtistId());
                 stmt.setInt(3, song.getDurationInNumbers());
-                stmt.setString(4, song.getFilePath());
                 stmt.setInt(5, song.getSongId());
                 result = stmt.executeUpdate() > 0;
             }

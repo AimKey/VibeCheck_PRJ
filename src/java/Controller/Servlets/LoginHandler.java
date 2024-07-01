@@ -11,6 +11,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*; // What the frick netbeans frick yourself
 
@@ -20,21 +21,35 @@ import java.sql.*; // What the frick netbeans frick yourself
  */
 public class LoginHandler extends HttpServlet {
 
-    private DatabaseInformation db;
+    private DatabaseInformation db = new DatabaseInformation();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("Connecting..., Method: " + request.getMethod());
-        db = new DatabaseInformation();
     }
 
+    // Logout
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        // Deactivate session
+        HttpSession s = request.getSession();
+        if (s != null) {
+            s.invalidate();
+        }
+        // Delete all cookies
+        Cookie[] cs = request.getCookies();
+        if (cs != null) {
+            for (Cookie c : cs) {
+                c.setMaxAge(0);
+            }
+        }
+        response.sendRedirect("login");
     }
 
+    // Login
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -86,7 +101,7 @@ public class LoginHandler extends HttpServlet {
             response.addCookie(userC);
             response.addCookie(adminC);
             response.addCookie(idC);
-
+            
             // Setting the user session
             request.getSession().setAttribute("user", aUser);
 

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="errorpage.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +7,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MainPage</title>
-        <link rel = "stylesheet" href = "/assets/CSS/bootstrap.css">
-        <link rel="stylesheet" href="/assets/CSS/main.css">
+        <link rel = "stylesheet" href = "assets/CSS/bootstrap.css">
+        <link rel="stylesheet" href="assets/CSS/main.css">
     </head>
 
     <body>

@@ -5,6 +5,11 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+/*
+* These are the one that is changed:
+* primary, secondary, link color
+*/
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
@@ -14,13 +19,13 @@
     --bs-orange: #fd7e14;
     --bs-yellow: #ffc107;
     --bs-green: #198754;
-    --bs-teal: #20c997;
+    --bs-teal: #76abae;
     --bs-cyan: #0dcaf0;
     --bs-white: #fff;
     --bs-gray: #6c757d;
     --bs-gray-dark: #343a40;
-    --bs-primary: #0d6efd;
-    --bs-secondary: #6c757d;
+    --bs-primary: #222831; 
+    --bs-secondary: #31363f;
     --bs-success: #198754;
     --bs-info: #0dcaf0;
     --bs-warning: #ffc107;
@@ -3844,7 +3849,7 @@ textarea.form-control-lg {
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
-    color: #0d6efd;
+    color: #eeeeee;
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -3854,7 +3859,7 @@ textarea.form-control-lg {
     }
 }
 .nav-link:hover, .nav-link:focus {
-    color: #0a58ca;
+    color: var(--bs-teal);
 }
 .nav-link.disabled {
     color: #6c757d;
@@ -7391,11 +7396,11 @@ textarea.form-control-lg {
 }
 
 .bg-primary {
-    background-color: #0d6efd !important;
+    background-color: #222831 !important;
 }
 
 .bg-secondary {
-    background-color: #6c757d !important;
+    background-color: #31363f !important;
 }
 
 .bg-success {

@@ -54,7 +54,7 @@
                                     <!-- TODO: On click, query and delete song -->
                                     <!-- IMPORTANT: use JS to send a request to server without redirecting user.
                                       Then remove this element from the DOM -->
-                                    <button onclick="handleDeleteSong(this)">
+                                    <button onclick="handleDeleteSong(this, ${s.songId})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </td>

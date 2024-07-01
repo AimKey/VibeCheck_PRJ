@@ -4,7 +4,7 @@
     Author     : phamm
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="errorpage.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
