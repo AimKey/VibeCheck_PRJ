@@ -62,3 +62,19 @@ ON s.songId = pl.songId
 INNER JOIN Artist a
 ON a.artistId = s.artistId
 WHERE pl.playlistId = 1
+
+-- Get unique songs that is not in a playlist
+SELECT *
+FROM PlaylistSongs pl
+INNER JOIN Song s
+ON s.songId = pl.songId
+INNER JOIN Artist a
+ON a.artistId = s.artistId
+WHERE pl.playlistId = 1 AND pl.songId NOT IN (SELECT Song.songId FROM Song)
+
+SELECT *
+FROM Song s
+INNER JOIN Artist a
+ON a.artistId = s.artistId
+WHERE s.songId NOT IN (SELECT pl.songId FROM PlaylistSongs pl WHERE pl.playlistId = 1)
+

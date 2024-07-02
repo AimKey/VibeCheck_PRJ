@@ -4,16 +4,15 @@
  */
 package Controller.Servlets;
 
-import Model.AppUser;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import Model.Daos.SongDAO;
+import Model.Song;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 /**
  *
@@ -25,15 +24,21 @@ public class test extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        System.out.println("[TESTING JSON]:: request type: " + request.getMethod());
-        AppUser a = new AppUser(1, "Ethereal", "phamminhkiet24@gmail.com", "123456", "users/fallback.jpg", "2004-08-24", true);
-        // JSON Handling
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String json = ow.writeValueAsString(a);
-        System.out.println("[TESTING JSON]:: " + json);
-        response.getWriter().write(json);
+//        System.out.println("[TESTING JSON]:: request type: " + request.getMethod());
+//        AppUser a = new AppUser(1, "Ethereal", "phamminhkiet24@gmail.com", "123456", "users/fallback.jpg", "2004-08-24", true);
+//        // JSON Handling
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.registerModule(new JavaTimeModule());
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        String json = ow.writeValueAsString(a);
+//        System.out.println("[TESTING JSON]:: " + json);
+//        response.getWriter().write(json);
+         Optional<Song> s = new SongDAO().get(1);
+         if (s.isEmpty()) {
+             System.out.println("[test] :: No song detected");
+         } else {
+             System.out.println(s.get());
+         }
     }
 
     @Override

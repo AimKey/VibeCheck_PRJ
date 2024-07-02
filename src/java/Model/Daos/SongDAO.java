@@ -15,12 +15,23 @@ public class SongDAO implements Dao<Song> {
     public Optional<Song> get(int id) {
         Song song = null;
         try (Connection con = db.getConnection()) {
-            try (PreparedStatement stmt = con.prepareStatement(
-                    "SELECT * FROM Song WHERE songId = ?")) {
+            try (PreparedStatement stmt = con.prepareStatement("""
+                                                               SELECT s.songId, s.title, a.artistName, s.album, s.duration, s.songImagePath, s.songFilePath
+                                                                FROM Song s
+                                                                INNER JOIN Artist a
+                                                                ON s.artistId = a.artistId
+                                                               WHERE s.songId = ?""")) {
                 stmt.setLong(1, id);
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
-
+                        int songId = rs.getInt("songId");
+                        String title = rs.getString("title");
+                        String artistName = rs.getString("artistName");
+                        String album = rs.getString("album");
+                        int duration = rs.getInt("duration");
+                        String songImagePath = rs.getString("songImagePath");
+                        String songFilePath = rs.getString("songFilePath");
+                        song = new Song(songId, duration, artistName, title, songFilePath, songImagePath, album);
                     }
                 }
             }

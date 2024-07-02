@@ -198,20 +198,14 @@ const pAddSong = document.querySelector(".playlist__add-songs");
  * This is triggered when the add-song modal is open
  */
 pAddSong.addEventListener("click", () => {
-    console.log(playlistInformation);
     let option = document.querySelector("#selectPlaylist");
-    console.log(option);
     let playlistId = option.value;
-    console.log("Calling servet to get UNIQUE songs from playlist: " + playlistId);
     let tbody = addSongModal.querySelector('tbody');
     tbody.appendChild(loadingHTML);
     // Make call to the getPlaylistSongs
     fetch(`GetPlaylistSongs?action=getUnique&playlistId=${playlistId}`)
             .then((r) => r.json())
             .then((rJSON) => {
-                console.log("Getting unique song from this playlist id: " + playlistId);
-                console.log(rJSON);
-
                 tbody.innerHTML = ``;
                 for (var s of rJSON) {
                     let songHTML = document.createElement('tr');
