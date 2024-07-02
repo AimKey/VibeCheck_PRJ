@@ -8,8 +8,6 @@
 <div class="section" id="user-list">
     <h3 class="title yellow-text">Current user list</h3>
     <div class="songs-display">
-        <button id="testjson" class="btn btn-primary">Get json response from server</button>
-        <h3 id="testres">And server response should be here...</h3>
         <table class="songs-display__table user-list__table">
             <thead>
                 <tr>

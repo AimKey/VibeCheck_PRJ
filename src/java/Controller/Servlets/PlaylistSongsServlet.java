@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author phamm
  */
-public class GetPlaylistSongs extends HttpServlet {
+public class PlaylistSongsServlet extends HttpServlet {
 
     /**
      *

@@ -24,8 +24,8 @@ loadingHTML.classList.add("loader");
 
 
 /**
- * A function to handle delete a row in a table
- *
+ * A function to handle delete a row in a table <br>
+ * This function will search for the neareast row of a child element <br>
  * Use for display purpose only
  * @param {*} obj An element inside the row
  */
@@ -66,8 +66,9 @@ handleDeleteSongFromPlaylist = (obj, songId, playlistId) => {
  * Make call to server for playlist songs and update display when the playlist is changed
  */
 const playlistInformation = document.getElementsByClassName("playlist-information")[0];
+let playlistId;
 handleSelectPlaylist = async (obj) => {
-    let playlistId = obj.value;
+    playlistId = obj.value;
     let index = obj.selectedIndex;
     let playlistName = obj.options[index].text;
     // Show the information of the playlist
@@ -83,7 +84,7 @@ handleSelectPlaylist = async (obj) => {
         tbody.appendChild(loadingHTML); // Funny little loading guy
 
         // Make call to the getPlaylistSongs
-        response = await fetch(`GetPlaylistSongs?action=get&playlistId=${playlistId}`);
+        response = await fetch(`PlaylistSongsServlet?action=get&playlistId=${playlistId}`);
         if (response !== null || response.ok) {
             let songObj = await response.json();
 
@@ -203,7 +204,7 @@ pAddSong.addEventListener("click", () => {
     let tbody = addSongModal.querySelector('tbody');
     tbody.appendChild(loadingHTML);
     // Make call to the getPlaylistSongs
-    fetch(`GetPlaylistSongs?action=getUnique&playlistId=${playlistId}`)
+    fetch(`PlaylistSongsServlet?action=getUnique&playlistId=${playlistId}`)
             .then((r) => r.json())
             .then((rJSON) => {
                 tbody.innerHTML = ``;
@@ -220,7 +221,7 @@ pAddSong.addEventListener("click", () => {
                                         <td class="song-album">${s.album}</td>
                                         <td class="song-duration">${s.duration}</td>
                                         <td>
-                                            <button onclick="handleAddSongToPlaylist(this, ${s.songId}, ${playlistId})">
+                                            <button onclick="handleAddSongToPlaylist(this, ${s.songId})">
                                                 <i class="fa-solid fa-circle-plus"></i>
                                             </button>
                                         </td>
@@ -229,6 +230,27 @@ pAddSong.addEventListener("click", () => {
                 }
             })
             .catch((error) => console.error(error));
+});
+let songsToAdd = [];
+/**
+ * 1. Add the songId into a temp array,
+ * 2. Remove the songs div from the body
+ * (The cancel and confirm part will be handled later)
+ * @param {type} obj
+ * @param {type} sId
+ * @returns {undefined}
+ */
+function handleAddSongToPlaylist(obj, sId) {
+    console.log(`You clicked on add song to playlist: songid: ${sId}, playlistId: ${playlistId}`);
+    songsToAdd.push(sId);
+    handleRemoveRow(obj);
+}
+const confirmAddSongToPlaylist = document.querySelector(".add-song-modal__confirm");
+
+confirmAddSongToPlaylist.addEventListener("click", (e) => {
+    console.log("Current songs to add: ");
+    console.log(songsToAdd);
+    
 });
 
 

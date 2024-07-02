@@ -70,8 +70,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="button button-grey" data-bs-dismiss="modal">
-                    Close
+                <button type="button" class="button button-confirm add-song-modal__confirm" data-bs-dismiss="modal">
+                    Save
                 </button>
                 <!--<button type="button" class="button button-confirm">Save changes</button>-->
             </div>
