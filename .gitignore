@@ -8,7 +8,6 @@ nbproject/
 build.xml
 # We don't need build because the folder in web will be convert to build anyways
 /build/
-/web/assets/CSS/bootstrap.css
 # Data base config
 src/java/Database 
 # Wars file ?
