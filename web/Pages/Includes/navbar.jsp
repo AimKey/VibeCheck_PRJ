@@ -15,7 +15,7 @@
         </button>
         <ul class="navbar-nav text-white">
             <li class="nav-item">
-                <a class="nav-link" href="#user">User</a>
+                <a class="nav-link" href="Pages/Includes/user.jsp">User</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#user-list">User list</a>

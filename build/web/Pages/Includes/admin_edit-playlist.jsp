@@ -28,9 +28,13 @@
 
 
     <div class="playlist-information hide">
-        <!-- This should be playlist name (Update dynamically) -->
+        <!-- This should be playlist name (When confirm, sent to the server) -->
         <h3 class="title blue-text playlist__name">Playlist's name</h3>
-        <input type="text" name="pName" placeholder="New playlist name" autocomplete="off" class="hide">
+        <form action="PlaylistServlet" method="post" class="playlist-information__change-name hide">
+            <input type="hidden" name="action" value="updatePName">
+            <input type="hidden" name="pId" value="">
+            <input type="text" name="pName" placeholder="New playlist name" autocomplete="off">
+        </form>
         <!-- Button to toggle change name -->
         <button class="playlist__toggle-change-name button-svg button-icon" data-bs-toggle="tooltip" title="Change playlist name">
             <i class="fa-regular fa-pen-to-square"></i>
@@ -66,6 +70,7 @@
             </tbody>
         </table>
     </div>
-
-    <button class="button button-danger">Save changes</button>
+<!--    <form>
+        <button class="button button-danger">Save changes</button>
+    </form>-->
 </div>

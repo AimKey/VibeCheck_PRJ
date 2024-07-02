@@ -9,18 +9,16 @@
 
 <div class="section" id="user">
     <h3 class="user__title title green-text">Edit user profile</h3>
-    <div class="user__avatar">
-        <!-- On changed change user image too -->
-        <form action="songUpload" method="get" onchange="changeUserAvatar(this)">
+    <form class="user__form" action="UserServlet" method="post" enctype="multipart/form-data"> <!-- Enctype is VERY IMPORTANT -->
+        <div class="user__avatar">
+            <!-- On changed change user image too -->
             <div class="picture__container box-shadow">
                 <img src="${user.profilePicPath}" alt="User picture here" />
                 <label for="userImage"><i class="fa-solid fa-file-pen avatar__edit"></i></label>
-                <input type="file" name="userImage" id="userImage" />
+                <input type="file" name="userImage" id="userImage" onchange="changeUserAvatar(this)"/>
             </div>
-        </form>
-    </div>
-    <!-- User update forms -->
-    <form class="user__form" action="GetSongServlet" method="get">
+        </div>
+        <!-- User update forms -->
         <div class="input">
             <label for="username">Username: </label>
             <input type="text" value="${user.username}" name="username" id="username" />
@@ -52,6 +50,7 @@
         </div>
         <!--This hidden form input is used for let the servlet know where to redirect-->
         <input type="hidden" name="url" value="admin">
+        <input type="hidden" name="action" value="update">
         <!-- We may not need to use js here, plain old reload will work -->
         <button type="submit" class="button button-confirm">Confirm</button>
     </form>

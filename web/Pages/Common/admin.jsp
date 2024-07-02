@@ -1,4 +1,3 @@
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : admin
     Created on : Jun 20, 2024, 4:39:02 PM

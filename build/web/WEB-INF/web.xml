@@ -28,6 +28,10 @@
         <servlet-name>PlaylistServlet</servlet-name>
         <servlet-class>Controller.Servlets.PlaylistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>Controller.Servlets.UserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/LoginHandler</url-pattern>
@@ -73,6 +77,10 @@
     <servlet-mapping>
         <servlet-name>PlaylistServlet</servlet-name>
         <url-pattern>/PlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

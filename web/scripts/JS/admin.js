@@ -8,15 +8,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 window.onbeforeunload = function (e) {
     sessionStorage.setItem("scrollpos", window.scrollY);
 };
-// Turn password into aterisks
-document.addEventListener("DOMContentLoaded", function () {
-    var passwordElements = document.querySelectorAll(".password");
-
-    passwordElements.forEach(function (element) {
-        var length = element.textContent.length;
-        element.textContent = "*".repeat(length);
-    });
-});
 
 // Setup for display loading
 let loadingHTML = document.createElement("div");
@@ -36,22 +27,22 @@ function handleRemoveRow(obj) {
     console.log(parent);
     parent.remove();
 }
-// You know what, these guy probably need a page refresh, it is not worth updating using js
-// So we just gonna fire the form with the id I guess
-handleRemoveUser = (obj, id) => {
-//    handleRemoveElement(obj);
-    console.log("TODO: remove user in database, id: " + id);
-};
-
-handlePromoteUser = (obj, id) => {
-//    handleRemoveElement(obj);
-    console.log("TODO: Promote to admin user in database, id: " + id);
-};
 
 handleRemoveFile = (obj, target) => {
     handleRemoveRow(obj, target);
     console.log("TODO: Remove user file uploaded");
 };
+
+let uploadSection = document.getElementById("upload");
+let uploadForm = uploadSection.querySelector("form");
+let uploadBtn = uploadSection.querySelector(".upload__confirm-upload");
+
+uploadBtn.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    console.log("Target: ");
+    console.log(uploadForm);
+    uploadForm.submit();
+});
 
 handleDeleteSong = (obj, id) => {
     handleRemoveRow(obj);
@@ -107,7 +98,7 @@ handleSelectPlaylist = async (obj) => {
                     </td>
                     <td class="song-duration">${s.duration}</td>
                     <td>
-                        <button onclick="handleDeleteSong(this, ${s.songId})">
+                        <button onclick="handleDeleteSongFromPlaylist(this, ${s.songId}, ${playlistId})">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </td>
@@ -126,6 +117,7 @@ const pNameConfirmBtn = pNameToggleEdit.nextElementSibling;
 const pNameCancelBtn = pNameConfirmBtn.nextElementSibling;
 const pNameInput = playlistInformation.querySelector("input");
 const pNameTitle = playlistInformation.querySelector("h3");
+const updateForm = playlistInformation.querySelector(".playlist-information__change-name");
 /*
  * Handle when toggle edit playlist name is clicked:
  * 
@@ -143,7 +135,7 @@ pNameToggleEdit.addEventListener('click', (evt) => {
     pNameToggleEdit.classList.toggle("hide");
 
     // Toggle the input for user to enter
-    pNameInput.classList.toggle("hide");
+    updateForm.classList.toggle("hide");
     pNameTitle.classList.toggle("hide");
 });
 /**
@@ -168,8 +160,14 @@ pNameConfirmBtn.addEventListener('click', (evt) => {
     pNameToggleEdit.classList.toggle("hide");
 
     // Turn off input
-    pNameInput.classList.toggle("hide");
+    updateForm.classList.toggle("hide");
     pNameTitle.classList.toggle("hide");
+    
+    // Get the playlistId first
+    let pIdInp = updateForm.querySelector("input[name='pId']");
+    pIdInp.value = playlistId;
+    console.log(pIdInp);
+    updateForm.submit();
 });
 
 /**
@@ -186,7 +184,7 @@ pNameCancelBtn.addEventListener('click', (evt) => {
     pNameToggleEdit.classList.toggle("hide");
 
     // Turn off input
-    pNameInput.classList.toggle("hide");
+    updateForm.classList.toggle("hide");
     pNameTitle.classList.toggle("hide");
 });
 
@@ -243,14 +241,22 @@ let songsToAdd = [];
 function handleAddSongToPlaylist(obj, sId) {
     console.log(`You clicked on add song to playlist: songid: ${sId}, playlistId: ${playlistId}`);
     songsToAdd.push(sId);
+    let row = obj.closest("tr");
+    console.log(row);
     handleRemoveRow(obj);
 }
-const confirmAddSongToPlaylist = document.querySelector(".add-song-modal__confirm");
+const modalConfirm = document.querySelector(".add-song-modal__form");
 
-confirmAddSongToPlaylist.addEventListener("click", (e) => {
+modalConfirm.addEventListener("click", (e) => {
     console.log("Current songs to add: ");
     console.log(songsToAdd);
-    
+    let idString = songsToAdd.join(",");
+    console.log(idString);
+    let formInputs = modalConfirm.querySelectorAll("input");
+    // 1 is action, 2 is songIds, 3 is playlistId (Playlist id is already determined above)
+    formInputs[1].value = idString;
+    formInputs[2].value = playlistId;
+    modalConfirm.submit();
 });
 
 

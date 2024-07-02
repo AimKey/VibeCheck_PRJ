@@ -67,7 +67,15 @@ public class PlaylistServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         String param = request.getParameter("action");
-        System.out.println("TODO: Handle this one pls");
+        switch (param) {
+            case "updatePName" -> {
+                String pName = request.getParameter("pName");
+                Integer pId = Integer.valueOf(request.getParameter("pId"));
+                System.out.println("[Playlist] :: Handle update playlist name: " + pName + ", pId: " + pId);
+                
+                response.sendRedirect("admin");
+            }
+        }
     }
 
     @Override

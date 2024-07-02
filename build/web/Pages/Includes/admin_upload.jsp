@@ -8,7 +8,7 @@
 <div class="section" id="upload">
     <h3 class="title blue-text">Upload songs</h3>
     <!-- Song uploads form -->
-    <form class="songUploadForm" action="songUpload" method="get">
+    <form class="songUploadForm" action="UploadSong" method="post">
         <label for="songsUpload" class="button button-action">Choose files to upload</label>
         <!-- Todo: handle multiple files ? -->
         <input type="file" name="songsUpload" id="songsUpload" />
@@ -48,68 +48,12 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <th class="song-img">
-                        <img src="assets/images/demo.jpg" alt="User picture here" />
-                    </th>
-                    <td class="song-title">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-artist">Shibayan records</td>
-                    <td class="song-album">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-duration">4:12</td>
-                    <td>
-                        <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile(this)">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="song-img">
-                        <img src="assets/images/demo.jpg" alt="User picture here" />
-                    </th>
-                    <td class="song-title">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-artist">Shibayan records</td>
-                    <td class="song-album">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-duration">4:12</td>
-                    <td>
-                        <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile(this)">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="song-img">
-                        <img src="assets/images/demo.jpg" alt="User picture here" />
-                    </th>
-                    <td class="song-title">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-artist">Shibayan records</td>
-                    <td class="song-album">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-duration">4:12</td>
-                    <td>
-                        <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile(this)">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
     <!-- Todo: Use javascript to fire submit on the form above -->
-    <button type="submit" class="button button-confirm" onclick="submit(this)">
+    <button type="submit" class="button button-confirm upload__confirm-upload">
         Confirm
     </button>
 </div>
