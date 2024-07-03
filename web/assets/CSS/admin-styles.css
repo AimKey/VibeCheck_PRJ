@@ -17,6 +17,10 @@
 body {
     background-color: var(--primary);
 }
+
+h3 {
+    margin: 0px;
+}
 .hide {
     display: none !important;
 }

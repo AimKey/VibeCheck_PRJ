@@ -73,7 +73,7 @@ public class PlaylistServlet extends HttpServlet {
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
                 System.out.println("[Playlist] :: Handle update playlist name: " + pName + ", pId: " + pId);
                 
-                response.sendRedirect("admin");
+                response.sendRedirect("settings");
             }
         }
     }

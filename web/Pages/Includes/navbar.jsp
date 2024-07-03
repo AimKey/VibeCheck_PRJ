@@ -15,23 +15,25 @@
         </button>
         <ul class="navbar-nav text-white">
             <li class="nav-item">
-                <a class="nav-link" href="Pages/Includes/user.jsp">User</a>
+                <a class="nav-link" href="#user">User</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#user-list">User list</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#upload">Upload songs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#edit-song">Edit songs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#edit-playlist">Edit playlist</a>
-            </li>
+            <c:if test="${user.isAdmin == true}">
+                <li class="nav-item">
+                    <a class="nav-link" href="#user-list">User list</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#upload">Upload songs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#edit-song">Edit songs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#edit-playlist">Edit playlist</a>
+                </li>
+            </c:if>
             <li class="nav-item">
                 <form action="LoginHandler" method="get" class="container-fluid justify-content-start">
-                    <input type="button" name="logout" value="Logout" class="btn btn-outline-danger me-2">
+                    <input type="submit" name="logout" value="Logout" class="btn btn-outline-danger me-2">
                 </form>
             </li>
         </ul>

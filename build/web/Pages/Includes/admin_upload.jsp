@@ -11,7 +11,7 @@
     <form class="songUploadForm" action="UploadSong" method="post">
         <label for="songsUpload" class="button button-action">Choose files to upload</label>
         <!-- Todo: handle multiple files ? -->
-        <input type="file" name="songsUpload" id="songsUpload" />
+        <input type="file" name="songsUpload" id="songsUpload" multiple class="songUploadForm__input"/>
     </form>
     <h3 class="title">The following song(s) will be uploaded</h3>
     <!-- TODO: Use js to handle display the songs -->
@@ -23,32 +23,11 @@
                     <th scope="col" style="width: 30%">Name</th>
                     <th scope="col" style="width: 20%">Artist</th>
                     <th scope="col" style="width: 30%">Album</th>
-                    <th scope="col" style="width: 5%"><i class="fa-regular fa-clock"></i></th>
+                    <!--<th scope="col" style="width: 5%"><i class="fa-regular fa-clock"></i></th>-->
                     <th scope="col" style="width: 5%"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th class="song-img">
-                        <img src="assets/images/demo.jpg" alt="User picture here" />
-                    </th>
-                    <td class="song-title">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-artist">Shibayan records</td>
-                    <td class="song-album">
-                        フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                    </td>
-                    <td class="song-duration">4:12</td>
-                    <td>
-                        <!-- TODO: On click, handle remove song from the input -->
-                        <button onclick="handleRemoveFile(this)">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                
+            <tbody id="upload__table__body">
             </tbody>
         </table>
     </div>

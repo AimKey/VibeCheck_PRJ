@@ -82,7 +82,7 @@ public class PlaylistSongsServlet extends HttpServlet {
                     }
                 }
                 System.out.println("[PlaylistSongs] :: TODO: Handle add songs to a playlist");
-                response.sendRedirect("admin");
+                response.sendRedirect("settings");
             }
 
             default -> {

@@ -56,7 +56,7 @@ public class UserServlet extends HttpServlet {
                 throw new AssertionError();
             }
         }
-        response.sendRedirect("admin");
+        response.sendRedirect("settings");
     }
 
     /**

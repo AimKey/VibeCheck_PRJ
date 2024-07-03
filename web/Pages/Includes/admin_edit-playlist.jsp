@@ -7,7 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="section" id="edit-playlist">
-    <h3 class="title orange-text">Edit playlist</h3>
+    <h3 class="title orange-text">Create/Edit playlist</h3>
+    
+    <form action="PlaylistServlet" method="post">
+        
+    </form>
 
     <form action="" class="select-playlist">
         <select
@@ -29,7 +33,7 @@
 
     <div class="playlist-information hide">
         <!-- This should be playlist name (When confirm, sent to the server) -->
-        <h3 class="title blue-text playlist__name">Playlist's name</h3>
+        <h3 class="title blue-text playlist__name">Placeholder</h3>
         <form action="PlaylistServlet" method="post" class="playlist-information__change-name hide">
             <input type="hidden" name="action" value="updatePName">
             <input type="hidden" name="pId" value="">

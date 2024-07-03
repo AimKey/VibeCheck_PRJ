@@ -1,3 +1,5 @@
+import mp3Files from './uploadSongsHandler'
+
 // Perserve scroll postiion function
 document.addEventListener("DOMContentLoaded", function (event) {
     var scrollpos = sessionStorage.getItem("scrollpos");
@@ -28,9 +30,9 @@ function handleRemoveRow(obj) {
     parent.remove();
 }
 
-handleRemoveFile = (obj, target) => {
-    handleRemoveRow(obj, target);
-    console.log("TODO: Remove user file uploaded");
+handleRemoveFile = (obj, index) => {
+    handleRemoveRow(obj, index);
+    console.log("TODO: Remove user file uploaded: ");
 };
 
 let uploadSection = document.getElementById("upload");
