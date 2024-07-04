@@ -70,41 +70,6 @@ public class SettingPageOnLoad implements Filter {
         if (debug) {
             log("SettingPageOnLoad:DoAfterProcessing");
         }
-        
-        // Write code here to process the request and/or response after
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log the attributes on the
-        // request object after the request has been processed.
-        /*
-	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    Object value = request.getAttribute(name);
-	    log("attribute: " + name + "=" + value.toString());
-	}
-         */
-        // For example, a filter might append something to the response.
-        /*
-	PrintWriter respOut = new PrintWriter(response.getWriter());
-	respOut.println("<p><strong>This has been appended by an intrusive filter.</strong></p>");
-
-	respOut.println("<p>Params (after the filter chain):<br>");
-	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-		String name = (String)en.nextElement();
-		String values[] = request.getParameterValues(name);
-		int n = values.length;
-		StringBuffer buf = new StringBuffer();
-		buf.append(name);
-		buf.append("=");
-		for(int i=0; i < n; i++) {
-		    buf.append(values[i]);
-		    if (i < n-1)
-			buf.append(",");
-		}
-		log(buf.toString());
-		respOut.println(buf.toString() + "<br>");
-	}
-        respOut.println("</p>");
-         */
     }
 
     /**

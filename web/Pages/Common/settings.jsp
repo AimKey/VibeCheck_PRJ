@@ -1,4 +1,3 @@
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : admin
     Created on : Jun 20, 2024, 4:39:02 PM
@@ -14,6 +13,7 @@
         <link rel="stylesheet" href="assets/CSS/bootstrap.css" />
         <link rel="stylesheet" href="assets/CSS/admin-styles.css" />
         <script src="https://kit.fontawesome.com/ba8c3661b4.js" crossorigin="anonymous"></script>
+        <<script src="scripts/JS/jsmediatags.min.js"></script>
         <title>Admin page</title>
     </head>
     <body>
@@ -22,14 +22,16 @@
             <div class="main__menus">
                 <h1>Settings</h1>
                 <%@include file="../Includes/navbar.jsp" %>
-                
+
                 <%@include file="../Includes/admin_user.jsp" %>
+                
+                <c:if test="${user.isAdmin == true}">
+                    <%@include file="../Includes/admin_user-list.jsp" %>
 
-                <%@include file="../Includes/admin_user-list.jsp" %>
+                    <%@include file="../Includes/admin_upload.jsp" %>
 
-                <%@include file="../Includes/admin_upload.jsp" %>
-
-                <%@include file="../Includes/admin_edit-song.jsp" %>
+                    <%@include file="../Includes/admin_edit-song.jsp" %>
+                </c:if>
 
                 <%@include file="../Includes/admin_edit-playlist.jsp" %>
 
@@ -40,6 +42,7 @@
 
         <!-- Scripts -->
         <script src="scripts/JS/bootstrap.bundle.js"></script>
-        <script src="scripts/JS/admin.js"></script>
+        <script type="module" src="scripts/JS/admin.js"></script>
+        <script type="module" src="scripts/JS/uploadSongsHandler.js"></script>
     </body>
 </html>

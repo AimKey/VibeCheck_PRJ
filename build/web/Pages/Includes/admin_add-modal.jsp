@@ -42,23 +42,23 @@
                         <tbody>
                             <c:if test="${songs != null}">
                                 <c:forEach items="${songs}" var="s">
-<!--                                    <tr class="song-selection">
-                                        <th class="song-img">
-                                            <img src="${s.songImagePath}" alt="${s.title}" />
-                                        </th>
-                                        <td class="song-title">${s.title}</td>
-                                        <td class="song-artist">${s.artist}</td>
-                                        <td class="song-album">${s.album}</td>
-                                        <td class="song-duration">${s.duration}</td>
-                                        <td>
-                                             TODO: On click, query and delete song 
-                                             IMPORTANT: use JS to send a request to server without redirecting user.
-                                            Then remove this element from the DOM 
-                                            <button onclick="handleAddSongToPlaylist(this)">
-                                                <i class="fa-solid fa-circle-plus"></i>
-                                            </button>
-                                        </td>
-                                    </tr>-->
+                                    <!--                                    <tr class="song-selection">
+                                                                            <th class="song-img">
+                                                                                <img src="${s.songImagePath}" alt="${s.title}" />
+                                                                            </th>
+                                                                            <td class="song-title">${s.title}</td>
+                                                                            <td class="song-artist">${s.artist}</td>
+                                                                            <td class="song-album">${s.album}</td>
+                                                                            <td class="song-duration">${s.duration}</td>
+                                                                            <td>
+                                                                                 TODO: On click, query and delete song 
+                                                                                 IMPORTANT: use JS to send a request to server without redirecting user.
+                                                                                Then remove this element from the DOM 
+                                                                                <button onclick="handleAddSongToPlaylist(this)">
+                                                                                    <i class="fa-solid fa-circle-plus"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>-->
                                 </c:forEach>
                             </c:if>
 
@@ -70,9 +70,16 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="button button-confirm add-song-modal__confirm" data-bs-dismiss="modal">
-                    Save
-                </button>
+                <form action="PlaylistSongsServlet" method="post" class="add-song-modal__form">
+                    <input type="hidden" value="insertSongs" name="action">
+                    <input type="hidden" value="" name="songIds">
+                    <input type="hidden" value="" name="playlistId">
+                    <button type="button" class="button button-confirm">
+                        Save
+                    </button>
+                </form>
+                <button type="button" class="button button-danger add-song-modal__cancel-btn" data-bs-dismiss="modal">Cancel</button>
+
                 <!--<button type="button" class="button button-confirm">Save changes</button>-->
             </div>
         </div>

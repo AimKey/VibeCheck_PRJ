@@ -96,58 +96,60 @@
                 </div>
 
                 <!------------------------------------------------------------------------------------------->
-                <div class="row2">
-                    <div class="control-bar">
 
-                        <div class="col">
-                            <div class="song-play">
-                                <img src="assets/images/demo.jpg" alt="demo" class="img-fluid">
-                                <div class="song-info">
-                                    <p class="song-title">Bài gì cũng đc, nhưng mà không phải bài đó </p>
-                                    <p class="artist-name">Artist Name</p>
-                                </div>
+            </div>
+
+            <div class="row2">
+                <div class="control-bar">
+
+                    <div class="col">
+                        <div class="song-play">
+                            <img src="assets/images/demo.jpg" alt="demo" class="img-fluid">
+                            <div class="song-info">
+                                <p class="song-title">Bài gì cũng đc, nhưng mà không phải bài đó </p>
+                                <p class="artist-name">Artist Name</p>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="control">
+                    </div>
+                    <div class="col">
+                        <div class="control">
 
-                                <div class="allicon">
-                                    <span class="icon">
-                                        <ion-icon name="shuffle-outline"></ion-icon>
-                                    </span>
-                                    <span class="icon">
-                                        <ion-icon name="play-skip-back-outline"></ion-icon>
-                                    </span>
-                                    <span class="icon">
-                                        <ion-icon name="play-outline"></ion-icon>
-                                    </span>
-                                    <span class="icon">
-                                        <ion-icon name="play-skip-forward-outline"></ion-icon>
-                                    </span>
-                                    <span class="icon">
-                                        <ion-icon name="repeat-outline"></ion-icon>
-                                    </span>
-                                </div>
+                            <div class="allicon">
+                                <span class="icon">
+                                    <ion-icon name="shuffle-outline"></ion-icon>
+                                </span>
+                                <span class="icon">
+                                    <ion-icon name="play-skip-back-outline"></ion-icon>
+                                </span>
+                                <span class="icon">
+                                    <ion-icon name="play-outline"></ion-icon>
+                                </span>
+                                <span class="icon">
+                                    <ion-icon name="play-skip-forward-outline"></ion-icon>
+                                </span>
+                                <span class="icon">
+                                    <ion-icon name="repeat-outline"></ion-icon>
+                                </span>
+                            </div>
 
-                                <div class="progress-bar">
-                                    <span class="current-time">1:22</span>
-                                    <input type="range" class="progress" value="0" id="progress">
-                                    <span class="total-time">4:14</span>
-                                </div>
+                            <div class="progress-bar">
+                                <span class="current-time">1:22</span>
+                                <input type="range" class="progress" value="0" id="progress">
+                                <span class="total-time">4:14</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col">
-                            <div class="volume">
-                                <span class="icon">
-                                    <ion-icon name="list-outline"></ion-icon>
-                                </span>
-                                <span class="icon">
-                                    <ion-icon name="volume-low-outline"></ion-icon>
-                                </span>
-                                <input type="range" class="volume-bar" value="100" id="volume">
-                                </span>
-                            </div>
+                    <div class="col">
+                        <div class="volume">
+                            <span class="icon">
+                                <ion-icon name="list-outline"></ion-icon>
+                            </span>
+                            <span class="icon">
+                                <ion-icon name="volume-low-outline"></ion-icon>
+                            </span>
+                            <input type="range" class="volume-bar" value="100" id="volume">
+                            </span>
                         </div>
                     </div>
                 </div>
