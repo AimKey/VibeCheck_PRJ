@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
-<html>
+<html lang="en">
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Delete Song</title>
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Delete Song</h1>
+        <form action="DeleteServlet" method="post">
+            <label for="id">Song ID:</label>
+            <input type="number" id="id" name="id" required>
+            <br>
+            <label for="action">Action:</label>
+            <input type="text" id="action" name="action" value="delete" readonly>
+            <br><br>
+            <input type="submit" value="Delete Song">
+        </form>
     </body>
 </html>

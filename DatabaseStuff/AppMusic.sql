@@ -19,10 +19,6 @@ CREATE TABLE AppUser (
 	isAdmin BIT NOT NULL,
 );
 
-ALTER TABLE AppUser
-ADD isAdmin bit;
-GO
-
 -- Check and drop Artist table if it exists
 IF OBJECT_ID('Artist', 'U') IS NOT NULL
     DROP TABLE Artist;
