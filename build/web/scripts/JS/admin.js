@@ -32,7 +32,9 @@ function handleRemoveRow(obj) {
 
 handleRemoveFile = (obj, index) => {
     handleRemoveRow(obj, index);
-    console.log("TODO: Remove user file uploaded: ");
+    console.log("TODO: Remove user file uploaded: index: " + index);
+    console.log(obj)
+    console.log(mp3Files);
 };
 
 let uploadSection = document.getElementById("upload");

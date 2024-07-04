@@ -6,12 +6,28 @@ let userAudio;
 // State object (Need to access and change in the future)
 let mp3Files;
 
+function handleRemoveRow(obj) {
+    let parent;
+    console.log("[REMOVE ELEMENTS] :: Removing parent div (<tr>) ");
+    parent = obj.closest("tr");
+    console.log(parent);
+    parent.remove();
+}
+
+function handleRemoveFile (obj, index) {
+    console.log(obj);
+    let title = obj.querySelector(".song-title").textContent;
+    console.log(title);
+    let newSongs = mp3Files.filter();
+    handleRemoveRow(obj, index);
+    console.log("TODO: Remove user file uploaded: index: " + index);
+
+};
 
 function onMusicChanged(evt) {
     console.log("Reading files");
     const files = evt.target.files;
     mp3Files = Array.from(files);
-    userAudios = mp3Files;
     const songsTableBody = document.getElementById("upload__table__body");
     songsTableBody.innerHTML = ""; // Clear previous entries
 
@@ -45,13 +61,16 @@ function onMusicChanged(evt) {
                         </td>
                         <td>
                             <!-- TODO: On click, handle remove song from the input -->
-                            <button onclick="handleRemoveFile(this, ${index})">
+                            <button class="upload__rmv-btn" onclick="handleRemoveFile(this, ${index})">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </td>
                     </tr>
                 `;
                 songsTableBody.appendChild(row);
+                // Attach event listener programmatically
+                const removeButton = row.querySelector('.upload__rmv-btn');
+                removeButton.addEventListener('click', () => handleRemoveFile(row, index));
             },
             onError: function (e) {
                 alert(e);
