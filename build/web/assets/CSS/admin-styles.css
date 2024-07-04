@@ -25,6 +25,7 @@ h3 {
     display: none !important;
 }
 
+
 img {
     object-fit: cover;
     object-position: center;
@@ -335,7 +336,7 @@ td button:hover {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-.detail {
+.edit-song__detail {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -343,14 +344,14 @@ td button:hover {
     gap: 24px;
 }
 
-.song-img-container {
+.detail__picture {
     width: 300px;
     height: 300px;
     border-radius: 12px;
     margin: 0;
 }
 
-.song-img-container img {
+.detail__picture img {
     border-radius: 12px;
 }
 

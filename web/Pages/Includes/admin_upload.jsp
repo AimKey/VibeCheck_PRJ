@@ -12,6 +12,7 @@
         <label for="songsUpload" class="button button-action">Choose files to upload</label>
         <!-- Todo: handle multiple files ? -->
         <input type="file" name="songsUpload" id="songsUpload" multiple class="songUploadForm__input"/>
+        <!-- Todo: Use javascript to fire submit on the form above -->
     </form>
     <h3 class="title">The following song(s) will be uploaded</h3>
     <!-- TODO: Use js to handle display the songs -->
@@ -31,8 +32,8 @@
             </tbody>
         </table>
     </div>
-    <!-- Todo: Use javascript to fire submit on the form above -->
     <button type="submit" class="button button-confirm upload__confirm-upload">
         Confirm
     </button>
+
 </div>

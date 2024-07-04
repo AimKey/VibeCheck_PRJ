@@ -11,6 +11,7 @@
     
     <form action="PlaylistServlet" method="post">
         
+        <input type="hidden" name="action" value="create" >
     </form>
 
     <form action="" class="select-playlist">
@@ -21,7 +22,6 @@
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="Choose a playlist"
-            onchange="handleSelectPlaylist(this)"
             >
             <option value="null">Select a playlist</option>
             <c:forEach var="p" items="${playlists}">
