@@ -74,10 +74,11 @@
                     <input type="hidden" value="insertSongs" name="action">
                     <input type="hidden" value="" name="songIds">
                     <input type="hidden" value="" name="playlistId">
-                    <button type="button" class="button button-confirm" data-bs-dismiss="modal">
+                    <button type="button" class="button button-confirm">
                         Save
                     </button>
                 </form>
+                <button type="button" class="button button-danger add-song-modal__cancel-btn" data-bs-dismiss="modal">Cancel</button>
 
                 <!--<button type="button" class="button button-confirm">Save changes</button>-->
             </div>

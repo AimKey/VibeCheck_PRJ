@@ -1,8 +1,6 @@
 //IMPORTANT: Install jsmedia tags first
 // Go to cdnjs and just grab that script file and put into our <head></head>
 const jsmediatags = window.jsmediatags;
-//const SONG_LOCATION = "/TestingUploadFiles/songs/Onlysong";
-let userAudio;
 // State object (Need to access and change in the future)
 let mp3Files;
 
@@ -23,6 +21,7 @@ function handleRemoveFile (obj, index) {
     console.log("TODO: Remove user file uploaded: index: " + index);
 
 };
+console.log("Upload songs handler is alive !");
 
 function onMusicChanged(evt) {
     console.log("Reading files");
