@@ -21,7 +21,7 @@
                 <table class="songs-display__table">
                     <thead>
                         <tr>
-                            <th scope="col" style="width: 5%">#</th>
+                            <th scope="col" style="width: 5%">ID</th>
                             <th scope="col" style="width: 10%">Image</th>
                             <th scope="col" style="width: 25%">Name</th>
                             <th scope="col" style="width: 20%">Artist</th>

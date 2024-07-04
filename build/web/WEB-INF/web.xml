@@ -29,6 +29,10 @@
         <servlet-class>Controller.Servlets.PlaylistServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SaveSong</servlet-name>
+        <servlet-class>Controller.Servlets.SaveSong</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>Controller.Servlets.UserServlet</servlet-class>
     </servlet>
@@ -66,25 +70,28 @@
     <servlet-mapping>
         <servlet-name>Main</servlet-name>
         <url-pattern>/main</url-pattern>
-    </servlet-mapping>       
-    
+    </servlet-mapping>      
     <servlet-mapping>
-            <servlet-name>PlaylistSongsServlet</servlet-name>
-            <url-pattern>/PlaylistSongsServlet</url-pattern>
-        </servlet-mapping>
-        <welcome-file-list>
-            <welcome-file>Pages/Common/login.jsp</welcome-file>
-        </welcome-file-list>
-        <servlet-mapping>
-            <servlet-name>PlaylistServlet</servlet-name>
-            <url-pattern>/PlaylistServlet</url-pattern>
-        </servlet-mapping>
-        <servlet-mapping>
-            <servlet-name>UserServlet</servlet-name>
-            <url-pattern>/UserServlet</url-pattern>
-        </servlet-mapping>
-        <session-config>
-            <session-timeout>30</session-timeout>
-            <!-- Timeout in minutes -->
-        </session-config>
+        <servlet-name>SaveSong</servlet-name>
+        <url-pattern>/SaveSong</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlaylistSongsServlet</servlet-name>
+        <url-pattern>/PlaylistSongsServlet</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>Pages/Common/login.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>PlaylistServlet</servlet-name>
+        <url-pattern>/PlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <!-- Timeout in minutes -->
+    </session-config>
 </web-app>

@@ -7,7 +7,7 @@ package Controller.Filters;
 import Model.AppUser;
 import Model.Daos.AppUserDao;
 import Model.Daos.PlaylistDao;
-import Model.Daos.SongDAO;
+import Model.Daos.SongDao;
 import Model.Playlist;
 import Model.Song;
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class SettingPageOnLoad implements Filter {
         System.out.println("[onAdminPageLoad]: Session: " + request.getSession().getId());
         AppUserDao dao = new AppUserDao();
         ArrayList<AppUser> appUsers = dao.getAll();
-        ArrayList<Song> songs = new SongDAO().getAll();
+        ArrayList<Song> songs = new SongDao().getAll();
         AppUser user = (AppUser) request.getSession().getAttribute("user");
         if (user != null) {
 //            System.out.println(user + ":: accessing admin page");

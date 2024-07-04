@@ -23,7 +23,7 @@ import org.jaudiotagger.tag.images.Artwork;
 
 public class Utils {
 
-    public void setupSongFolder(String fullPath, Collection<Part> parts) throws IOException {
+    public void setupSongFolder(String fullPath, Part part) throws IOException {
         // Extract the directory path from the full path
         File directory = new File(fullPath).getParentFile();
 
@@ -32,11 +32,8 @@ public class Utils {
             // Create the directory and any necessary but nonexistent parent directories
             Files.createDirectories(Paths.get(directory.getAbsolutePath()));
         }
-
-        // Write each part to the full path
-        for (Part part : parts) {
-            part.write(fullPath);
-        }
+        // A part is a file I guess
+        part.write(fullPath);
     }
 
     public Song readSongMetadata(File f, boolean getImage, String destPath) throws Exception {

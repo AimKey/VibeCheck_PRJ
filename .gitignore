@@ -9,6 +9,6 @@ build.xml
 # We don't need build because the folder in web will be convert to build anyways
 /build/
 # Data base config
-src/java/Database 
+src/java/Database/DatabaseInformation.java
 # Wars file ?
 /dist/

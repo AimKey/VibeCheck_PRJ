@@ -1,5 +1,3 @@
-import mp3Files from "./uploadSongsHandler.js";
-
 // Perserve scroll postiion function
 document.addEventListener("DOMContentLoaded", function (event) {
   var scrollpos = sessionStorage.getItem("scrollpos");
@@ -27,31 +25,6 @@ function handleRemoveRow(obj) {
   console.log(parent);
   parent.remove();
 }
-<<<<<<< HEAD
-
-handleRemoveFile = (obj, index) => {
-    handleRemoveRow(obj, index);
-    console.log("TODO: Remove user file uploaded: index: " + index);
-    console.log(obj)
-    console.log(mp3Files);
-=======
-/**
- * Remove file from user input (User is upload multiple files, remove one of them)
- */
-let handleRemoveFile = (obj, index) => {
-  handleRemoveRow(obj, index);
-  console.log("TODO: Remove user file uploaded: ");
->>>>>>> 2c083b103032c11387cced377cf28f95c3e8fe3b
-};
-
-let uploadBtn = document.querySelector(".upload__confirm-upload");
-
-uploadBtn.addEventListener("click", (evt) => {
-  evt.preventDefault();
-  console.log("Target: ");
-  console.log(uploadForm);
-  uploadForm.submit();
-});
 
 /**
  * Delete song from database and update display accordingly

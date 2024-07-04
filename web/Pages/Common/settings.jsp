@@ -13,8 +13,8 @@
         <link rel="stylesheet" href="assets/CSS/bootstrap.css" />
         <link rel="stylesheet" href="assets/CSS/admin-styles.css" />
         <script src="https://kit.fontawesome.com/ba8c3661b4.js" crossorigin="anonymous"></script>
-        <<script src="scripts/JS/jsmediatags.min.js"></script>
-        <title>Admin page</title>
+        <script src="scripts/JS/jsmediatags.min.js"></script>
+        <title>Setting page</title>
     </head>
     <body>
         <div class="hidden-box"></div>
@@ -42,7 +42,7 @@
 
         <!-- Scripts -->
         <script src="scripts/JS/bootstrap.bundle.js"></script>
-        <script type="module" src="scripts/JS/admin.js"></script>
-        <script type="module" src="scripts/JS/uploadSongsHandler.js"></script>
+        <script src="scripts/JS/admin.js"></script>
+        <script src="scripts/JS/uploadSongsHandler.js"></script>
     </body>
 </html>
