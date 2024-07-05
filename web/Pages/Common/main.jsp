@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="errorpage.jsp"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +62,6 @@
                             <p class="duration">4:14</p>
                         </div>
                     </div>
-
                 </div>
 
                 <!------------------------------------------------------------------------------------------->
@@ -98,7 +97,6 @@
                 <!------------------------------------------------------------------------------------------->
 
             </div>
-
             <div class="row2">
                 <div class="control-bar">
 

@@ -4,7 +4,7 @@
  */
 package Controller.Servlets;
 
-import Model.Daos.SongDAO;
+import Model.Daos.SongDao;
 import Model.Song;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -33,7 +33,7 @@ public class test extends HttpServlet {
 //        String json = ow.writeValueAsString(a);
 //        System.out.println("[TESTING JSON]:: " + json);
 //        response.getWriter().write(json);
-         Optional<Song> s = new SongDAO().get(1);
+         Optional<Song> s = new SongDao().get(1);
          if (s.isEmpty()) {
              System.out.println("[test] :: No song detected");
          } else {
