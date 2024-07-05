@@ -344,14 +344,16 @@ td button:hover {
     gap: 24px;
 }
 
-.detail__picture {
-    width: 300px;
-    height: 300px;
+.edit__selected-song-picture {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
     border-radius: 12px;
     margin: 0;
 }
 
-.detail__picture img {
+.edit__selected-song-picture img {
     border-radius: 12px;
 }
 

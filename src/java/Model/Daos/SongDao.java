@@ -96,7 +96,7 @@ public class SongDao implements Dao<Song> {
         String filePath = song.getSongFilePath();
         String coverPictureLink = song.getSongImagePath();
         
-        System.out.println("Inserting: " + song);
+//        System.out.println("Inserting: " + song);
 
         // Print received parameters for debugging
 //        System.out.println("Title: " + title);
@@ -111,7 +111,7 @@ public class SongDao implements Dao<Song> {
                 || durationStr == null || durationStr.isEmpty()
                 || filePath == null || filePath.isEmpty()
                 || coverPictureLink == null || coverPictureLink.isEmpty()) {
-            System.out.println("Validation failed: one or more parameters are empty");
+//            System.out.println("Validation failed: one or more parameters are empty");
             throw new Exception ("Validation failed: one or more parameters are empty");
         }
 
@@ -123,7 +123,7 @@ public class SongDao implements Dao<Song> {
             int seconds = Integer.parseInt(durationParts[1]);
             duration = (minutes * 60) + seconds;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Failed to parse duration: " + e.getMessage());
+//            System.out.println("Failed to parse duration: " + e.getMessage());
             // No redirect
             throw new Exception ("An error occured!: " + e.getMessage());
         }
@@ -141,7 +141,7 @@ public class SongDao implements Dao<Song> {
                 if (artistImagePath == null || artistImagePath.isEmpty()) {
                     artistImagePath = DEFAULT_ARTIST_IMAGE_PATH;
                 }
-                System.out.println("Artist found: " + artistName + " with ID " + artistId);
+//                System.out.println("Artist found: " + artistName + " with ID " + artistId);
             } else {
                 // Insert new artist
                 stmt = con.prepareStatement("INSERT INTO Artist (artistName, profilePicturePath) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -170,7 +170,7 @@ public class SongDao implements Dao<Song> {
                 stmt.setString(5, (coverPictureLink == null || coverPictureLink.isEmpty()) ? DEFAULT_SONG_IMAGE_PATH : coverPictureLink);
                 stmt.setString(6, album); // Album can be null
                 stmt.executeUpdate();
-                System.out.println("New song inserted: " + title + " by " + artistName);
+//                System.out.println("New song inserted: " + title + " by " + artistName);
             } else {
                 // Throws for others to receive
                 throw new Exception("Song already exists: " + title + " by " + artistName + ", please try again!");
@@ -179,7 +179,7 @@ public class SongDao implements Dao<Song> {
             rs.close();
             stmt.close();
         } catch (Exception e) {
-            System.out.println("Database error: " + e.getMessage());
+//            System.out.println("Database error: " + e.getMessage());
             throw new Exception ("Database error: " + e.getMessage());
         }
         return title + "inserted!";

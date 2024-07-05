@@ -27,13 +27,13 @@ function handleRemoveRow(obj) {
 }
 
 /**
- * Delete song from database and update display accordingly
+ * Delete song from database and update display accordingly (Or just refresh if you modify the button into a form)
  */
-let deleteSongBtn = document.querySelectorAll(".edit-song__rmv-btn");
-// console.log(deleteSongBtn);
+const deleteSongBtn = document.querySelectorAll(".edit-song__rmv-btn");
 
 deleteSongBtn.forEach((btn) => {
   btn.addEventListener("click", (evt) => {
+    evt.stopPropagation(); // This one is here so that when click on the trash can, the selection will not triggered
     let obj = evt.currentTarget;
     console.log(obj);
     let id = obj.getAttribute("data-songId");
@@ -41,11 +41,82 @@ deleteSongBtn.forEach((btn) => {
     console.log("TODO: DELETE song from system , id: " + id);
   });
 });
+/**
+ * Handle display when user click (Select on a song to edit)
+ */
+const songsToEdit = document.querySelectorAll(".edit-song__selection");
+songsToEdit.forEach((btn) => {
+  btn.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    let element = evt.currentTarget;
+    console.log("You clicked on this element: ");
+    console.log(element);
+    const id = element.querySelector(".song-id").textContent;
+    const title = element.querySelector(".song-title").textContent;
+    const img = element.querySelector(".song-img img").src;
+    const artist = element.querySelector(".song-artist").textContent;
+    const album = element.querySelector(".song-album").textContent;
 
+    const editSongBody = document.querySelector(".edit-song__detail");
+    const songImg = editSongBody.querySelector("img");
+    const songIdInput = editSongBody.querySelector('input[name="songId"]');
+    const nameInput = editSongBody.querySelector('input[name="title"]');
+    const artistInput = editSongBody.querySelector('input[name="artist"]');
+    const albumInput = editSongBody.querySelector('input[name="album"]');
+
+    songImg.src = img;
+    songIdInput.value = id;
+    nameInput.value = title;
+    artistInput.value = artist;
+    albumInput.value = album;
+    console.log(songIdInput);
+    console.log(songIdInput.value);
+  });
+});
+
+/**
+ * Handle update the image when user upload an image (Apply for both user and song edit)
+ */
+const uploadImgBtns = document.querySelectorAll(".user-upload-img");
+uploadImgBtns.forEach((btn) => {
+  btn.addEventListener("change", (evt) => {
+    const input = evt.currentTarget;
+    const file = evt.target.files[0];
+    console.log("You changed image on this input");
+    const picContainer = input.closest(".picture__container");
+    const img = picContainer.querySelector("img");
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+});
+/**
+ * Confirm edit song button
+ */
+const editConfirmBtn = document.querySelector(".edit-song__btn");
+editConfirmBtn.addEventListener('click', evt => {
+  evt.preventDefault();
+  let form = document.querySelector('.edit-song__detail');
+  console.log(form);
+  form.submit();
+})
+
+/**
+ * Function to delete a song from a playlist
+ * @param {Object} obj
+ * @param {Number} songId
+ * @param {Number} playlistId
+ */
 let handleDeleteSongFromPlaylist = (obj, songId, playlistId) => {
   handleRemoveRow(obj);
   console.log(`TODO: DELETE songId:${songId} from playlist ${playlistId}`);
 };
+
 /**
  * Make call to server for playlist songs and update display when the playlist is changed
  */
@@ -227,7 +298,7 @@ pAddSong.addEventListener("click", () => {
         // Add the event listener dynamically because I'm dumb
         let addBtn = songHTML.querySelector(".edit-playlist__add-song-btn");
         addBtn.addEventListener("click", () => {
-            handleAddSongToPlaylist(addBtn, s.songId);
+          handleAddSongToPlaylist(addBtn, s.songId);
         });
         tbody.appendChild(songHTML);
       }
@@ -237,7 +308,7 @@ pAddSong.addEventListener("click", () => {
 let songsToAdd = [];
 /**
  * 1. Add the songId into a temp array,
- * 
+ *
  * 2. Remove the songs div from the body
  * (The cancel and confirm part will be handled later)
  * @param {type} obj
@@ -252,15 +323,14 @@ function handleAddSongToPlaylist(obj, sId) {
   obj.disabled = true;
   obj.style.opacity = 0.8;
   console.log("Current songs: " + songsToAdd);
-//   console.log(row);
-//   handleRemoveRow(obj);
+  //   console.log(row);
+  //   handleRemoveRow(obj);
 }
 
 let cancelAddSongBtn = document.querySelector(".add-song-modal__cancel-btn");
-console.log(cancelAddSongBtn);
 cancelAddSongBtn.addEventListener("click", (evt) => {
-    console.log("Resting songs: " + songsToAdd);
-    songsToAdd = [];
+  console.log("Resting songs: " + songsToAdd);
+  songsToAdd = [];
 });
 
 /**

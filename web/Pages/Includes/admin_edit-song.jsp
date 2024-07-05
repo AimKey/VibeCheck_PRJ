@@ -35,20 +35,14 @@
                             <!-- Remind to self, change how this behave, maybe add a little edit button instead -->
                             <!-- TODO: When user select the song, OPEN and DISPLAY it in 
                         the detail panel below,  -->
-                            <tr class="song-selection">
-                                <th class="song-id">
-                                    ${s.songId}
-                                </th>
+                            <tr class="song-selection edit-song__selection">
+                                <th class="song-id">${s.songId}</th>
                                 <td class="song-img">
                                     <img src="${s.songImagePath}" alt="${s.title}" />
                                 </td>
-                                <td class="song-title">
-                                    ${s.title}
-                                </td>
+                                <td class="song-title">${s.title}</td>
                                 <td class="song-artist">${s.artist}</td>
-                                <td class="song-album">
-                                    ${s.album}
-                                </td>
+                                <td class="song-album">${s.album}</td>
                                 <td class="song-duration">${s.duration}</td>
                                 <td class="song-delete">
                                     <!-- TODO: On click, query and delete song -->
@@ -68,18 +62,21 @@
 
             <!-- No need for js here because we are going to reload the page -->
             <!-- Or not... -->
-            <form class="songs-display edit-song__detail" action="#" method="post">
-                <div class="picture__container detail__picture">
-                    <img src="assets/images/demo.jpg" alt="User picture here" />
+            <form class="songs-display edit-song__detail" action="SongServlet" method="post" enctype="multipart/form-data">
+                <div class="picture__container edit__selected-song-picture">
+                    <img src="assets/images/demo.jpg" alt="User picture here" class="thumbnail"/>
                     <div class="avatar__edit">
                         <label for="songImg"> <i class="fa-solid fa-file-pen"></i></label>
-                        <input type="file" name="songImg" id="songImg" />
+                        <input type="file" name="songImg" id="songImg" class="user-upload-img"/>
                     </div>
                 </div>
                 <div class="songs-display__info">
                     <div class="input">
+                        <input type="hidden" name="songId" id="songId" placeholder="Song ID here"/>
+                    </div>
+                    <div class="input">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" placeholder="Enter new name here" />
+                        <input type="text" name="title" id="title" placeholder="Enter new name here" />
                     </div>
                     <div class="input">
                         <label for="artist">Artist</label>
@@ -89,9 +86,10 @@
                         <label for="album">Album</label>
                         <input type="text" name="album" id="album" placeholder="Enter new album here" />
                     </div>
+                    <input type="hidden" name="action" value="updateSong">
                 </div>
             </form>
-            <button class="button button-confirm edit-song__add-btn">Save changes</button>
+            <button class="button button-confirm edit-song__btn">Save changes</button>
         </c:when>
         <c:when test="${songs == null}">
             <h3>System songs is empty, go and add some !</h3>

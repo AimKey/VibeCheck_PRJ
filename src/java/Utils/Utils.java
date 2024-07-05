@@ -23,16 +23,23 @@ import org.jaudiotagger.tag.images.Artwork;
 
 public class Utils {
 
+    /**
+     * Create a (Song) folder in this format:
+     * (fullpath)/filename/filename.partextension
+     * @param fullPath
+     * @param part
+     * @throws IOException 
+     */
     public void setupSongFolder(String fullPath, Part part) throws IOException {
         // Extract the directory path from the full path
         File directory = new File(fullPath).getParentFile();
 
         // Ensure the directory exists
         if (!directory.exists()) {
-            // Create the directory and any necessary but nonexistent parent directories
+            // Create the directory
             Files.createDirectories(Paths.get(directory.getAbsolutePath()));
         }
-        // A part is a file I guess
+        // A part is a file
         part.write(fullPath);
     }
 

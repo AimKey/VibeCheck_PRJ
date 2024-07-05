@@ -13,9 +13,10 @@
         <div class="user__avatar">
             <!-- On changed change user image too -->
             <div class="picture__container box-shadow">
-                <img src="${user.profilePicPath}" alt="User picture here" />
-                <label for="userImage"><i class="fa-solid fa-file-pen avatar__edit"></i></label>
-                <input type="file" name="userImage" id="userImage" onchange="changeUserAvatar(this)"/>
+                <img src="${user.profilePicPath}" alt="User picture here" class="thumbnail"/>
+
+                <label for="userImg"><i class="fa-solid fa-file-pen avatar__edit"></i></label>
+                <input type="file" name="userImg" id="userImg" class="user-upload-img"/>
             </div>
         </div>
         <!-- User update forms -->
