@@ -21,22 +21,22 @@
         <main class="main container-fluid">
             <div class="main__menus">
                 <h1>Settings</h1>
-                <%@include file="../Includes/navbar.jsp" %>
+                <%@include file="/Pages/Includes/navbar.jsp" %>
 
-                <%@include file="../Includes/admin_user.jsp" %>
+                <%@include file="/Pages/Includes/admin_user.jsp" %>
                 
                 <c:if test="${user.isAdmin == true}">
-                    <%@include file="../Includes/admin_user-list.jsp" %>
+                    <%@include file="/Pages/Includes/admin_user-list.jsp" %>
 
-                    <%@include file="../Includes/admin_upload.jsp" %>
+                    <%@include file="/Pages/Includes/admin_upload.jsp" %>
 
-                    <%@include file="../Includes/admin_edit-song.jsp" %>
+                    <%@include file="/Pages/Includes/admin_edit-song.jsp" %>
                 </c:if>
 
-                <%@include file="../Includes/admin_edit-playlist.jsp" %>
+                <%@include file="/Pages/Includes/admin_edit-playlist.jsp" %>
 
                 <!-- Modal -->
-                <%@include file="../Includes/admin_add-modal.jsp" %>
+                <%@include file="/Pages/Includes/admin_add-modal.jsp" %>
             </div>
         </main>
 
