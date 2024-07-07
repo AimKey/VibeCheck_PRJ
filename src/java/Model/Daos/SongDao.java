@@ -82,7 +82,8 @@ public class SongDao implements Dao<Song> {
     }
 
     /**
-     * This one is different because it is returning messages for others to hanlde
+     * This one is different because it is returning messages for others to
+     * hanlde
      *
      * @param song
      * @return
@@ -95,16 +96,14 @@ public class SongDao implements Dao<Song> {
         String durationStr = song.getDuration();
         String filePath = song.getSongFilePath();
         String coverPictureLink = song.getSongImagePath();
-        
-//        System.out.println("Inserting: " + song);
 
+//        System.out.println("Inserting: " + song);
         // Print received parameters for debugging
 //        System.out.println("Title: " + title);
 //        System.out.println("Artist: " + artistName);
 //        System.out.println("Duration: " + durationStr);
 //        System.out.println("File Path: " + filePath);
 //        System.out.println("Cover Picture Link: " + coverPictureLink);
-
         // Validate parameters
         if (title == null || title.isEmpty()
                 || artistName == null || artistName.isEmpty()
@@ -112,7 +111,7 @@ public class SongDao implements Dao<Song> {
                 || filePath == null || filePath.isEmpty()
                 || coverPictureLink == null || coverPictureLink.isEmpty()) {
 //            System.out.println("Validation failed: one or more parameters are empty");
-            throw new Exception ("Validation failed: one or more parameters are empty");
+            throw new Exception("Validation failed: one or more parameters are empty");
         }
 
         int duration;
@@ -125,7 +124,7 @@ public class SongDao implements Dao<Song> {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
 //            System.out.println("Failed to parse duration: " + e.getMessage());
             // No redirect
-            throw new Exception ("An error occured!: " + e.getMessage());
+            throw new Exception("An error occured!: " + e.getMessage());
         }
 
         try (Connection con = db.getConnection()) {
@@ -180,30 +179,42 @@ public class SongDao implements Dao<Song> {
             stmt.close();
         } catch (Exception e) {
 //            System.out.println("Database error: " + e.getMessage());
-            throw new Exception ("Database error: " + e.getMessage());
+            throw new Exception("Database error: " + e.getMessage());
         }
         return title + "inserted!";
     }
 
+    /**
+     * Update 3 part of the song: Title, aritst, album and songImagePath The
+     * string[] should have this: title, artist, album, (songImagePath) if no
+     * songImagePath, the params's length should be 4 instead
+     *
+     * @param song
+     * @param params
+     * @return
+     */
     @Override
     public boolean update(Song song, String[] params) {
         boolean result = false;
-        String query = "UPDATE Song SET title = ?, artistId = ?, duration = ?, songFilePath = ?, songImagePath = ?, album = ? "
-                + "WHERE songId = ?";
-        try (Connection con = db.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, params[0]); // Assuming params[0] is title
-            stmt.setInt(2, getArtistIdByName(song.getArtist()));
-            stmt.setInt(3, song.getDurationInNumbers());
-            stmt.setString(4, song.getSongFilePath());
-            stmt.setString(5, song.getSongImagePath());
-            stmt.setString(6, song.getAlbum());
-            stmt.setInt(7, song.getSongId());
-            result = stmt.executeUpdate() > 0;
+        try (Connection con = db.getConnection()) {
+            CallableStatement stmt = con.prepareCall("{call usp_Song_Update(?,?,?,?,?)}");
+
+            stmt.setInt(1, song.getSongId());
+            stmt.setString(2, params[0]);
+            stmt.setString(3, params[1]);
+            stmt.setString(4, params[2]);
+            if (params.length < 4) {
+                stmt.setString(5, song.getSongImagePath()); // No songImageParam detected, use the old one
+            } else {
+                System.out.println("Updating new songImg: " + params[3]);
+                stmt.setString(5, params[3]);
+            }
+            int rows = stmt.executeUpdate();
+            System.out.println("affected rows: " + rows);
+            result = rows > 0;
         } catch (SQLException e) {
             System.err.println("Error updating song with ID " + song.getSongId() + ": " + e.getMessage());
-        } catch (ServletException ex) {
-            Logger.getLogger(SongDao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ServletException | IOException ex) {
             Logger.getLogger(SongDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;

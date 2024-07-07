@@ -49,6 +49,8 @@ songsToEdit.forEach((btn) => {
   btn.addEventListener("click", (evt) => {
     evt.preventDefault();
     let element = evt.currentTarget;
+    let editFrom = document.querySelector("#edit-song__container");
+    editFrom.classList.remove("hide");
     console.log("You clicked on this element: ");
     console.log(element);
     const id = element.querySelector(".song-id").textContent;
@@ -99,12 +101,32 @@ uploadImgBtns.forEach((btn) => {
  * Confirm edit song button
  */
 const editConfirmBtn = document.querySelector(".edit-song__btn");
-editConfirmBtn.addEventListener('click', evt => {
+editConfirmBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
-  let form = document.querySelector('.edit-song__detail');
-  console.log(form);
-  form.submit();
-})
+  let form = document.querySelector(".edit-song__detail");
+  let msgHTML = document.getElementById("edit__msg");
+  const formData = new FormData(form);
+  fetch("SongServlet", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      console.log("Server resposne");
+      console.log(data);
+      // Do stuff if success
+      msgHTML.classList.remove("hide");
+      msgHTML.textContent = data;
+    })
+    .catch((error) => {
+      console.error(error);
+      // Do stuff if failed
+      msgHTML.classList.remove("hide");
+      msgHTML.textContent = error;
+    });
+});
 
 /**
  * Function to delete a song from a playlist

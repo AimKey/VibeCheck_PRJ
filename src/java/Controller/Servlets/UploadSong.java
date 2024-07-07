@@ -2,7 +2,7 @@ package Controller.Servlets;
 
 import Model.Daos.SongDao;
 import Model.Song;
-import Utils.Utils;
+import Utils.Helpers;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ public class UploadSong extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Utils utils = new Utils();
+        Helpers utils = new Helpers();
         String param = request.getParameter("action");
         System.out.println("Action: " + param);
         // Define the base directory where songs will be saved

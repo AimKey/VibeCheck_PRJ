@@ -29,7 +29,7 @@ GO
 CREATE TABLE Artist (
     artistId INT PRIMARY KEY IDENTITY(1,1),
     artistName VARCHAR(100) DEFAULT 'Various Artist',
-    bio NVARCHAR(MAX), DEFAULT 'No information is found',
+    bio NVARCHAR(MAX) DEFAULT 'No information is found',
     profilePicturePath VARCHAR(100) DEFAULT 'artist/fallback.jpg' 
 	-- If this is null, assign to default image artist path
 );

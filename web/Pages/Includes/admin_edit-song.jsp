@@ -58,42 +58,42 @@
                 </table>
             </div>
 
-            <h3 class="title">Edit this song information</h3>
 
             <!-- No need for js here because we are going to reload the page -->
             <!-- Or not... -->
-            <form class="songs-display edit-song__detail" action="SongServlet" method="post" enctype="multipart/form-data">
-                <div class="picture__container edit__selected-song-picture">
-                    <img src="assets/images/demo.jpg" alt="User picture here" class="thumbnail"/>
-                    <div class="avatar__edit">
-                        <label for="songImg"> <i class="fa-solid fa-file-pen"></i></label>
+            <div id="edit-song__container" class="hide">
+                <h3 class="title">Edit this song information</h3>
+                <form class="songs-display edit-song__detail" action="SongServlet" method="post" enctype="multipart/form-data">
+                    <div class="picture__container edit__selected-song-picture">
+                        <img src="assets/images/demo.jpg" alt="User picture here" class="thumbnail"/>
+                        <label for="songImg"> <i class="fa-solid fa-file-pen avatar__edit"></i></label>
                         <input type="file" name="songImg" id="songImg" class="user-upload-img"/>
                     </div>
-                </div>
-                <div class="songs-display__info">
-                    <div class="input">
-                        <input type="hidden" name="songId" id="songId" placeholder="Song ID here"/>
+                    <div class="songs-display__info">
+                        <div class="input">
+                            <input type="hidden" name="songId" id="songId" placeholder="Song ID here"/>
+                        </div>
+                        <div class="input">
+                            <label for="name">Name</label>
+                            <input type="text" name="title" id="title" placeholder="Enter new name here" />
+                        </div>
+                        <div class="input">
+                            <label for="artist">Artist</label>
+                            <input type="text" name="artist" id="artist" placeholder="Enter new artist here" />
+                        </div>
+                        <div class="input">
+                            <label for="album">Album</label>
+                            <input type="text" name="album" id="album" placeholder="Enter new album here" />
+                        </div>
+                        <input type="hidden" name="action" value="updateSong">
                     </div>
-                    <div class="input">
-                        <label for="name">Name</label>
-                        <input type="text" name="title" id="title" placeholder="Enter new name here" />
-                    </div>
-                    <div class="input">
-                        <label for="artist">Artist</label>
-                        <input type="text" name="artist" id="artist" placeholder="Enter new artist here" />
-                    </div>
-                    <div class="input">
-                        <label for="album">Album</label>
-                        <input type="text" name="album" id="album" placeholder="Enter new album here" />
-                    </div>
-                    <input type="hidden" name="action" value="updateSong">
-                </div>
-            </form>
-            <button class="button button-confirm edit-song__btn">Save changes</button>
+                </form>
+                <button class="button button-confirm edit-song__btn">Save changes</button>
+            </div>
         </c:when>
         <c:when test="${songs == null}">
             <h3>System songs is empty, go and add some !</h3>
         </c:when>
     </c:choose>
-
+        <h3 class="yellow-text hide" id="edit__msg"></h3>
 </div>

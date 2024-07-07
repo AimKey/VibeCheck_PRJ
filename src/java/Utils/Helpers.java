@@ -21,7 +21,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.images.Artwork;
 
-public class Utils {
+public class Helpers {
 
     /**
      * Create a (Song) folder in this format:
@@ -91,5 +91,30 @@ public class Utils {
             return fileName.substring(0, dotIndex);
         }
         return fileName; // In case there is no dot in the filename
+    }
+    /**
+     * A function to get path to a file with the following format.
+     * baseDir/middleFolder/fileName/filename.desiredFormat
+     * Ex: build/web->Songs->Name->Name.jpg
+     * @param baseDir Usually getRealPath
+     * @param middleFolder
+     * @param fileName FileName
+     * @param ext File extension. Ex: mp3, jpg
+     * @return 
+     */
+    public String getNewFileLocation (String baseDir, String middleFolder, String fileName, String ext) {
+        String s = baseDir + middleFolder + File.separator + fileName + File.separator + fileName + "." + ext;
+        return s;
+    }
+    
+    public void buildDirectory (String fullPath) throws IOException {
+        // Extract the directory path from the full path
+        File directory = new File(fullPath).getParentFile();
+
+        // Ensure the directory exists
+        if (!directory.exists()) {
+            // Create the directory
+            Files.createDirectories(Paths.get(directory.getAbsolutePath()));
+        }
     }
 }
