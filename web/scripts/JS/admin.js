@@ -12,6 +12,27 @@ window.onbeforeunload = function (e) {
 let loadingHTML = document.createElement("div");
 loadingHTML.classList.add("loader");
 
+// User edit js
+const userEditForm = document.querySelector(".user__form");
+const userEditFormBtn = userEditForm.querySelector(".button-confirm");
+
+userEditFormBtn.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  const msg = document.getElementById("user-edit__msg"); // Message element
+  // Check if confirm password is correct
+  let pass = userEditForm.querySelector('input[name="password"]').value;
+  let cfnPass = userEditForm.querySelector('input[name="confirm-password"]').value;
+  if (pass != cfnPass) {
+    console.log('Password not match!: ' + pass + '-' + cfnPass);
+    msg.classList.remove('hide');
+    msg.textContent = 'Confirm password does not match!'
+  } else {
+    console.log('Submitting');
+    userEditForm.submit();
+  }
+})
+
+
 /**
  * A function to handle delete a row in a table <br>
  * This function will search for the neareast row of a child element <br>
@@ -71,8 +92,6 @@ songsToEdit.forEach((btn) => {
     nameInput.value = title;
     artistInput.value = artist;
     albumInput.value = album;
-    console.log(songIdInput);
-    console.log(songIdInput.value);
   });
 });
 

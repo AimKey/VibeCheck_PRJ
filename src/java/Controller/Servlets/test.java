@@ -24,21 +24,14 @@ public class test extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-//        System.out.println("[TESTING JSON]:: request type: " + request.getMethod());
-//        AppUser a = new AppUser(1, "Ethereal", "phamminhkiet24@gmail.com", "123456", "users/fallback.jpg", "2004-08-24", true);
-//        // JSON Handling
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.registerModule(new JavaTimeModule());
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        String json = ow.writeValueAsString(a);
-//        System.out.println("[TESTING JSON]:: " + json);
-//        response.getWriter().write(json);
-         Optional<Song> s = new SongDao().get(1);
-         if (s.isEmpty()) {
-             System.out.println("[test] :: No song detected");
-         } else {
-             System.out.println(s.get());
-         }
+        String contextPath = request.getServletContext().getRealPath("/");
+        String path = request.getPathInfo();
+        String servletPath = request.getServletPath();
+        String translatedPath = request.getPathTranslated();
+        System.out.println("Real path: " + contextPath);
+        System.out.println("Path: " + path);
+        System.out.println("Servlet path: " + servletPath);
+        System.out.println("Translated Path: " + translatedPath);
     }
 
     @Override
