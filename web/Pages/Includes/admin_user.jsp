@@ -49,10 +49,11 @@
                 placeholder="Confirm new password"
                 >
         </div>
-        <!--This hidden form input is used for let the servlet know where to redirect-->
-        <input type="hidden" name="url" value="admin">
+        <input type="hidden" name="uId" value="${user.userId}">
         <input type="hidden" name="action" value="update">
         <!-- We may not need to use js here, plain old reload will work -->
         <button type="submit" class="button button-confirm">Confirm</button>
     </form>
+        <h3 class="hide yellow-text" id="user-edit__msg"></h3>
+
 </div>
