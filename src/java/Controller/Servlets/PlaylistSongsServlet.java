@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller.Servlets;
 
 import Model.Daos.PlaylistSongsDao;
+import Model.PlaylistSongs;
 import Model.Song;
 import Utils.JSONWriter;
 import java.io.IOException;
@@ -20,13 +17,6 @@ import java.util.ArrayList;
  */
 public class PlaylistSongsServlet extends HttpServlet {
 
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,7 +32,6 @@ public class PlaylistSongsServlet extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
-//                System.out.println("[PlaylistSongs JSON]:: " + json1);
                 response.getWriter().write(json1);
             }
             case "getUnique" -> {
@@ -50,7 +39,6 @@ public class PlaylistSongsServlet extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
-//                System.out.println("[PlaylistSongs JSON]:: Get unique songs: " + json1);
                 response.getWriter().write(json1);
             }
             default -> {
@@ -58,7 +46,6 @@ public class PlaylistSongsServlet extends HttpServlet {
                 throw new AssertionError();
             }
         }
-
     }
 
     @Override
@@ -73,18 +60,18 @@ public class PlaylistSongsServlet extends HttpServlet {
         }
         switch (action) {
             case "insertSongs" -> {
-                System.out.println("Received insert action!");
                 String songIds = request.getParameter("songIds");
-                if (songIds != null) {
-                    String[] songIdSplited = songIds.split(",");
-                    for (String string : songIdSplited) {
-                        System.out.println(string);
+                if (songIds != null && playlistId != -1) {
+                    String[] songIdArray = songIds.split(",");
+                    PlaylistSongsDao playlistSongsDao = new PlaylistSongsDao();
+                    for (String songIdStr : songIdArray) {
+                        int songId = Integer.parseInt(songIdStr);
+                        PlaylistSongs playlistSongs = new PlaylistSongs(playlistId, songId);
+                        playlistSongsDao.insert(playlistSongs);
                     }
                 }
-                System.out.println("[PlaylistSongs] :: TODO: Handle add songs to a playlist");
                 response.sendRedirect("settings");
             }
-
             default -> {
                 System.out.println("Something went wrong! (PlaylistSongs)");
                 throw new AssertionError();

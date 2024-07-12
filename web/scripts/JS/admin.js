@@ -185,14 +185,14 @@ const playlistInformation = document.getElementsByClassName("playlist-informatio
 let playlistId;
 let playlistSelect = document.querySelector(".edit-playlist__select");
 playlistSelect.addEventListener("change", async (evt) => {
-    let obj = evt.currentTarget;
-    playlistId = obj.value;
-    let index = obj.selectedIndex;
-    let playlistName = obj.options[index].text;
-    // Show the information of the playlist
-    playlistInformation.classList.toggle("hide");
-    let playlistNameHTML = playlistInformation.querySelector(".playlist__name");
-    playlistNameHTML.textContent = playlistName;
+  let obj = evt.currentTarget;
+  playlistId = obj.value;
+  let index = obj.selectedIndex;
+  let playlistName = obj.options[index].text;
+  // Show the information of the playlist
+  playlistInformation.classList.remove("hide");
+  let playlistNameHTML = playlistInformation.querySelector(".playlist__name");
+  playlistNameHTML.textContent = playlistName;
 
     console.log("Calling servet to get songs from playlist: " + playlistId);
     if (playlistId !== "null") {

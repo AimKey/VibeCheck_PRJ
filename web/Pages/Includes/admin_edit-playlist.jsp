@@ -1,16 +1,9 @@
-<%-- 
-    Document   : admin_edit-playlist
-    Created on : Jun 20, 2024, 10:18:04 PM
-    Author     : phamm
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="section" id="edit-playlist">
     <h3 class="title orange-text">Create/Edit playlist</h3>
     
     <form action="PlaylistServlet" method="post">
-        
         <input type="hidden" name="action" value="create" >
     </form>
 
@@ -29,7 +22,6 @@
             </c:forEach>
         </select>
     </form>
-
 
     <div class="playlist-information hide">
         <!-- This should be playlist name (When confirm, sent to the server) -->
@@ -70,11 +62,35 @@
                 </tr>
             </thead>
             <tbody>
-
             </tbody>
         </table>
     </div>
-<!--    <form>
-        <button class="button button-danger">Save changes</button>
-    </form>-->
+
+    <button type="button" class="button button-primary" data-bs-toggle="modal" data-bs-target="#createPlaylistModal">Create New Playlist</button>
+
+    <!-- Create Playlist Modal -->
+    <div class="modal fade" id="createPlaylistModal" tabindex="-1" aria-labelledby="createPlaylistModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createPlaylistModalLabel">Create New Playlist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createPlaylistForm" action="PlaylistServlet" method="post">
+                        <input type="hidden" name="action" value="create">
+                        <div class="mb-3">
+                            <label for="playlistName" class="form-label">Playlist Name</label>
+                            <input type="text" class="form-control" id="playlistName" name="playlistName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('createPlaylistForm').submit();">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
