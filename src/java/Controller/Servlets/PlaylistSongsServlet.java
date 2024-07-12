@@ -1,5 +1,6 @@
 package Controller.Servlets;
 
+import Database.DatabaseInformation;
 import Model.Daos.PlaylistSongsDao;
 import Model.PlaylistSongs;
 import Model.Song;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.sql.*;
 
 /**
  *
@@ -58,6 +60,13 @@ public class PlaylistSongsServlet extends HttpServlet {
         if (param != null) {
             playlistId = Integer.valueOf(param);
         }
+        System.out.println("Getting action: " + action);
+        
+        if (action == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("No action provided!!!");
+            return;
+        }
         switch (action) {
             case "insertSongs" -> {
                 String songIds = request.getParameter("songIds");
@@ -72,6 +81,54 @@ public class PlaylistSongsServlet extends HttpServlet {
                     }
                 }
                 response.sendRedirect("settings");
+            }
+
+            case "delSong" -> {
+                System.out.println("DEBUG: DeleteServlet - doPost method called");
+
+                try {
+                    String songIdStr = request.getParameter("songId");
+                    String playlistIdStr = request.getParameter("playlistId");
+
+                    System.out.println("DEBUG: songId = " + songIdStr);
+
+                    if (songIdStr == null || playlistIdStr == null || action == null) {
+                        System.out.println("DEBUG: Missing parameters.");
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        response.getWriter().write("Missing parameters.");
+                        return;
+                    }
+                    int songId = Integer.parseInt(songIdStr);
+
+                    DatabaseInformation i = new DatabaseInformation();
+                    // Delete the song from the playlist
+                    try (Connection conn = i.getConnection()) {
+                        System.out.println("DEBUG: Connection established");
+
+                        PreparedStatement pstmt = conn.prepareStatement("DELETE FROM PlaylistSongs WHERE playlistId = ? AND songId = ?");
+                        pstmt.setInt(1, playlistId);
+                        pstmt.setInt(2, songId);
+                        int rowsAffected = pstmt.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            System.out.println("DEBUG: Song deleted successfully from playlist!");
+                            response.getWriter().write("Song deleted successfully from playlist!");
+                        } else {
+                            System.out.println("DEBUG: No rows affected, check if the song and playlist IDs are correct.");
+                            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                            response.getWriter().write("No song found with the provided ID in the specified playlist.");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("DEBUG: Error deleting song from playlist: " + e.getMessage());
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        response.getWriter().write("Error deleting song from playlist: " + e.getMessage());
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("DEBUG: Invalid songId or playlistId format: " + e.getMessage());
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().write("Invalid songId or playlistId format.");
+                }
             }
             default -> {
                 System.out.println("Something went wrong! (PlaylistSongs)");

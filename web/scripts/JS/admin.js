@@ -168,19 +168,44 @@ editConfirmBtn.addEventListener("click", (evt) => {
     });
 });
 
-// TODO: Delete song using Bao's code
+
 /**
  * Function to delete a song from a playlist
- * @param {Object} obj
- * @param {Number} songId
+ * @param {Object} btn
  * @param {Number} playlistId
  */
-let handleDeleteSongFromPlaylist = (btn, playlistId) => {
-  console.log(btn);
+function handleDeleteSongFromPlaylist(btn, playlistId) {
   let songId = btn.getAttribute("data-songId");
-  console.log(`TODO: DELETE songId:${songId} from playlist ${playlistId}`);
-  handleRemoveRow(obj);
-};
+
+  // WHAT THE ACUTAL FUCK JUST USE SEARCH PARAMS FOR GOD SAKE ???????
+  let url = new URLSearchParams();
+  url.append("action", "delSong");
+  url.append("songId", songId);
+  url.append("playlistId", playlistId);
+
+  fetch("PlaylistSongsServlet", {
+    method: "POST",
+    body: url,
+  })
+    .then((response) => {
+      console.log("Fetch response status: " + response.status);
+      return response.text().then((text) => {
+        return { status: response.status, text: text };
+      });
+    })
+    .then((result) => {
+      if (result.status === 200) {
+        console.log("Server response: " + result.text);
+        handleRemoveRow(btn); // Remove the song row from the table
+      } else {
+        throw new Error("Server error: " + result.text);
+      }
+    })
+    .catch((error) => {
+      console.error("Error deleting song:", error);
+      alert("Failed to delete song. Please try again later.");
+    });
+}
 
 /**
  * Make call to server for playlist songs and update display when the playlist is changed
@@ -289,10 +314,7 @@ pNameToggleEdit.addEventListener("click", (evt) => {
  */
 pNameConfirmBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
-  // TODO: Update playlist name
   console.log("TODO: Handle update playlist name here");
-
-  // Lets say the the call succeed, set the title name here
 
   // Toggle display the buttons
   pNameConfirmBtn.classList.toggle("hide");
@@ -307,7 +329,8 @@ pNameConfirmBtn.addEventListener("click", (evt) => {
   let pIdInp = updateForm.querySelector("input[name='pId']");
   pIdInp.value = playlistId;
   console.log(pIdInp);
-  // TODO: If possible, use js to change the name if successes
+
+  console.log(updateForm);
   updateForm.submit();
 });
 
@@ -421,15 +444,13 @@ modalConfirm.addEventListener("click", (e) => {
   modalConfirm.submit();
 });
 
-
-
 const removePlaylistBtn = document.getElementById("edit-playlist__rmv-btn");
-removePlaylistBtn.addEventListener('click', (evt) => {
+removePlaylistBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
-  console.log('Deleting this playlist: ' + playlistId);
-  let form = evt.currentTarget.closest('form');
+  console.log("Deleting this playlist: " + playlistId);
+  let form = evt.currentTarget.closest("form");
   console.log(form);
-  let inputId = form.querySelector('input[name=pId]');
+  let inputId = form.querySelector("input[name=pId]");
   inputId.value = playlistId;
   console.log(inputId);
   form.submit();

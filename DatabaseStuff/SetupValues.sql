@@ -3,7 +3,7 @@ GO
 -- This one will help you setup some inital values
 -- Insert some random values
 INSERT INTO AppUser (username, password, email, dateJoined ,profilePicPath, isAdmin)
-VALUES ('Minhkiet', '123456', 'phamminhkiet24@gmail.com', GETDATE(), 'users/Minhkiet.jpg', 1);
+VALUES ('Minhkiet', '123456', 'phamminhkiet24@gmail.com', GETDATE(), 'users/Minhkiet/Minhkiet.jpg', 1);
 
 -- Other artist
 INSERT INTO Artist (artistName, bio, profilePicturePath)
