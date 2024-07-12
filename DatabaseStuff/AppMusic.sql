@@ -49,7 +49,7 @@ CREATE TABLE Song (
     album NVARCHAR(100) DEFAULT 'No album is present',
     songFilePath NVARCHAR(200) NOT NULL,
 	songImagePath NVARCHAR(200) DEFAULT 'songs/fallback.jpg' NOT NULL, -- If this is null, assign it to default song image path
-    FOREIGN KEY (artistId) REFERENCES Artist(artistId)
+    FOREIGN KEY (artistId) REFERENCES Artist(artistId) ON DELETE CASCADE
 );
 GO
 
@@ -65,7 +65,7 @@ CREATE TABLE Playlist (
     name NVARCHAR(100) NOT NULL,
     numberOfSongs INT, -- Can be null if user hasn't add anything
     creationDate DATE, -- Is this necessary ?
-    FOREIGN KEY (userId) REFERENCES AppUser(userId)
+    FOREIGN KEY (userId) REFERENCES AppUser(userId) ON DELETE CASCADE -- Delete cascade means that if user is deleted, there playlist will gone too
 );
 GO
 
@@ -79,7 +79,7 @@ CREATE TABLE PlaylistSongs(
     playlistId INT,
     songId INT,
     PRIMARY KEY (playlistId, songId),
-    FOREIGN KEY (playlistId) REFERENCES Playlist(playlistId),
-    FOREIGN KEY (songId) REFERENCES Song(songId)
+    FOREIGN KEY (playlistId) REFERENCES Playlist(playlistId) ON DELETE CASCADE, -- If playlist is gone, this one is gone
+    FOREIGN KEY (songId) REFERENCES Song(songId) ON DELETE CASCADE -- if the song is gone, this one will also gone
 );
 GO
