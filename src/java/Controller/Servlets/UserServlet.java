@@ -74,11 +74,24 @@ public class UserServlet extends HttpServlet {
                 case "delete" -> {
                     Integer userId = Integer.valueOf(request.getParameter("uId"));
                     System.out.println("[USER] Delete :: " + userId);
+                    boolean r = new AppUserDao().delete(userId);
+                    if (r) {
+                        response.sendRedirect("settings");
+                    } else {
+                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    }
+
                 }
 
                 case "promote" -> {
                     Integer userId = Integer.valueOf(request.getParameter("uId"));
                     System.out.println("[USER] Promote :: " + userId);
+                    boolean r = new AppUserDao().promoteUser(userId);
+                    if (r) {
+                        response.sendRedirect("settings");
+                    } else {
+                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    }
                 }
 
                 default -> {
