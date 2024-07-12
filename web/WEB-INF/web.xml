@@ -83,9 +83,6 @@
         <servlet-name>PlaylistSongsServlet</servlet-name>
         <url-pattern>/PlaylistSongsServlet</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>Pages/Common/login.jsp</welcome-file>
-    </welcome-file-list>
     <servlet-mapping>
         <servlet-name>PlaylistServlet</servlet-name>
         <url-pattern>/PlaylistServlet</url-pattern>
@@ -107,4 +104,7 @@
         <session-timeout>30</session-timeout>
         <!-- Timeout in minutes -->
     </session-config>
+    <welcome-file-list>
+        <welcome-file>Pages/Common/login.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
