@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import java.io.File;
 import java.util.function.Supplier;
 
 @MultipartConfig(
@@ -53,20 +52,23 @@ public class UserServlet extends HttpServlet {
                     Supplier<AppUser> a = () -> null;
                     AppUser user = new AppUserDao().get(userId).orElseGet(a);
                     if (user != null) {
-                        String path = helpers.getNewFileLocation(baseDir, "users", username, "jpg");
                         String relativePath = helpers.generateRelativePathForObject("users", username, "jpg");
-                        relativePath = helpers.replaceBacklash(relativePath);
+                        relativePath = helpers.replaceWithForwardSlash(relativePath);
 //                        System.out.println("Relative path: " + relativePath);
 //                        System.out.println("Path to save: " + path);
                         boolean result = new AppUserDao().update(user, new String[]{String.valueOf(userId), username, email, password, relativePath});
                         if (result && img.getSize() > 0) {
+                            String path = helpers.getNewFileLocation(baseDir, "users", username, "jpg");
+                            System.out.println(img.getSubmittedFileName());
+                            System.out.println("[User Servlet] : Changing user img");
                             helpers.buildDirectory(path);
                             img.write(path);
                         }
                         request.getSession().setAttribute("user", user);
                     }
                     // TOOD: Toast notification ?
-                    response.sendRedirect("settings");
+                    request.setAttribute("userStatus", true);
+                    request.getRequestDispatcher("settings").forward(request, response);
                 }
 
                 case "delete" -> {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    <filter>
+    <!--    <filter>
         <filter-name>SettingPageOnLoad</filter-name>
         <filter-class>Controller.Filters.SettingPageOnLoad</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SettingPageOnLoad</filter-name>
         <url-pattern>/settings</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <servlet>
         <servlet-name>LoginHandler</servlet-name>
         <servlet-class>Controller.Servlets.LoginHandler</servlet-class>
@@ -36,6 +36,15 @@
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>Controller.Servlets.UserServlet</servlet-class>
     </servlet>
+    <!--Settings servlet-->
+    <servlet>
+        <servlet-name>Settings</servlet-name>
+        <servlet-class>Controller.Servlets.Settings</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>Controller.Servlets.DeleteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/LoginHandler</url-pattern>
@@ -57,16 +66,7 @@
         <servlet-name>LoginPage</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    <!-- Setting route -->
-    <servlet>
-        <servlet-name>Settings</servlet-name>
-        <jsp-file>/Pages/Common/settings.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Settings</servlet-name>
-        <url-pattern>/settings</url-pattern>
-    </servlet-mapping>
-    <!-- Main route -->
+
     <servlet>
         <servlet-name>Main</servlet-name>
         <jsp-file>/Pages/Common/main.jsp</jsp-file>
@@ -74,7 +74,7 @@
     <servlet-mapping>
         <servlet-name>Main</servlet-name>
         <url-pattern>/main</url-pattern>
-    </servlet-mapping>      
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SaveSong</servlet-name>
         <url-pattern>/SaveSong</url-pattern>
@@ -93,6 +93,15 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/UserServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Settings</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/DeleteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

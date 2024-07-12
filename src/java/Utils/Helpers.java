@@ -148,7 +148,11 @@ public class Helpers {
         return middleFolder + File.separator + folderName + File.separator + folderName + "." + ext;
     }
     
-    public String replaceBacklash(String r) {
+    public String replaceWithForwardSlash(String r) {
         return r.replace("\\", "/");
+    }
+    
+    public String replaceWithBackwardSlash(String r) {
+        return r.replace("/", "\\");
     }
 }

@@ -223,16 +223,33 @@ public class SongDao implements Dao<Song> {
     @Override
     public boolean delete(int songId) {
         boolean result = false;
-        String query = "DELETE FROM Song WHERE songId = ?";
-        try (Connection con = db.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setInt(1, songId);
-            result = stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error deleting song with ID " + songId + ": " + e.getMessage());
-        } catch (ServletException ex) {
-            Logger.getLogger(SongDao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(SongDao.class.getName()).log(Level.SEVERE, null, ex);
+        try (Connection con = db.getConnection()) {
+            con.setAutoCommit(false);  // Start transaction
+
+            // Delete song from PlaylistSongs
+            try (PreparedStatement stmt = con.prepareStatement(
+                    "DELETE FROM PlaylistSongs WHERE songId = ?")) {
+                stmt.setInt(1, songId);
+                stmt.executeUpdate();
+            }
+
+            // Delete song from Song table
+            try (PreparedStatement stmt = con.prepareStatement(
+                    "DELETE FROM Song WHERE songId = ?")) {
+                stmt.setInt(1, songId);
+                result = stmt.executeUpdate() > 0;
+            }
+
+            con.commit();  // Commit transaction
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            try (Connection con = db.getConnection()) {
+                con.rollback();  // Rollback transaction in case of error
+            } catch (SQLException rollbackEx) {
+                System.err.println(rollbackEx.getMessage());
+            } catch (ServletException | IOException ex) {
+                Logger.getLogger(SongDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return result;
     }
