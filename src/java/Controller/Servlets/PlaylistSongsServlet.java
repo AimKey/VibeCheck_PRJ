@@ -42,7 +42,7 @@ public class PlaylistSongsServlet extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
-                System.out.println("[PlaylistSongs JSON]:: " + json1);
+//                System.out.println("[PlaylistSongs JSON]:: " + json1);
                 response.getWriter().write(json1);
             }
             case "getUnique" -> {
@@ -50,7 +50,7 @@ public class PlaylistSongsServlet extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
-                System.out.println("[PlaylistSongs JSON]:: Get unique songs: " + json1);
+//                System.out.println("[PlaylistSongs JSON]:: Get unique songs: " + json1);
                 response.getWriter().write(json1);
             }
             default -> {
@@ -64,6 +64,32 @@ public class PlaylistSongsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String action = request.getParameter("action");
+        String param = request.getParameter("playlistId");
+        Integer playlistId = -1;
+        if (param != null) {
+            playlistId = Integer.valueOf(param);
+        }
+        switch (action) {
+            case "insertSongs" -> {
+                System.out.println("Received insert action!");
+                String songIds = request.getParameter("songIds");
+                if (songIds != null) {
+                    String[] songIdSplited = songIds.split(",");
+                    for (String string : songIdSplited) {
+                        System.out.println(string);
+                    }
+                }
+                System.out.println("[PlaylistSongs] :: TODO: Handle add songs to a playlist");
+                response.sendRedirect("settings");
+            }
+
+            default -> {
+                System.out.println("Something went wrong! (PlaylistSongs)");
+                throw new AssertionError();
+            }
+        }
     }
 
     /**

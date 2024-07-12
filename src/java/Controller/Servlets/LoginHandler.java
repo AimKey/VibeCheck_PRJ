@@ -108,7 +108,7 @@ public class LoginHandler extends HttpServlet {
             // Dispatch
             if (aUser.getIsAdmin()) {
 //                    request.getRequestDispatcher("admin.jsp").forward(request, response);
-                response.sendRedirect("admin");
+                response.sendRedirect("settings");
             } else {
 //                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 response.sendRedirect("login");

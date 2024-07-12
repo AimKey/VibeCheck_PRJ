@@ -54,7 +54,7 @@
                                     <!-- TODO: On click, query and delete song -->
                                     <!-- IMPORTANT: use JS to send a request to server without redirecting user.
                                       Then remove this element from the DOM -->
-                                    <button onclick="handleDeleteSong(this, ${s.songId})">
+                                    <button class="edit-song__rmv-btn" data-songId=${s.songId}>
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </td>
@@ -68,8 +68,8 @@
 
             <!-- No need for js here because we are going to reload the page -->
             <!-- Or not... -->
-            <form class="songs-display detail editSongForm" action="#" method="post">
-                <div class="picture__container song-img-container">
+            <form class="songs-display edit-song__detail" action="#" method="post">
+                <div class="picture__container detail__picture">
                     <img src="assets/images/demo.jpg" alt="User picture here" />
                     <div class="avatar__edit">
                         <label for="songImg"> <i class="fa-solid fa-file-pen"></i></label>
@@ -91,8 +91,7 @@
                     </div>
                 </div>
             </form>
-            <!-- TODO: Fire the form above -->
-            <button class="button button-confirm" onclick="handleEditForm(this)">Save changes</button>
+            <button class="button button-confirm edit-song__add-btn">Save changes</button>
         </c:when>
         <c:when test="${songs == null}">
             <h3>System songs is empty, go and add some !</h3>

@@ -7,7 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="section" id="edit-playlist">
-    <h3 class="title orange-text">Edit playlist</h3>
+    <h3 class="title orange-text">Create/Edit playlist</h3>
+    
+    <form action="PlaylistServlet" method="post">
+        
+        <input type="hidden" name="action" value="create" >
+    </form>
 
     <form action="" class="select-playlist">
         <select
@@ -17,7 +22,6 @@
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="Choose a playlist"
-            onchange="handleSelectPlaylist(this)"
             >
             <option value="null">Select a playlist</option>
             <c:forEach var="p" items="${playlists}">
@@ -28,9 +32,13 @@
 
 
     <div class="playlist-information hide">
-        <!-- This should be playlist name (Update dynamically) -->
-        <h3 class="title blue-text playlist__name">Playlist's name</h3>
-        <input type="text" name="pName" placeholder="New playlist name" autocomplete="off" class="hide">
+        <!-- This should be playlist name (When confirm, sent to the server) -->
+        <h3 class="title blue-text playlist__name">Placeholder</h3>
+        <form action="PlaylistServlet" method="post" class="playlist-information__change-name hide">
+            <input type="hidden" name="action" value="updatePName">
+            <input type="hidden" name="pId" value="">
+            <input type="text" name="pName" placeholder="New playlist name" autocomplete="off">
+        </form>
         <!-- Button to toggle change name -->
         <button class="playlist__toggle-change-name button-svg button-icon" data-bs-toggle="tooltip" title="Change playlist name">
             <i class="fa-regular fa-pen-to-square"></i>
@@ -66,6 +74,7 @@
             </tbody>
         </table>
     </div>
-
-    <button class="button button-danger">Save changes</button>
+<!--    <form>
+        <button class="button button-danger">Save changes</button>
+    </form>-->
 </div>

@@ -26,48 +26,68 @@ public class PlaylistServlet extends HttpServlet {
     }
 
     /**
-     * This servlet is meant to return JSON !
-     * This function will filter out the GET to dermine if: GET ALL, GET BY ID
+     * This servlet is meant to return JSON ! This function will filter out the
+     * GET to dermine if: GET ALL, GET BY ID
+     *
      * @param request
      * @param response
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
         String param = request.getParameter("action");
-        String result = null;
-        // Get ALL playlist
-        if (param.equals("all")) {
-            System.out.println("TODO: Handle get ALL playlist");
-        } else if (param.equals("get")) {
-            Integer id = Integer.valueOf(request.getParameter("id"));
-            // Get playlist by id
-            Optional<Playlist> optional = new PlaylistDao().get(id);
-            if (optional.isPresent()) {
-                Playlist p = optional.get();
-                result = new JSONWriter<Playlist>().getJSONString(p);
+        switch (param) {
+            case "getJSON" -> {
+                String result = null;
+                // Get ALL playlist
+                if (param.equals("all")) {
+                    System.out.println("TODO: Handle get ALL playlist");
+                } else if (param.equals("get")) {
+                    Integer id = Integer.valueOf(request.getParameter("id"));
+                    // Get playlist by id
+                    Optional<Playlist> optional = new PlaylistDao().get(id);
+                    if (optional.isPresent()) {
+                        Playlist p = optional.get();
+                        result = new JSONWriter<Playlist>().getJSONString(p);
+                    }
+                }
+                if (result != null) {
+                    response.getWriter().write(result);
+                }
+            }
+            default -> {
+                System.out.println("Action: " + param);
+                throw new AssertionError();
             }
         }
-        if (result != null)
-        response.getWriter().write(result);
+
     }
 
     /**
      * Handle delete action and update action by user
+     *
      * @param request
      * @param response
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
         String param = request.getParameter("action");
-        System.out.println("TODO: Handle this one pls");
+        switch (param) {
+            case "updatePName" -> {
+                String pName = request.getParameter("pName");
+                Integer pId = Integer.valueOf(request.getParameter("pId"));
+                System.out.println("[Playlist] :: Handle update playlist name: " + pName + ", pId: " + pId);
+
+                response.sendRedirect("settings");
+            }
+        }
     }
 
     @Override
