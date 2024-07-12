@@ -34,7 +34,7 @@ public class UploadSong extends HttpServlet {
                 System.out.println("Getting file: " + part.getSubmittedFileName());
                 if (part.getName().equals("songsUpload") && part.getSize() > 0) {
                     String fileName = utils.getFileNameWithoutExtension(part.getSubmittedFileName());
-                    String songDir = "songs/" + fileName + "/";
+                    String songDir = "songs\\" + fileName + "\\";
                     String fullPath = baseDir + File.separator + fileName + File.separator + part.getSubmittedFileName();
 
                     System.out.println("Reveive songs: " + part.getSubmittedFileName());

@@ -4,15 +4,13 @@
  */
 package Controller.Servlets;
 
-import Model.Daos.SongDao;
-import Model.Song;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Optional;
+import java.io.File;
 
 /**
  *
@@ -24,14 +22,7 @@ public class test extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        String contextPath = request.getServletContext().getRealPath("/");
-        String path = request.getPathInfo();
-        String servletPath = request.getServletPath();
-        String translatedPath = request.getPathTranslated();
-        System.out.println("Real path: " + contextPath);
-        System.out.println("Path: " + path);
-        System.out.println("Servlet path: " + servletPath);
-        System.out.println("Translated Path: " + translatedPath);
+        System.out.println("File seperator: " + File.separator);
     }
 
     @Override
