@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.servlet.http.Cookie;
+import java.util.function.Supplier;
 
 public class PlaylistServlet extends HttpServlet {
 
@@ -109,7 +110,26 @@ public class PlaylistServlet extends HttpServlet {
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
                 LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}", new Object[]{pName, pId});
                 // Here you should implement the update logic
+                Playlist pl = new PlaylistDao().get(pId).orElse(null);
+                Boolean r = new PlaylistDao().update(pl, new String[]{pName});
                 response.sendRedirect("settings");
+            }
+
+            case "delete" -> {
+                String o = request.getParameter("pId");
+                if (o != null) {
+                    int id = Integer.parseInt(o);
+                    Boolean r = new PlaylistDao().delete(id);
+                    if (r) {
+                        response.sendRedirect("settings");
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        response.getWriter().write("Failed to delete");
+                    }
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().write("Null parameter");
+                }
             }
             default -> {
                 LOGGER.log(Level.SEVERE, "Unknown action: {0}", param);

@@ -420,3 +420,17 @@ modalConfirm.addEventListener("click", (e) => {
   formInputs[2].value = playlistId;
   modalConfirm.submit();
 });
+
+
+
+const removePlaylistBtn = document.getElementById("edit-playlist__rmv-btn");
+removePlaylistBtn.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  console.log('Deleting this playlist: ' + playlistId);
+  let form = evt.currentTarget.closest('form');
+  console.log(form);
+  let inputId = form.querySelector('input[name=pId]');
+  inputId.value = playlistId;
+  console.log(inputId);
+  form.submit();
+});
