@@ -2,12 +2,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="section" id="edit-playlist">
     <h3 class="title orange-text">Create/Edit playlist</h3>
+
+    <button type="button" class="button button-action" data-bs-toggle="modal" data-bs-target="#createPlaylistModal">Create New Playlist</button>
     
     <form action="PlaylistServlet" method="post">
         <input type="hidden" name="action" value="create" >
     </form>
 
-    <form action="" class="select-playlist">
+    <form class="select-playlist">
         <select
             class="form-select edit-playlist__select"
             name="selectPlaylist"
@@ -65,8 +67,6 @@
             </tbody>
         </table>
     </div>
-
-    <button type="button" class="button button-primary" data-bs-toggle="modal" data-bs-target="#createPlaylistModal">Create New Playlist</button>
 
     <!-- Create Playlist Modal -->
     <div class="modal fade" id="createPlaylistModal" tabindex="-1" aria-labelledby="createPlaylistModalLabel" aria-hidden="true">

@@ -40,28 +40,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:if test="${songs != null}">
-                                <c:forEach items="${songs}" var="s">
-                                    <!--                                    <tr class="song-selection">
-                                                                            <th class="song-img">
-                                                                                <img src="${s.songImagePath}" alt="${s.title}" />
-                                                                            </th>
-                                                                            <td class="song-title">${s.title}</td>
-                                                                            <td class="song-artist">${s.artist}</td>
-                                                                            <td class="song-album">${s.album}</td>
-                                                                            <td class="song-duration">${s.duration}</td>
-                                                                            <td>
-                                                                                 TODO: On click, query and delete song 
-                                                                                 IMPORTANT: use JS to send a request to server without redirecting user.
-                                                                                Then remove this element from the DOM 
-                                                                                <button onclick="handleAddSongToPlaylist(this)">
-                                                                                    <i class="fa-solid fa-circle-plus"></i>
-                                                                                </button>
-                                                                            </td>
-                                                                        </tr>-->
-                                </c:forEach>
-                            </c:if>
-
                             <c:if test="${songs == null}">
                             <h3>System songs is empty, go and add some !</h3>
                         </c:if>
