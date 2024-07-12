@@ -66,6 +66,7 @@ public class PlaylistSongsServlet extends HttpServlet {
                     PlaylistSongsDao playlistSongsDao = new PlaylistSongsDao();
                     for (String songIdStr : songIdArray) {
                         int songId = Integer.parseInt(songIdStr);
+                        System.out.println("Inserting songId: " + songId + ", to playlist: " + playlistId);
                         PlaylistSongs playlistSongs = new PlaylistSongs(playlistId, songId);
                         playlistSongsDao.insert(playlistSongs);
                     }

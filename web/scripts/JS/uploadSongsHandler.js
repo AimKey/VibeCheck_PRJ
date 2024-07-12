@@ -106,7 +106,6 @@ function onMusicChanged(evt) {
           }
           const row = document.createElement("tr");
           row.innerHTML = `
-                    <tr>
                         <th class="song-img">
                             <img src="${imgSrc}" alt="User picture here" />
                         </th>
@@ -118,12 +117,10 @@ function onMusicChanged(evt) {
                             ${tag.tags.album || ""}
                         </td>
                         <td>
-                            <!-- TODO: On click, handle remove song from the input -->
                             <button class="upload__rmv-btn">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </td>
-                    </tr>
                 `;
           songsTableBody.appendChild(row);
           // Attach event listener programmatically

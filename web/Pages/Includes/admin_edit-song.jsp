@@ -11,7 +11,7 @@
     <c:choose>
         <c:when test="${songs != null}">
             <h3>Select a song</h3>
-            <!-- TODO: Query current songs, then implement search using js -->
+            <!-- TODO: Search bar using js -->
             <div class="search-bar">
                 <input class="search" type="text" />
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -32,9 +32,6 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${songs}" var="s">
-                            <!-- Remind to self, change how this behave, maybe add a little edit button instead -->
-                            <!-- TODO: When user select the song, OPEN and DISPLAY it in 
-                        the detail panel below,  -->
                             <tr class="song-selection edit-song__selection">
                                 <th class="song-id">${s.songId}</th>
                                 <td class="song-img">
@@ -45,9 +42,6 @@
                                 <td class="song-album">${s.album}</td>
                                 <td class="song-duration">${s.duration}</td>
                                 <td class="song-delete">
-                                    <!-- TODO: On click, query and delete song -->
-                                    <!-- IMPORTANT: use JS to send a request to server without redirecting user.
-                                      Then remove this element from the DOM -->
                                     <button class="edit-song__rmv-btn" data-songId=${s.songId}>
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
