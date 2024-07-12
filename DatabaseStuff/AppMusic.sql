@@ -15,7 +15,7 @@ CREATE TABLE AppUser (
     email VARCHAR(100),
     password VARCHAR(100) NOT NULL,
     dateJoined DATE,
-    profilePicPath VARCHAR(100),
+    profilePicPath VARCHAR(100) DEFAULT 'users/fallback.jpg',
 	isAdmin BIT NOT NULL,
 );
 
@@ -28,9 +28,10 @@ GO
 -- Create Artist table
 CREATE TABLE Artist (
     artistId INT PRIMARY KEY IDENTITY(1,1),
-    artistName VARCHAR(100) NOT NULL,
-    bio NVARCHAR(MAX),
-    profilePicturePath VARCHAR(100) -- If this is null, assign to default image artist path
+    artistName VARCHAR(100) DEFAULT 'Various Artist',
+    bio NVARCHAR(MAX) DEFAULT 'No information is found',
+    profilePicturePath VARCHAR(100) DEFAULT 'artist/fallback.jpg' 
+	-- If this is null, assign to default image artist path
 );
 GO
 
@@ -45,9 +46,9 @@ CREATE TABLE Song (
     artistId INT NOT NULL, -- IF artist is null, assign to the default artist id (0)
     duration INT NOT NULL,
     title NVARCHAR(50) NOT NULL,
-    album NVARCHAR(100),
+    album NVARCHAR(100) DEFAULT 'No album is present',
     songFilePath NVARCHAR(200) NOT NULL,
-	songImagePath NVARCHAR(200) NOT NULL, -- If this is null, assign it to default song image path
+	songImagePath NVARCHAR(200) DEFAULT 'songs/fallback.jpg' NOT NULL, -- If this is null, assign it to default song image path
     FOREIGN KEY (artistId) REFERENCES Artist(artistId)
 );
 GO

@@ -17,8 +17,8 @@
         <servlet-class>Controller.Servlets.UploadSong</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditSong</servlet-name>
-        <servlet-class>Controller.EditSong</servlet-class>
+        <servlet-name>SongServlet</servlet-name>
+        <servlet-class>Controller.Servlets.SongServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PlaylistSongsServlet</servlet-name>
@@ -43,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>UploadSong</servlet-name>
         <url-pattern>/UploadSong</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/SongServlet</url-pattern>
     </servlet-mapping>
     <!-- Login route -->
     <servlet>

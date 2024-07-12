@@ -25,6 +25,9 @@ h3 {
     display: none !important;
 }
 
+.yellow-text {
+    color: var(--yellow);
+}
 
 img {
     object-fit: cover;
@@ -336,6 +339,14 @@ td button:hover {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+#edit-song__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
 .edit-song__detail {
     display: flex;
     justify-content: space-around;
@@ -344,14 +355,16 @@ td button:hover {
     gap: 24px;
 }
 
-.detail__picture {
-    width: 300px;
-    height: 300px;
+.edit__selected-song-picture {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
     border-radius: 12px;
     margin: 0;
 }
 
-.detail__picture img {
+.edit__selected-song-picture img {
     border-radius: 12px;
 }
 
@@ -514,4 +527,11 @@ header {
 }
 @keyframes l15{ 
   100%{transform: rotate(1turn)}
+}
+
+.success {
+    color: var(--primary2);
+}
+.fail {
+    color: var(--red);
 }

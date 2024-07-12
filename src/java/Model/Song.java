@@ -40,7 +40,7 @@ public class Song {
     }
 
     public String getSongFilePath() {
-        return songFilePath;
+        return songFilePath.replace("\\", "/");
     }
 
     public void setSongFilePath(String songFilePath) {
@@ -48,7 +48,7 @@ public class Song {
     }
 
     public String getSongImagePath() {
-        return songImagePath;
+        return songImagePath.replace("\\", "/");
     }
 
     public void setSongImagePath(String songImagePath) {
