@@ -8,16 +8,9 @@ window.onbeforeunload = function (e) {
   sessionStorage.setItem("scrollpos", window.scrollY);
 };
 
-// Setup for display loading
 let loadingHTML = document.createElement("div");
 loadingHTML.classList.add("loader");
 
-/**
- * A function to handle delete a row in a table <br>
- * This function will search for the neareast row of a child element <br>
- * Use for display purpose only
- * @param {*} obj An element inside the row
- */
 function handleRemoveRow(obj) {
   let parent;
   console.log("[REMOVE ELEMENTS] :: Removing parent div (<tr>) ");
@@ -26,14 +19,11 @@ function handleRemoveRow(obj) {
   parent.remove();
 }
 
-/**
- * Delete song from database and update display accordingly (Or just refresh if you modify the button into a form)
- */
 const deleteSongBtn = document.querySelectorAll(".edit-song__rmv-btn");
 
 deleteSongBtn.forEach((btn) => {
   btn.addEventListener("click", (evt) => {
-    evt.stopPropagation(); // This one is here so that when click on the trash can, the selection will not triggered
+    evt.stopPropagation();
     let obj = evt.currentTarget;
     console.log(obj);
     let id = obj.getAttribute("data-songId");
@@ -41,9 +31,7 @@ deleteSongBtn.forEach((btn) => {
     console.log("TODO: DELETE song from system , id: " + id);
   });
 });
-/**
- * Handle display when user click (Select on a song to edit)
- */
+
 const songsToEdit = document.querySelectorAll(".edit-song__selection");
 songsToEdit.forEach((btn) => {
   btn.addEventListener("click", (evt) => {
@@ -76,9 +64,6 @@ songsToEdit.forEach((btn) => {
   });
 });
 
-/**
- * Handle update the image when user upload an image (Apply for both user and song edit)
- */
 const uploadImgBtns = document.querySelectorAll(".user-upload-img");
 uploadImgBtns.forEach((btn) => {
   btn.addEventListener("change", (evt) => {
@@ -97,9 +82,7 @@ uploadImgBtns.forEach((btn) => {
     }
   });
 });
-/**
- * Confirm edit song button
- */
+
 const editConfirmBtn = document.querySelector(".edit-song__btn");
 editConfirmBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -116,32 +99,21 @@ editConfirmBtn.addEventListener("click", (evt) => {
     .then((data) => {
       console.log("Server resposne");
       console.log(data);
-      // Do stuff if success
       msgHTML.classList.remove("hide");
       msgHTML.textContent = data;
     })
     .catch((error) => {
       console.error(error);
-      // Do stuff if failed
       msgHTML.classList.remove("hide");
       msgHTML.textContent = error;
     });
 });
 
-/**
- * Function to delete a song from a playlist
- * @param {Object} obj
- * @param {Number} songId
- * @param {Number} playlistId
- */
 let handleDeleteSongFromPlaylist = (obj, songId, playlistId) => {
   handleRemoveRow(obj);
   console.log(`TODO: DELETE songId:${songId} from playlist ${playlistId}`);
 };
 
-/**
- * Make call to server for playlist songs and update display when the playlist is changed
- */
 const playlistInformation = document.getElementsByClassName("playlist-information")[0];
 let playlistId;
 let playlistSelect = document.querySelector(".edit-playlist__select");
@@ -150,8 +122,7 @@ playlistSelect.addEventListener("change", async (evt) => {
   playlistId = obj.value;
   let index = obj.selectedIndex;
   let playlistName = obj.options[index].text;
-  // Show the information of the playlist
-  playlistInformation.classList.remove("hide");
+  playlistInformation.classList.toggle("hide");
   let playlistNameHTML = playlistInformation.querySelector(".playlist__name");
   playlistNameHTML.textContent = playlistName;
 
@@ -160,15 +131,13 @@ playlistSelect.addEventListener("change", async (evt) => {
     let table = document.getElementById("edit-playlist__table");
     let tbody = table.querySelector("tbody");
 
-    tbody.appendChild(loadingHTML); // Funny little loading guy
+    tbody.appendChild(loadingHTML);
 
-    // Make call to the getPlaylistSongs
     let response = await fetch(`PlaylistSongsServlet?action=get&playlistId=${playlistId}`);
     if (response !== null || response.ok) {
       let songObj = await response.json();
 
       tbody.innerHTML = ``;
-      // Set the display of songs
       for (var s of songObj) {
         let songHTML = document.createElement("tr");
         songHTML.classList.add("song-selection");
@@ -191,7 +160,6 @@ playlistSelect.addEventListener("change", async (evt) => {
                         </button>
                     </td>
                 </tr>`;
-        // Add the event listener dynamically because I'm dumb
         let delBtn = songHTML.querySelector(".edit-playlist__delete-btn");
         delBtn.addEventListener("click", () => {
           handleDeleteSongFromPlaylist(delBtn, s.songId, playlistId);
@@ -204,7 +172,6 @@ playlistSelect.addEventListener("change", async (evt) => {
   }
 });
 
-// Handling change name part
 const pNameToggleEdit = playlistInformation.getElementsByClassName(
   "playlist__toggle-change-name"
 )[0];
@@ -213,89 +180,56 @@ const pNameCancelBtn = pNameConfirmBtn.nextElementSibling;
 const pNameInput = playlistInformation.querySelector("input");
 const pNameTitle = playlistInformation.querySelector("h3");
 const updateForm = playlistInformation.querySelector(".playlist-information__change-name");
-/*
- * Handle when toggle edit playlist name is clicked:
- *
- * 1. Hide self, turn on the confirm and cancel buttons
- *
- * 2. Turn the playlist name into input
- */
+
 pNameToggleEdit.addEventListener("click", (evt) => {
   evt.preventDefault();
   console.log("You clicked change name!");
 
-  // Toggle display the buttons
   pNameConfirmBtn.classList.toggle("hide");
   pNameCancelBtn.classList.toggle("hide");
   pNameToggleEdit.classList.toggle("hide");
 
-  // Toggle the input for user to enter
   updateForm.classList.toggle("hide");
   pNameTitle.classList.toggle("hide");
 });
-/**
- * When toggle is on, and confirm is clicked:
- *
- * 1. Make calls to server base on the input value
- *
- * 2. Wait for server response and update the title, setting the elements
- *
- * 3. If error, don't update (Or implement some kind of pop-up)
- */
+
 pNameConfirmBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
 
   console.log("TODO: Handle update playlist name here");
 
-  // Lets say the the call succeed, set the title name here
-
-  // Toggle display the buttons
   pNameConfirmBtn.classList.toggle("hide");
   pNameCancelBtn.classList.toggle("hide");
   pNameToggleEdit.classList.toggle("hide");
 
-  // Turn off input
   updateForm.classList.toggle("hide");
   pNameTitle.classList.toggle("hide");
 
-  // Get the playlistId first
   let pIdInp = updateForm.querySelector("input[name='pId']");
   pIdInp.value = playlistId;
   console.log(pIdInp);
   updateForm.submit();
 });
 
-/**
- * When toggle is on, and cancel is clicked:
- *
- * 1. Revert back to the initial state by setting the elements
- */
 pNameCancelBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
   console.log("Playlist name change canceled");
-  // Toggle display the buttons
   pNameConfirmBtn.classList.toggle("hide");
   pNameCancelBtn.classList.toggle("hide");
   pNameToggleEdit.classList.toggle("hide");
 
-  // Turn off input
   updateForm.classList.toggle("hide");
   pNameTitle.classList.toggle("hide");
 });
 
 const addSongModal = document.getElementById("add-song-modal");
 const pAddSong = document.querySelector(".playlist__add-songs");
-/**
- * Get unique songs so that user can choose it to add into their playlist
- *
- * This is triggered when the add-song modal is open
- */
+
 pAddSong.addEventListener("click", () => {
   let option = document.querySelector("#selectPlaylist");
   let playlistId = option.value;
   let tbody = addSongModal.querySelector("tbody");
   tbody.appendChild(loadingHTML);
-  // Make call to the getPlaylistSongs
   fetch(`PlaylistSongsServlet?action=getUnique&playlistId=${playlistId}`)
     .then((r) => r.json())
     .then((rJSON) => {
@@ -317,7 +251,6 @@ pAddSong.addEventListener("click", () => {
                                             </button>
                                         </td>
                                     </tr>`;
-        // Add the event listener dynamically because I'm dumb
         let addBtn = songHTML.querySelector(".edit-playlist__add-song-btn");
         addBtn.addEventListener("click", () => {
           handleAddSongToPlaylist(addBtn, s.songId);
@@ -328,15 +261,7 @@ pAddSong.addEventListener("click", () => {
     .catch((error) => console.error(error));
 });
 let songsToAdd = [];
-/**
- * 1. Add the songId into a temp array,
- *
- * 2. Remove the songs div from the body
- * (The cancel and confirm part will be handled later)
- * @param {type} obj
- * @param {type} sId
- * @returns {undefined}
- */
+
 function handleAddSongToPlaylist(obj, sId) {
   console.log(`You clicked on add song to playlist: songid: ${sId}, playlistId: ${playlistId}`);
   songsToAdd.push(sId);
@@ -345,8 +270,6 @@ function handleAddSongToPlaylist(obj, sId) {
   obj.disabled = true;
   obj.style.opacity = 0.8;
   console.log("Current songs: " + songsToAdd);
-  //   console.log(row);
-  //   handleRemoveRow(obj);
 }
 
 let cancelAddSongBtn = document.querySelector(".add-song-modal__cancel-btn");
@@ -355,9 +278,6 @@ cancelAddSongBtn.addEventListener("click", (evt) => {
   songsToAdd = [];
 });
 
-/**
- * Submit the form with action and value is playlistId "1,2,3,4"
- */
 const modalConfirm = document.querySelector(".add-song-modal__form");
 
 modalConfirm.addEventListener("click", (e) => {
@@ -366,7 +286,6 @@ modalConfirm.addEventListener("click", (e) => {
   let idString = songsToAdd.join(",");
   console.log(idString);
   let formInputs = modalConfirm.querySelectorAll("input");
-  // 1 is action, 2 is songIds, 3 is playlistId (Playlist id is already determined above)
   formInputs[1].value = idString;
   formInputs[2].value = playlistId;
   modalConfirm.submit();

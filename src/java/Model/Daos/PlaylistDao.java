@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.sql.*;
 import java.time.LocalDate;
 
-// @author phamm
 public class PlaylistDao implements Dao<Playlist> {
 
     @Override
@@ -39,15 +38,9 @@ public class PlaylistDao implements Dao<Playlist> {
 
     @Override
     public ArrayList getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * This one will get all playlist from a user instead
-     *
-     * @param userId
-     * @return
-     */
     public ArrayList<Playlist> getAllPlaylistFromUser(int userId) {
         ArrayList<Playlist> list = new ArrayList<>();
         try (Connection con = new DatabaseInformation().getConnection()) {
@@ -79,17 +72,32 @@ public class PlaylistDao implements Dao<Playlist> {
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public boolean insert(Playlist t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection con = new DatabaseInformation().getConnection()) {
+            PreparedStatement stmt = con.prepareStatement("""
+                                                          INSERT INTO Playlist (userId, name, numberOfSongs, creationDate)
+                                                          VALUES (?, ?, ?, ?)""");
+            stmt.setInt(1, t.getUserId());
+            stmt.setString(2, t.getName());
+            stmt.setInt(3, t.getNumSong());
+            stmt.setDate(4, Date.valueOf(t.getCreationDate()));
+
+            int rowsInserted = stmt.executeUpdate();
+            stmt.close();
+
+            return rowsInserted > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean update(Playlist t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }

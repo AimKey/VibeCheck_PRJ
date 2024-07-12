@@ -29,6 +29,13 @@ public class Playlist {
         this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    public Playlist(int userId, String name, int numberOfSongs, LocalDate creationDate) {
+        this.userId = userId;
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+        this.creationDate = creationDate;
+    }
+    
     public Playlist(int playlistId, int userId, String name, int numberOfSongs, LocalDate creationDate) {
         this.playlistId = playlistId;
         this.userId = userId;
