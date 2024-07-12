@@ -13,7 +13,7 @@ public class DatabaseInformation {
     
     // TODO: Change this to your database configs
     public DatabaseInformation() {
-        this("DESKTOP-U2HHL8U", "AppMusicDatabase", "sa", "123456");
+        this("Kuul", "AppMusicDatabase", "sa", "123456");
     }
 
     public DatabaseInformation(String serverName, String dbName, String dbUser, String dbPassword) {
