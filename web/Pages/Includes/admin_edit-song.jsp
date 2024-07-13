@@ -11,9 +11,8 @@
     <c:choose>
         <c:when test="${songs != null}">
             <h3>Select a song</h3>
-            <!-- TODO: Search bar using js -->
-            <div class="search-bar">
-                <input class="search" type="text" />
+            <div class="search-bar" id="edit-song__search-bar">
+                <input class="search" type="text" placeholder="Search for a song"/>
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
 
