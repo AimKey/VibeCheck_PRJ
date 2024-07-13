@@ -141,10 +141,6 @@ body::-webkit-scrollbar-thumb {
     max-width: 420px;
 }
 
-.user__form button {
-    margin-top: 36px;
-}
-
 .input {
     display: flex;
     flex-direction: column;

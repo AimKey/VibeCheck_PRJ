@@ -26,6 +26,12 @@ function handleRemoveFile(obj, index) {
 }
 
 uploadBtn.addEventListener("click", (evt) => {
+  let uploadBtn = evt.currentTarget;
+
+  let loadingHTML = document.createElement("div");
+  loadingHTML.classList.add("loader");
+
+  uploadBtn.replaceWith(loadingHTML);
   const formData = new FormData();
   const msgHTML = document.querySelector("#upload__msg");
   console.log(msgHTML);
@@ -60,8 +66,12 @@ uploadBtn.addEventListener("click", (evt) => {
         // Do stuff if failed
         msgHTML.classList.remove("hide");
         msgHTML.textContent = error;
+      })
+      .finally(() => {
+        loadingHTML.replaceWith(uploadBtn);
       });
     // form.submit();
+
     console.log("Bruh just refresh the page Im too lazy to handle it for you");
   }
 });

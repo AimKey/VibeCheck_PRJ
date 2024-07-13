@@ -36,12 +36,19 @@
                         <td class="datejoined">${u.dateJoined}</td>
                         <td class="role">Admin</td>
                         <td class="delete" colspan="2">
-                            <form action="UserServlet" method="post">
-                                <button><i class="fa-solid fa-xmark"></i></button>
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="uId" value="${u.userId}">
-                            </form>
-                        </td>
+                            <!-- prevent from deleting yourself -->
+                    <c:if test="${user.userId != u.userId}">
+                        <form action="UserServlet" method="post">
+                            <button><i class="fa-solid fa-xmark"></i></button>
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="uId" value="${u.userId}">
+                        </form>
+                    </c:if>
+                    <c:if test="${user.userId == u.userId}">
+                        <p class="green-text" style="margin: 0; font-weight: bold">You</p>
+                    </c:if>
+
+                    </td>
 
                     </tr>
                 </c:if>
