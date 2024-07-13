@@ -32,8 +32,6 @@ userEditFormBtn.addEventListener("click", (evt) => {
   }
 });
 
-// TODO: Function to delete user
-// TODO: Function to promote a user to admin
 
 /**
  * A function to handle delete a row in a table <br>

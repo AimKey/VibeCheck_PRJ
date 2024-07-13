@@ -4,34 +4,35 @@
     Author     : phamm
 --%>
 
-<header class="container-fluid bg-primary fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-expand-md justify-content-between">
+<header class="bg-primary">
+    <nav class="navbar">
         <div class="navbar-brand rounded ms-2">
             <img src="${user.profilePicPath}" alt="userimg" width="32px"/>
             Hello, ${user.username}
         </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <ul class="navbar-nav text-white">
+        <ul class="navbar-nav text-white flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="#user">User</a>
+                <a class="nav-link" href="/main"><i class="fa-solid fa-home"></i> Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#user"><i class="fa-solid fa-user"></i> User</a>
             </li>
             <c:if test="${user.isAdmin == true}">
                 <li class="nav-item">
-                    <a class="nav-link" href="#user-list">User list</a>
+                    <a class="nav-link" href="#user-list"><i class="fa-solid fa-users"></i> User list</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#upload">Upload songs</a>
+                    <a class="nav-link" href="#upload"><i class="fa-solid fa-upload"></i> Upload songs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#edit-song">Edit songs</a>
+                    <a class="nav-link" href="#edit-song"><i class="fa-solid fa-pen-to-square"></i> Edit songs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#edit-playlist">Edit playlist</a>
+                    <a class="nav-link" href="#edit-playlist"><i class="fa-solid fa-sliders"></i> Edit playlist</a>
                 </li>
             </c:if>
-            <li class="nav-item">
+            <li class="nav-item" style="align-self: center;">
                 <form action="LoginHandler" method="get" class="container-fluid justify-content-start">
                     <input type="submit" name="logout" value="Logout" class="btn btn-outline-danger me-2">
                 </form>

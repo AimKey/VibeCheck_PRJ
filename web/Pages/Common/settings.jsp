@@ -17,11 +17,13 @@
         <title>Setting page</title>
     </head>
     <body>
-        <div class="hidden-box"></div>
-        <main class="main container-fluid">
+        <%--  Main screen --%>
+        <main class="main">
+            <%-- Vertical Navbar --%>
+            <%@include file="/Pages/Includes/navbar.jsp" %>
+            
             <div class="main__menus">
                 <h1>Settings</h1>
-                <%@include file="/Pages/Includes/navbar.jsp" %>
 
                 <%@include file="/Pages/Includes/admin_user.jsp" %>
                 
@@ -44,5 +46,6 @@
         <script src="scripts/JS/bootstrap.bundle.js"></script>
         <script src="scripts/JS/admin.js"></script>
         <script src="scripts/JS/uploadSongsHandler.js"></script>
+        <script src="scripts/JS/searchbar.js"></script>
     </body>
 </html>
