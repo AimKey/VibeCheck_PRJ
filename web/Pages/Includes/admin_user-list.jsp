@@ -40,8 +40,8 @@
                     <c:if test="${user.userId != u.userId}">
                         <form action="UserServlet" method="post">
                             <button><i class="fa-solid fa-xmark"></i></button>
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="uId" value="${u.userId}">
+                            <input type="hidden" name="action" value="delete" />
+                            <input type="hidden" name="uId" value="${u.userId}" />
                         </form>
                     </c:if>
                     <c:if test="${user.userId == u.userId}">
@@ -49,7 +49,6 @@
                     </c:if>
 
                     </td>
-
                     </tr>
                 </c:if>
 

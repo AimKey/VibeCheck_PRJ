@@ -69,7 +69,31 @@ public class AppUserDao implements Dao<AppUser> {
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM AppUser WHERE userId = ?");
+            stmt.setInt(1, id);
+            int row = stmt.executeUpdate();
+
+            stmt.close();
+            return row > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean promoteUser(int id) {
+        try (Connection con = db.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement("UPDATE AppUser SET isAdmin = 1 WHERE userId = ?");
+            stmt.setInt(1, id);
+            int row = stmt.executeUpdate();
+            
+            stmt.close();
+            return row > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -94,8 +118,8 @@ public class AppUserDao implements Dao<AppUser> {
             PreparedStatement stmt = con.prepareStatement(
                     "UPDATE AppUser SET username = ?, email = ?, password = ?, profilePicPath = ? WHERE userId = ?");
             stmt.setString(1, params[1].isEmpty() ? t.getUsername() : params[1]);
-            stmt.setString(2, params[2].isEmpty() ? t.getEmail(): params[2]);
-            stmt.setString(3, params[3].isEmpty() ? t.getPassword(): params[3]);
+            stmt.setString(2, params[2].isEmpty() ? t.getEmail() : params[2]);
+            stmt.setString(3, params[3].isEmpty() ? t.getPassword() : params[3]);
             stmt.setString(4, params[4].isEmpty() ? t.getProfilePicPath() : params[4]);
             stmt.setInt(5, Integer.parseInt(params[0]));
             int status = stmt.executeUpdate();

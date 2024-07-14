@@ -83,8 +83,33 @@ public class PlaylistServlet extends HttpServlet {
             case "updatePName" -> {
                 String pName = request.getParameter("pName");
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
-                System.out.println("[Playlist] :: Handle update playlist name: " + pName + ", pId: " + pId);
+//                LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}",
+//                        new Object[] { pName, pId });
+                // Here you should implement the update logic
+                Playlist pl = new PlaylistDao().get(pId).orElse(null);
+                Boolean r = new PlaylistDao().update(pl, new String[] { pName });
                 response.sendRedirect("settings");
+            }
+
+            case "delete" -> {
+                String o = request.getParameter("pId");
+                if (o != null) {
+                    int id = Integer.parseInt(o);
+                    Boolean r = new PlaylistDao().delete(id);
+                    if (r) {
+                        response.sendRedirect("settings");
+                    } else {
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        response.getWriter().write("Failed to delete");
+                    }
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().write("Null parameter");
+                }
+            }
+            default -> {
+//                LOGGER.log(Level.SEVERE, "Unknown action: {0}", param);
+                throw new AssertionError();
             }
         }
     }
