@@ -18,8 +18,9 @@ public class Song {
     // Song img path is songs/sth/sth.jpeg;
     private String title, songFilePath, songImagePath;
     private String album;
-    
-    public Song() {}
+
+    public Song() {
+    }
 
     public Song(int songId, int duration, String artist, String title, String songFilePath, String songImagePath, String album) {
         this.songId = songId;
@@ -30,7 +31,6 @@ public class Song {
         this.songImagePath = songImagePath;
         this.album = album;
     }
-    
     public String getTitle() {
         return title;
     }
@@ -41,6 +41,18 @@ public class Song {
 
     public String getSongFilePath() {
         return songFilePath.replace("\\", "/");
+    }
+
+    public String getSongFilePathOgh() {
+        return songFilePath.replace("\\", "/");
+    }
+    
+    public String getOriginalFilePath() {
+        return songFilePath;
+    }
+    
+    public String getOriginalImagePath() {
+        return songImagePath;
     }
 
     public void setSongFilePath(String songFilePath) {
@@ -68,11 +80,12 @@ public class Song {
         int seconds = duration % 60;
         String secs = String.valueOf(seconds);
 //        If seconds is a digit
-        if (seconds / 10 == 0)
+        if (seconds / 10 == 0) {
             secs = "0" + secs;
+        }
         return String.format("%d:%s", minutes, secs);
     }
-    
+
     public int getDurationInNumbers() {
         return this.duration;
     }
@@ -100,6 +113,6 @@ public class Song {
     @Override
     public String toString() {
         return "Song{" + "songId=" + songId + ", duration=" + duration + ", artist=" + artist + ", title=" + title + ", songFilePath=" + songFilePath + ", songImagePath=" + songImagePath + ", album=" + album + '}';
-    }    
+    }
 
 }

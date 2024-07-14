@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller.Servlets;
 
+import Database.DatabaseInformation;
 import Model.Daos.PlaylistSongsDao;
+import Model.PlaylistSongs;
 import Model.Song;
 import Utils.JSONWriter;
 import java.io.IOException;
@@ -13,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.sql.*;
 
 /**
  *
@@ -20,13 +19,6 @@ import java.util.ArrayList;
  */
 public class PlaylistSongsServlet extends HttpServlet {
 
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,7 +34,6 @@ public class PlaylistSongsServlet extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
-//                System.out.println("[PlaylistSongs JSON]:: " + json1);
                 response.getWriter().write(json1);
             }
             case "getUnique" -> {
@@ -50,7 +41,6 @@ public class PlaylistSongsServlet extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
-//                System.out.println("[PlaylistSongs JSON]:: Get unique songs: " + json1);
                 response.getWriter().write(json1);
             }
             default -> {
@@ -58,7 +48,6 @@ public class PlaylistSongsServlet extends HttpServlet {
                 throw new AssertionError();
             }
         }
-
     }
 
     @Override
@@ -71,20 +60,76 @@ public class PlaylistSongsServlet extends HttpServlet {
         if (param != null) {
             playlistId = Integer.valueOf(param);
         }
+        System.out.println("Getting action: " + action);
+        
+        if (action == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("No action provided!!!");
+            return;
+        }
         switch (action) {
             case "insertSongs" -> {
-                System.out.println("Received insert action!");
                 String songIds = request.getParameter("songIds");
-                if (songIds != null) {
-                    String[] songIdSplited = songIds.split(",");
-                    for (String string : songIdSplited) {
-                        System.out.println(string);
+                if (songIds != null && playlistId != -1) {
+                    String[] songIdArray = songIds.split(",");
+                    PlaylistSongsDao playlistSongsDao = new PlaylistSongsDao();
+                    for (String songIdStr : songIdArray) {
+                        int songId = Integer.parseInt(songIdStr);
+                        System.out.println("Inserting songId: " + songId + ", to playlist: " + playlistId);
+                        PlaylistSongs playlistSongs = new PlaylistSongs(playlistId, songId);
+                        playlistSongsDao.insert(playlistSongs);
                     }
                 }
-                System.out.println("[PlaylistSongs] :: TODO: Handle add songs to a playlist");
                 response.sendRedirect("settings");
             }
 
+            case "delSong" -> {
+                System.out.println("DEBUG: DeleteServlet - doPost method called");
+
+                try {
+                    String songIdStr = request.getParameter("songId");
+                    String playlistIdStr = request.getParameter("playlistId");
+
+                    System.out.println("DEBUG: songId = " + songIdStr);
+
+                    if (songIdStr == null || playlistIdStr == null || action == null) {
+                        System.out.println("DEBUG: Missing parameters.");
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                        response.getWriter().write("Missing parameters.");
+                        return;
+                    }
+                    int songId = Integer.parseInt(songIdStr);
+
+                    DatabaseInformation i = new DatabaseInformation();
+                    // Delete the song from the playlist
+                    try (Connection conn = i.getConnection()) {
+                        System.out.println("DEBUG: Connection established");
+
+                        PreparedStatement pstmt = conn.prepareStatement("DELETE FROM PlaylistSongs WHERE playlistId = ? AND songId = ?");
+                        pstmt.setInt(1, playlistId);
+                        pstmt.setInt(2, songId);
+                        int rowsAffected = pstmt.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            System.out.println("DEBUG: Song deleted successfully from playlist!");
+                            response.getWriter().write("Song deleted successfully from playlist!");
+                        } else {
+                            System.out.println("DEBUG: No rows affected, check if the song and playlist IDs are correct.");
+                            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                            response.getWriter().write("No song found with the provided ID in the specified playlist.");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("DEBUG: Error deleting song from playlist: " + e.getMessage());
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        response.getWriter().write("Error deleting song from playlist: " + e.getMessage());
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("DEBUG: Invalid songId or playlistId format: " + e.getMessage());
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().write("Invalid songId or playlistId format.");
+                }
+            }
             default -> {
                 System.out.println("Something went wrong! (PlaylistSongs)");
                 throw new AssertionError();

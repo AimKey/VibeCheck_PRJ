@@ -26,6 +26,12 @@ function handleRemoveFile(obj, index) {
 }
 
 uploadBtn.addEventListener("click", (evt) => {
+  let uploadBtn = evt.currentTarget;
+
+  let loadingHTML = document.createElement("div");
+  loadingHTML.classList.add("loader");
+
+  uploadBtn.replaceWith(loadingHTML);
   const formData = new FormData();
   const msgHTML = document.querySelector("#upload__msg");
   console.log(msgHTML);
@@ -60,8 +66,12 @@ uploadBtn.addEventListener("click", (evt) => {
         // Do stuff if failed
         msgHTML.classList.remove("hide");
         msgHTML.textContent = error;
+      })
+      .finally(() => {
+        loadingHTML.replaceWith(uploadBtn);
       });
     // form.submit();
+
     console.log("Bruh just refresh the page Im too lazy to handle it for you");
   }
 });
@@ -96,7 +106,6 @@ function onMusicChanged(evt) {
           }
           const row = document.createElement("tr");
           row.innerHTML = `
-                    <tr>
                         <th class="song-img">
                             <img src="${imgSrc}" alt="User picture here" />
                         </th>
@@ -108,12 +117,10 @@ function onMusicChanged(evt) {
                             ${tag.tags.album || ""}
                         </td>
                         <td>
-                            <!-- TODO: On click, handle remove song from the input -->
                             <button class="upload__rmv-btn">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </td>
-                    </tr>
                 `;
           songsTableBody.appendChild(row);
           // Attach event listener programmatically

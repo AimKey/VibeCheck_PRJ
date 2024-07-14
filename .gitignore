@@ -13,4 +13,8 @@ build/
 src/java/Database/DatabaseInformation.java
 /src/java/Database/
 # Wars file ?
+<<<<<<< HEAD
 /dist/
+=======
+/dist/
+>>>>>>> ee052f9598323f48a0c6ae0e7df687e3bbb0162a

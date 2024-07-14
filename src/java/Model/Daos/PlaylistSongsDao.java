@@ -30,13 +30,6 @@ public class PlaylistSongsDao implements Dao<PlaylistSongs> {
         return Optional.ofNullable(playlistSongs);
     }
 
-    /**
-     * This one is a little bit special, we will get all Song that belong to a
-     * playlist instead, because get all song from playlistSongs has no value.
-     *
-     * @param playlistId
-     * @return
-     */
     public ArrayList<Song> getAllSongsByPlaylistId(int playlistId) {
         ArrayList<Song> list = new ArrayList<>();
         try (Connection con = db.getConnection()) {
@@ -70,16 +63,7 @@ public class PlaylistSongsDao implements Dao<PlaylistSongs> {
         }
         return list;
     }
-    
-    /**
-     * This one will return a list of Songs that is not available in the current
-     * playlist with playlistId
-     *
-     * This is used for adding new songs to the current playlist (Or we can just 
-     * allow 2 songs in a playlist)
-     * @param playlistId
-     * @return
-     */
+
     public ArrayList<Song> getUniqueSongs(int playlistId) {
         ArrayList<Song> list = new ArrayList<>();
         try (Connection con = db.getConnection()) {
@@ -161,11 +145,11 @@ public class PlaylistSongsDao implements Dao<PlaylistSongs> {
 
     @Override
     public ArrayList<PlaylistSongs> getAll() {
-        throw new UnsupportedOperationException("Why would you want to call getAll on PlaylistSongs."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Why would you want to call getAll on PlaylistSongs.");
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

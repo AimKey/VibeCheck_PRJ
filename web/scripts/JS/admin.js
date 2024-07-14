@@ -12,6 +12,27 @@ window.onbeforeunload = function (e) {
 let loadingHTML = document.createElement("div");
 loadingHTML.classList.add("loader");
 
+// User edit js
+const userEditForm = document.querySelector(".user__form");
+const userEditFormBtn = userEditForm.querySelector(".button-confirm");
+
+userEditFormBtn.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  const msg = document.getElementById("user-edit__msg"); // Message element
+  // Check if confirm password is correct
+  let pass = userEditForm.querySelector('input[name="password"]').value;
+  let cfnPass = userEditForm.querySelector('input[name="confirm-password"]').value;
+  if (pass != cfnPass) {
+    console.log("Password not match!: " + pass + "-" + cfnPass);
+    msg.classList.remove("hide");
+    msg.textContent = "Confirm password does not match!";
+  } else {
+    console.log("Submitting");
+    userEditForm.submit();
+  }
+});
+
+
 /**
  * A function to handle delete a row in a table <br>
  * This function will search for the neareast row of a child element <br>
@@ -25,7 +46,7 @@ function handleRemoveRow(obj) {
   console.log(parent);
   parent.remove();
 }
-
+//
 /**
  * Delete song from database and update display accordingly (Or just refresh if you modify the button into a form)
  */
@@ -35,10 +56,29 @@ deleteSongBtn.forEach((btn) => {
   btn.addEventListener("click", (evt) => {
     evt.stopPropagation(); // This one is here so that when click on the trash can, the selection will not triggered
     let obj = evt.currentTarget;
+    let loadingHTML = document.createElement("div");
+    loadingHTML.classList.add("loader");
+    obj.replaceWith(loadingHTML);
     console.log(obj);
     let id = obj.getAttribute("data-songId");
-    handleRemoveRow(obj);
-    console.log("TODO: DELETE song from system , id: " + id);
+
+    let formData = new FormData();
+    formData.append("action", "deleteSong");
+    formData.append("sId", id);
+    fetch("SongServlet", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.text())
+      .then((msg) => {
+        console.log("Delete Success!");
+        loadingHTML.replaceWith(obj);
+        handleRemoveRow(obj);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        evt.currentTarget.innerHTML = btn;
+      });
   });
 });
 /**
@@ -71,8 +111,6 @@ songsToEdit.forEach((btn) => {
     nameInput.value = title;
     artistInput.value = artist;
     albumInput.value = album;
-    console.log(songIdInput);
-    console.log(songIdInput.value);
   });
 });
 
@@ -115,29 +153,57 @@ editConfirmBtn.addEventListener("click", (evt) => {
     })
     .then((data) => {
       console.log("Server resposne");
-      console.log(data);
+      console.log("Success" + data);
       // Do stuff if success
       msgHTML.classList.remove("hide");
       msgHTML.textContent = data;
     })
     .catch((error) => {
-      console.error(error);
+      console.error("Error: " + error);
       // Do stuff if failed
       msgHTML.classList.remove("hide");
       msgHTML.textContent = error;
     });
 });
 
+
 /**
  * Function to delete a song from a playlist
- * @param {Object} obj
- * @param {Number} songId
+ * @param {Object} btn
  * @param {Number} playlistId
  */
-let handleDeleteSongFromPlaylist = (obj, songId, playlistId) => {
-  handleRemoveRow(obj);
-  console.log(`TODO: DELETE songId:${songId} from playlist ${playlistId}`);
-};
+function handleDeleteSongFromPlaylist(btn, playlistId) {
+  let songId = btn.getAttribute("data-songId");
+
+  // WHAT THE ACUTAL FUCK JUST USE SEARCH PARAMS FOR GOD SAKE ???????
+  let url = new URLSearchParams();
+  url.append("action", "delSong");
+  url.append("songId", songId);
+  url.append("playlistId", playlistId);
+
+  fetch("PlaylistSongsServlet", {
+    method: "POST",
+    body: url,
+  })
+    .then((response) => {
+      console.log("Fetch response status: " + response.status);
+      return response.text().then((text) => {
+        return { status: response.status, text: text };
+      });
+    })
+    .then((result) => {
+      if (result.status === 200) {
+        console.log("Server response: " + result.text);
+        handleRemoveRow(btn); // Remove the song row from the table
+      } else {
+        throw new Error("Server error: " + result.text);
+      }
+    })
+    .catch((error) => {
+      console.error("Error deleting song:", error);
+      alert("Failed to delete song. Please try again later.");
+    });
+}
 
 /**
  * Make call to server for playlist songs and update display when the playlist is changed
@@ -151,7 +217,7 @@ playlistSelect.addEventListener("change", async (evt) => {
   let index = obj.selectedIndex;
   let playlistName = obj.options[index].text;
   // Show the information of the playlist
-  playlistInformation.classList.toggle("hide");
+  playlistInformation.classList.remove("hide");
   let playlistNameHTML = playlistInformation.querySelector(".playlist__name");
   playlistNameHTML.textContent = playlistName;
 
@@ -186,25 +252,27 @@ playlistSelect.addEventListener("change", async (evt) => {
                     </td>
                     <td class="song-duration">${s.duration}</td>
                     <td>
-                        <button class="edit-playlist__delete-btn">
+                        <button class="edit-playlist__delete-btn" data-songId=${s.songId}>
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </td>
                 </tr>`;
-        // Add the event listener dynamically because I'm dumb
-        let delBtn = songHTML.querySelector(".edit-playlist__delete-btn");
-        delBtn.addEventListener("click", () => {
-          handleDeleteSongFromPlaylist(delBtn, s.songId, playlistId);
-        });
         tbody.appendChild(songHTML);
       }
+      // Add the event listener dynamically because I'm dumb
+      let delBtn = table.querySelectorAll(".edit-playlist__delete-btn");
+      delBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          handleDeleteSongFromPlaylist(btn, playlistId);
+        });
+      });
     }
   } else {
     console.log("Default playlist selected");
   }
 });
 
-// Handling change name part
+// Handling change name for playlist part
 const pNameToggleEdit = playlistInformation.getElementsByClassName(
   "playlist__toggle-change-name"
 )[0];
@@ -234,7 +302,7 @@ pNameToggleEdit.addEventListener("click", (evt) => {
   pNameTitle.classList.toggle("hide");
 });
 /**
- * When toggle is on, and confirm is clicked:
+ * When toggle is on (In change playlist name mode), and confirm is clicked:
  *
  * 1. Make calls to server base on the input value
  *
@@ -244,10 +312,6 @@ pNameToggleEdit.addEventListener("click", (evt) => {
  */
 pNameConfirmBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
-
-  console.log("TODO: Handle update playlist name here");
-
-  // Lets say the the call succeed, set the title name here
 
   // Toggle display the buttons
   pNameConfirmBtn.classList.toggle("hide");
@@ -262,6 +326,8 @@ pNameConfirmBtn.addEventListener("click", (evt) => {
   let pIdInp = updateForm.querySelector("input[name='pId']");
   pIdInp.value = playlistId;
   console.log(pIdInp);
+
+  console.log(updateForm);
   updateForm.submit();
 });
 
@@ -300,10 +366,12 @@ pAddSong.addEventListener("click", () => {
     .then((r) => r.json())
     .then((rJSON) => {
       tbody.innerHTML = ``;
+      let ids = [];
       for (var s of rJSON) {
+        console.log(s);
         let songHTML = document.createElement("tr");
         songHTML.classList.add("song-selection");
-        songHTML.innerHTML = `<tr class="song-selection">
+        songHTML.innerHTML = `
                                         <th class="song-img">
                                             <img src="${s.songImagePath}" alt="${s.title}" />
                                         </th>
@@ -312,21 +380,22 @@ pAddSong.addEventListener("click", () => {
                                         <td class="song-album">${s.album}</td>
                                         <td class="song-duration">${s.duration}</td>
                                         <td>
-                                            <button class="edit-playlist__add-song-btn">
+                                            <button class="edit-playlist__add-song-btn" data-songId=${s.songId}>
                                                 <i class="fa-solid fa-circle-plus"></i>
                                             </button>
-                                        </td>
-                                    </tr>`;
-        // Add the event listener dynamically because I'm dumb
-        let addBtn = songHTML.querySelector(".edit-playlist__add-song-btn");
-        addBtn.addEventListener("click", () => {
-          handleAddSongToPlaylist(addBtn, s.songId);
-        });
+                                        </td>`;
         tbody.appendChild(songHTML);
       }
+      let addBtns = document.querySelectorAll(".edit-playlist__add-song-btn");
+      addBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          handleAddSongToPlaylist(btn, playlistId);
+        });
+      });
     })
     .catch((error) => console.error(error));
 });
+
 let songsToAdd = [];
 /**
  * 1. Add the songId into a temp array,
@@ -335,12 +404,12 @@ let songsToAdd = [];
  * (The cancel and confirm part will be handled later)
  * @param {type} obj
  * @param {type} sId
- * @returns {undefined}
  */
-function handleAddSongToPlaylist(obj, sId) {
+function handleAddSongToPlaylist(obj, playlistId) {
+  let sId = obj.getAttribute("data-songId");
   console.log(`You clicked on add song to playlist: songid: ${sId}, playlistId: ${playlistId}`);
   songsToAdd.push(sId);
-  let row = obj.closest("tr");
+  //   let row = obj.closest("tr");
   obj.innerHTML = `<i class="fa-solid fa-check" style="color: #76abae;"></i>`;
   obj.disabled = true;
   obj.style.opacity = 0.8;
@@ -370,4 +439,16 @@ modalConfirm.addEventListener("click", (e) => {
   formInputs[1].value = idString;
   formInputs[2].value = playlistId;
   modalConfirm.submit();
+});
+
+const removePlaylistBtn = document.getElementById("edit-playlist__rmv-btn");
+removePlaylistBtn.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  console.log("Deleting this playlist: " + playlistId);
+  let form = evt.currentTarget.closest("form");
+  console.log(form);
+  let inputId = form.querySelector("input[name=pId]");
+  inputId.value = playlistId;
+  console.log(inputId);
+  form.submit();
 });

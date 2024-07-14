@@ -30,6 +30,7 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 /**
  *
@@ -49,20 +50,7 @@ public class SettingPageOnLoad implements Filter {
 
     private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
-        System.out.println("[onAdminPageLoad]: Session: " + request.getSession().getId());
-        AppUserDao dao = new AppUserDao();
-        ArrayList<AppUser> appUsers = dao.getAll();
-        ArrayList<Song> songs = new SongDao().getAll();
-        AppUser user = (AppUser) request.getSession().getAttribute("user");
-        if (user != null) {
-//            System.out.println(user + ":: accessing admin page");
-            ArrayList<Playlist> playlists = new PlaylistDao().getAllPlaylistFromUser(user.getUserId());
-            request.setAttribute("users", appUsers);
-            request.setAttribute("songs", songs);
-            request.setAttribute("playlists", playlists);
-        } else {
-            response.sendRedirect("login");
-        }
+        
     }
 
     private void doAfterProcessing(RequestWrapper request, ResponseWrapper response)

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Queue;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -26,9 +27,10 @@ public class Helpers {
     /**
      * Create a (Song) folder in this format:
      * (fullpath)/filename/filename.partextension
+     *
      * @param fullPath
      * @param part
-     * @throws IOException 
+     * @throws IOException
      */
     public void setupSongFolder(String fullPath, Part part) throws IOException {
         // Extract the directory path from the full path
@@ -92,22 +94,37 @@ public class Helpers {
         }
         return fileName; // In case there is no dot in the filename
     }
+
     /**
-     * A function to get path to a file with the following format.
-     * baseDir/middleFolder/fileName/filename.desiredFormat
+     * A function to get path to a file with the following format.<br>
+     * baseDir/middleFolder/fileName/filename.desiredFormat<br>
      * Ex: build/web->Songs->Name->Name.jpg
+     *
      * @param baseDir Usually getRealPath
-     * @param middleFolder
+     * @param middleFolder The folder in middle (Ex: Folder to contain both
+     * songs file and image)
      * @param fileName FileName
      * @param ext File extension. Ex: mp3, jpg
-     * @return 
+     * @return
      */
-    public String getNewFileLocation (String baseDir, String middleFolder, String fileName, String ext) {
-        String s = baseDir + middleFolder + File.separator + fileName + File.separator + fileName + "." + ext;
+    public String getNewFileLocation(String baseDir, String middleFolder, String fileName, String ext) {
+        String s;
+        if (middleFolder.isEmpty()) {
+            System.out.println("Building dir without middleFolder");
+            s = baseDir + middleFolder + File.separator + fileName + File.separator + fileName + "." + ext;
+        } else {
+            System.out.println("Building dir with middleFolder");
+            s = baseDir + middleFolder + File.separator + fileName + File.separator + fileName + "." + ext;
+        }
         return s;
     }
-    
-    public void buildDirectory (String fullPath) throws IOException {
+
+    /**
+     * Create all folders/dirs on the path specified
+     * @param fullPath
+     * @throws IOException 
+     */
+    public void buildDirectory(String fullPath) throws IOException {
         // Extract the directory path from the full path
         File directory = new File(fullPath).getParentFile();
 
@@ -116,5 +133,26 @@ public class Helpers {
             // Create the directory
             Files.createDirectories(Paths.get(directory.getAbsolutePath()));
         }
+    }
+    /**
+     * Get the path to display resources on browser <br>
+     * This one is for you if you are lazy af <br>
+     * Using the args, it will generate like this: <br>
+     * Ex: users/Minhkiet/Minhkiet.jpg
+     * @param folderName The name of both the folder and the file
+     * @param middleFolder The folder to retrieve, ex: songs, users, artists
+     * @param ext The extension
+     * @return 
+     */
+    public String generateRelativePathForObject (String middleFolder, String folderName, String ext) {
+        return middleFolder + File.separator + folderName + File.separator + folderName + "." + ext;
+    }
+    
+    public String replaceWithForwardSlash(String r) {
+        return r.replace("\\", "/");
+    }
+    
+    public String replaceWithBackwardSlash(String r) {
+        return r.replace("/", "\\");
     }
 }

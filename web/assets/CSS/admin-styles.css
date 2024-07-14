@@ -42,17 +42,21 @@ img {
     background-color: var(--secondary);
     padding: 80px 60px;
     border-radius: 24px;
+    overflow-x: auto;
 }
 
 .main {
     background-color: var(--primary);
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 60px 24px;
-    padding-top: 0;
+    flex-direction: row;
+    gap: 24px;
+    padding: 12px 24px;
+    /* padding-left: 0;
+    padding-top: 12px; */
     color: var(--text);
     font-size: 18px;
+    min-width: 0;
+    min-height: 0;
 }
 
 body::-webkit-scrollbar {
@@ -66,13 +70,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .main__menus {
+    width: 80%;
     display: flex;
     flex-direction: column;
     gap: 60px;
     text-align: center;
+    flex-shrink: 1;
 }
-
-
 
 .title {
     font-size: 32px;
@@ -139,10 +143,6 @@ body::-webkit-scrollbar-thumb {
     gap: 24px;
     width: 50%;
     max-width: 420px;
-}
-
-.user__form button {
-    margin-top: 36px;
 }
 
 .input {
@@ -233,7 +233,7 @@ input[type="file"] {
 }
 
 .songs-display::-webkit-scrollbar {
-    background-color: none;
+    background-color: transparent;
     width: 10px;
     height: 10px;
 }
@@ -464,12 +464,7 @@ td button:hover {
 }
 
 .hidden-box {
-    height: 60px;
-    width: 100%;
-}
-
-header {
-    color: var(--text);
+    height: 100%;
 }
 
 .button-svg {
@@ -503,30 +498,32 @@ header {
 
 /* HTML: <div class="loader"></div> */
 .loader {
-  width: 50px;
-  aspect-ratio: 1;
-  display: grid;
-  border: 4px solid #0000;
-  border-radius: 50%;
-  border-right-color: #25b09b;
-  animation: l15 1s infinite linear;
-  margin: 0 auto;
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+    border: 4px solid #0000;
+    border-radius: 50%;
+    border-right-color: #25b09b;
+    animation: l15 1s infinite linear;
+    margin: 0 auto;
 }
 .loader::before,
-.loader::after {    
-  content: "";
-  grid-area: 1/1;
-  margin: 2px;
-  border: inherit;
-  border-radius: 50%;
-  animation: l15 2s infinite;
+.loader::after {
+    content: "";
+    grid-area: 1/1;
+    margin: 2px;
+    border: inherit;
+    border-radius: 50%;
+    animation: l15 2s infinite;
 }
 .loader::after {
-  margin: 8px;
-  animation-duration: 3s;
+    margin: 8px;
+    animation-duration: 3s;
 }
-@keyframes l15{ 
-  100%{transform: rotate(1turn)}
+@keyframes l15{
+    100%{
+        transform: rotate(1turn)
+    }
 }
 
 .success {
@@ -534,4 +531,36 @@ header {
 }
 .fail {
     color: var(--red);
+}
+
+header {
+    color: var(--text);
+    height: 100%;
+    width: 20%;
+    position: relative;
+}
+
+.navbar {
+    position: fixed;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 24px;
+    height: 98%;
+    padding: 12px 16px;
+    background: var(--secondary);
+    border-radius: 16px;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: start;
+    width: 100%;
+}
+
+.navbar i {
+    font-size: 16px;
+    margin-right: 6px;
 }
