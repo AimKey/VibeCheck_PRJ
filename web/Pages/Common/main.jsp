@@ -14,8 +14,8 @@
     </head>
 
     <body>
-        <div class="container-fluid">
-            <div class="row">
+        <div class="container-fluid main">
+            <div class="row main__upper">
                 <div class="col-1">
                     <div class="col-9">
                         <div class="long-bar">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------------->
-                <div class="col">
+                <div class="col main__middle">
                     <div class="search-bar">
                         <span class="search-icon">
                             <ion-icon name="search-outline"></ion-icon>
@@ -77,17 +77,19 @@
                 </div>
 
                 <!------------------------------------------------------------------------------------------->
-                <div class="col-3">
+                <div class="col-3 main__side-info">
                     <div class="infomusic">
                         <div class="music">
-                            <img src="" id="bigImg" alt="demo" >
-                            <div class="music-info">
-                                <h4 class="music-title">Song Title</h4>
-                                <p class="artist-name">Artist Name</p>
-                            </div>
-                            <div class="album-right">
-                                <h4 class="music-album">Album</h4>
-                                <p class="name-album"></p>
+                            <div class="muisc__info-wrapper">
+                                <img src="" id="bigImg" alt="demo" >
+                                <div class="music-info">
+                                    <h4 class="music-title">Song Title</h4>
+                                    <p class="artist-name">Artist Name</p>
+                                </div>
+                                <div class="album-right">
+                                    <h4 class="music-album">Album</h4>
+                                    <p class="name-album"></p>
+                                </div>
                             </div>
 
                             <div class="allnext">   
@@ -114,7 +116,7 @@
                         <div class="song-play">
                             <img src="assets/images/demo.jpg" alt="demo" id="smallImg">
                             <div class="song-info bottom">
-                                <p class="music-title">Song Title</p>
+                                <h4 class="music-title">Song Title</h4>
                                 <p class="artist-name">Artist Name</p>
                             </div>
                         </div>
