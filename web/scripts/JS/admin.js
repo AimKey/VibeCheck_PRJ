@@ -312,7 +312,6 @@ pNameToggleEdit.addEventListener("click", (evt) => {
  */
 pNameConfirmBtn.addEventListener("click", (evt) => {
   evt.preventDefault();
-  console.log("TODO: Handle update playlist name here");
 
   // Toggle display the buttons
   pNameConfirmBtn.classList.toggle("hide");
