@@ -59,6 +59,10 @@ public class PlaylistServlet extends HttpServlet {
                 String jsonResult = new JSONWriter<List<String>>().getJSONString(songFilePaths);
                 response.getWriter().write(jsonResult);
             }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 4d3ef1a5a6eb2906654532c8dbae3aa946e2bce3
             default -> {
                 System.out.println("Action: " + param);
                 throw new AssertionError();

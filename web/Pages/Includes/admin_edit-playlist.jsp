@@ -55,10 +55,10 @@
             <input type="hidden" name="pId" id="pId"/>
             <input type="hidden" name="action" value="delete"/>
         </form>
-        <!-- Play music button -->
+        <%-- <!-- Play music button -->
         <button class="playlist__play-music button-svg button-icon" type="button" onclick="playMusic()" title="Play music from the playlist">
             <i class="fa-solid fa-play"></i>
-        </button>
+        </button> --%>
     </div>
 
     <div class="songs-display">
