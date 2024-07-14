@@ -62,6 +62,9 @@
                         <a href="#" class="signup-link">Sign Up</a>
                     </p>
                 </div>
+                <c:if test="${msg != null}">
+                    <h3 class="text-danger text-center">${msg}</h3>
+                </c:if>
             </div>
 
             <div class="form-box signup">

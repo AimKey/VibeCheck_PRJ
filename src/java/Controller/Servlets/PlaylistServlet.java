@@ -1,7 +1,9 @@
 package Controller.Servlets;
 
+import Model.AppUser;
 import Model.Daos.PlaylistDao;
 import Model.Daos.PlaylistSongsDao;
+import Model.Daos.SongDao;
 import Model.Playlist;
 import Model.Song;
 import Utils.JSONWriter;
@@ -29,21 +31,21 @@ public class PlaylistServlet extends HttpServlet {
         processRequest(request, response);
         String param = request.getParameter("action");
         switch (param) {
-            case "getJSON" -> {
+            case "get" -> {
                 String result = null;
-                if (param.equals("all")) {
-                    System.out.println("TODO: Handle get ALL playlist");
-                } else if (param.equals("get")) {
-                    Integer id = Integer.valueOf(request.getParameter("id"));
+                System.out.println("Getting specified playlist");
+                Integer id = Integer.valueOf(request.getParameter("id"));
+                if (id == 0) {
+                    Playlist p = new Playlist(0, 0, "System", new SongDao().getAll().size(), LocalDate.now());
+                    result = new JSONWriter<Playlist>().getJSONString(p);
+                } else {
                     Optional<Playlist> optional = new PlaylistDao().get(id);
                     if (optional.isPresent()) {
                         Playlist p = optional.get();
                         result = new JSONWriter<Playlist>().getJSONString(p);
                     }
                 }
-                if (result != null) {
-                    response.getWriter().write(result);
-                }
+                response.getWriter().write(result);
             }
             case "getSongs" -> {
                 Integer playlistId = Integer.valueOf(request.getParameter("playlistId"));
@@ -69,10 +71,12 @@ public class PlaylistServlet extends HttpServlet {
         String param = request.getParameter("action");
         switch (param) {
             case "create" -> {
+                System.out.println("Creating new playlist");
                 HttpSession session = request.getSession();
-                Integer userId = (Integer) session.getAttribute("userId");
+                AppUser user = (AppUser) session.getAttribute("user");
+                Integer userId = user.getUserId();
                 String playlistName = request.getParameter("playlistName");
-
+                System.out.println("User id: " + userId + ", playlist: " + playlistName);
                 if (userId != null && playlistName != null && !playlistName.trim().isEmpty()) {
                     Playlist newPlaylist = new Playlist(userId, playlistName, 0, LocalDate.now());
                     new PlaylistDao().insert(newPlaylist);
@@ -84,7 +88,7 @@ public class PlaylistServlet extends HttpServlet {
                 String pName = request.getParameter("pName");
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
                 Playlist pl = new PlaylistDao().get(pId).orElse(null);
-                Boolean r = new PlaylistDao().update(pl, new String[] { pName });
+                Boolean r = new PlaylistDao().update(pl, new String[]{pName});
                 response.sendRedirect("settings");
             }
 

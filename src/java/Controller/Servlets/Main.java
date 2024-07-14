@@ -4,7 +4,10 @@
  */
 package Controller.Servlets;
 
+import Model.AppUser;
+import Model.Daos.PlaylistDao;
 import Model.Daos.SongDao;
+import Model.Playlist;
 import Model.Song;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -30,11 +33,29 @@ public class Main extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        Object o = request.getAttribute("curPlaylist");
+        Integer curPlaylistId = null;
+        if (o != null) {
+            curPlaylistId = (Integer) o;
+        }
+        o = request.getSession().getAttribute("user");
+        if (o == null) response.sendRedirect("login");
+        AppUser a = (AppUser) o;
         // Set attribute
         ArrayList<Song> abc = new SongDao().getAll();
-        request.setAttribute("songs", abc);
+        ArrayList<Playlist> pls = new PlaylistDao().getAllPlaylistFromUser(a.getUserId());
+        if (curPlaylistId != null) {
+            // Set to the session so that we wil come back to it or use cookie later
+            request.getSession().setAttribute("curPlaylist", new PlaylistDao().get(curPlaylistId));
+        } else {
+            // No playlist, default to the system
+            Playlist system = new Playlist(0, 0, "System", abc.size());
+            request.getSession().setAttribute("curPlaylist", system);
+        }
 
+        request.setAttribute("songs", abc);
+        request.setAttribute("playlists", pls);
+        request.setAttribute("systemSongsCount", abc.size());
         request.getRequestDispatcher("Pages/Common/main.jsp").forward(request, response);
     }
 

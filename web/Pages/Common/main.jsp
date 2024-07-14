@@ -3,14 +3,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MainPage</title>
         <link rel = "stylesheet" href = "assets/CSS/bootstrap.css">
         <link rel="stylesheet" href="assets/CSS/main.css">
-
     </head>
 
     <body>
@@ -61,7 +59,31 @@
                         <input type="text" class="search-input" placeholder="What are you looking for ~">
                     </div>
 
-                    <p class="text1">Tên Playlist o đây</p>
+                    <div class="select-playlist__wrapper">
+                        <select
+                            class="form-select playlist__select"
+                            name="selectPlaylist"
+                            id="selectPlaylist"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Choose a playlist"
+                            >
+                            <!-- 0 equals system! -->
+                            <option value="0">System</option> 
+                            <c:forEach var="p" items="${playlists}">
+                                <option value="${p.playlistId}">${p.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div id="playlist__info">
+                        <h3 class="blue-text">${curPlaylist.name}</h3>
+                        <p class="sub-text">(${curPlaylist.numberOfSongs}) songs</p>
+                        <span class="icon">
+                            <ion-icon name="play-circle-outline"></ion-icon>
+                        </span>
+                    </div>
+
                     <div class="text-container">
                         <p class="text2">Details</p>
                         <p class="text3">Album</p>

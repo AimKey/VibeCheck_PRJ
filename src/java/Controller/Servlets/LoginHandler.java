@@ -84,7 +84,7 @@ public class LoginHandler extends HttpServlet {
         // No user found
         if (aUser == null) {
             request.setAttribute("msg", "Wrong user account!");
-            request.getRequestDispatcher("Pages/Common/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login").forward(request, response);
         } else {
             // Found user, logging in
             // Creating cookies

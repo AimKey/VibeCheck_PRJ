@@ -11,10 +11,21 @@ public class Playlist {
 
     private int playlistId, userId;
     private String name;
-    int numberOfSongs;
-    LocalDate creationDate;
-   
+    private int numberOfSongs;
+    private LocalDate creationDate;
 
+    public Playlist(String name, int numberOfSongs) {
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+    }
+
+    public Playlist(int playlistId, int userId, String name, int numberOfSongs) {
+        this.playlistId = playlistId;
+        this.userId = userId;
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+    }
+    
     public Playlist(String name, int numSong, String creationDate) {
         this.name = name;
         this.numberOfSongs = numSong;
@@ -68,12 +79,12 @@ public class Playlist {
         this.name = name;
     }
 
-    public int getNumSong() {
+    public int getNumberOfSongs() {
         return numberOfSongs;
     }
 
-    public void setNumSong(int numSong) {
-        this.numberOfSongs = numSong;
+    public void setNumberOfSongs(int numberOfSongs) {
+        this.numberOfSongs = numberOfSongs;
     }
 
     public String getCreationDate() {

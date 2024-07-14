@@ -2,6 +2,7 @@ package Controller.Servlets;
 
 import Database.DatabaseInformation;
 import Model.Daos.PlaylistSongsDao;
+import Model.Daos.SongDao;
 import Model.PlaylistSongs;
 import Model.Song;
 import Utils.JSONWriter;
@@ -30,7 +31,13 @@ public class PlaylistSongsServlet extends HttpServlet {
         }
         switch (action) {
             case "get" -> {
-                ArrayList<Song> songs = new PlaylistSongsDao().getAllSongsByPlaylistId(playlistId);
+                ArrayList<Song> songs;
+                if (playlistId == 0) {
+                    // Return the system songs
+                    songs = new SongDao().getAll();
+                } else {
+                    songs = new PlaylistSongsDao().getAllSongsByPlaylistId(playlistId);
+                }
                 response.setContentType("application/json;charset=UTF-8");
 
                 String json1 = new JSONWriter<ArrayList<Song>>().getJSONString(songs);
@@ -61,7 +68,7 @@ public class PlaylistSongsServlet extends HttpServlet {
             playlistId = Integer.valueOf(param);
         }
         System.out.println("Getting action: " + action);
-        
+
         if (action == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("No action provided!!!");

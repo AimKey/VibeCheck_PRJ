@@ -14,7 +14,7 @@ CREATE TABLE AppUser (
     username NVARCHAR(10) NOT NULL,
     email VARCHAR(100),
     password VARCHAR(100) NOT NULL,
-    dateJoined DATE,
+    dateJoined DATE DEFAULT GETDATE(),
     profilePicPath VARCHAR(100) DEFAULT 'users/fallback.jpg',
 	isAdmin BIT NOT NULL,
 );

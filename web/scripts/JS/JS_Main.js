@@ -203,7 +203,7 @@ function replaySong(btn) {
 document.getElementById('reBtn').addEventListener('click', (evt) => {
     let btn = evt.target;
     replaySong(btn);
-    
+
 });
 ///////////////////////Process Duration////////////////////////////
 document.addEventListener('DOMContentLoaded', function () {
@@ -255,4 +255,86 @@ nextBtn.addEventListener('click', () => {
     setTimeout(() => {
         nextBtn.classList.remove('clicked');
     }, 200); // remove the class after 200ms
+});
+
+
+
+
+// Handle playlist stuff FRICK
+// Setup for display loading
+
+let loadingHTML = document.createElement("div");
+loadingHTML.classList.add("loader");
+/**
+ * Make call to server for playlist songs and update display when the playlist is changed
+ */
+const parrentBody = document.getElementsByClassName("List-Song")[0]; // the parent where we will append child
+let playlistId; // The id to make query to server
+let playlistSelect = document.querySelector(".playlist__select"); // The option element
+console.log(playlistSelect);
+playlistSelect.addEventListener("change", async (evt) => {
+    let obj = evt.currentTarget;
+    playlistId = obj.value;
+    let index = obj.selectedIndex;
+    let playlistName = obj.options[index].text; // Get the text of current select option
+
+    let playlistNameHTML = document.querySelector("#playlist__info h3");
+    let playlistNumSongHTML = document.querySelector("#playlist__info p");
+    playlistNameHTML.textContent = playlistName;
+
+
+
+    if (playlistId !== "null") {
+        let tbody = parrentBody;
+        tbody.appendChild(loadingHTML); // Funny little loading guy
+        // Make call to getPlaylistInformation
+        fetch(`PlaylistServlet?action=get&id=${playlistId}`)
+                .then(response => response.json())
+                .then(data => {
+                    playlistNumSongHTML.textContent = `(${data.numberOfSongs}) songs`;
+                })
+                .catch(e => {
+                    console.error(e);
+                });
+        tbody.innerHTML = ``;
+
+        // Make call to the getPlaylistSongs (Get the songs)
+        let response = await fetch(`PlaylistSongsServlet?action=get&playlistId=${playlistId}`);
+        if (response !== null || response.ok) {
+            let songObj = await response.json();
+            // Set the display of songs
+            for (var s of songObj) {
+                let songHTML = document.createElement("div");
+                songHTML.classList.add("song");
+                songHTML.innerHTML = `
+                     <div class="song-detailed">
+                        <img src="${s.songImagePath}" alt="demo" class="img-fluid">
+                        <div class="song-info">
+                            <h2 class="song-title">${s.title}</h2>
+                            <p class="artist-name">${s.artist}</p>
+                                        <input type="hidden" name="${s.songId}" value ="${s.songFilePath}" id="srcsong" >
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <p class="album">${s.album}</p>
+                                    <p class="duration">${s.duration}</p>
+                                </div>
+                            </div>`
+                        ;
+                tbody.appendChild(songHTML);
+            }
+            songs = getSongs();
+            currentSongIndex = songs[0] ? 0 : -1;
+            // Add event listeners to song images
+            document.querySelectorAll('.song img').forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    loadSong(index);
+                    song.play();
+                    infoUpNext();
+                });
+            });
+        }
+    } else {
+        console.log("Default playlist selected");
+    }
 });

@@ -95,7 +95,7 @@ public class PlaylistDao implements Dao<Playlist> {
                                                           VALUES (?, ?, ?, ?)""");
             stmt.setInt(1, t.getUserId());
             stmt.setString(2, t.getName());
-            stmt.setInt(3, t.getNumSong());
+            stmt.setInt(3, t.getNumberOfSongs());
             stmt.setDate(4, Date.valueOf(t.getCreationDate()));
 
             int rowsInserted = stmt.executeUpdate();

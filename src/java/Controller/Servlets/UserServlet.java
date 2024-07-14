@@ -48,15 +48,15 @@ public class UserServlet extends HttpServlet {
 
                     String baseDir = request.getServletContext().getRealPath("/");
                     Helpers helpers = new Helpers();
-
-                    Supplier<AppUser> a = () -> null;
-                    AppUser user = new AppUserDao().get(userId).orElseGet(a);
+                    System.out.println("Getting user id");
+                    AppUser user = new AppUserDao().get(userId).orElse(null);
+                    System.out.println("User: " + user);
                     if (user != null) {
                         String relativePath = helpers.generateRelativePathForObject("users", username, "jpg");
                         relativePath = helpers.replaceWithForwardSlash(relativePath);
-//                        System.out.println("Relative path: " + relativePath);
-//                        System.out.println("Path to save: " + path);
+                        System.out.println("Updating");
                         boolean result = new AppUserDao().update(user, new String[]{String.valueOf(userId), username, email, password, relativePath});
+                        System.out.println("Result: " + result);
                         if (result && img.getSize() > 0) {
                             String path = helpers.getNewFileLocation(baseDir, "users", username, "jpg");
                             System.out.println(img.getSubmittedFileName());
@@ -65,6 +65,8 @@ public class UserServlet extends HttpServlet {
                             img.write(path);
                         }
                         request.getSession().setAttribute("user", user);
+                    } else {
+                        System.out.println("[User servlet] :: WARNING, NO USER DETECTED");
                     }
                     // TOOD: Toast notification ?
                     request.setAttribute("userStatus", true);

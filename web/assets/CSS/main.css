@@ -10,14 +10,17 @@
     --yellow: #ebcb8b;
 }
 
+.sub-text {
+    color: var(--sub-text);
+}
+
 body{
     background-color: var(--primary);
-    height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100vh;
-    background-image: url();
+    overflow-y: hidden;
 }
 
 .col-9{
@@ -61,11 +64,12 @@ body{
     justify-content: center;
     align-items: center;
     width: 70%;
-    min-height: 50px;
+    height: 42px;
     margin-top: 12px;
     margin-left:20%;
     border-radius: 20px;
     border: 2px solid #8FBCBB;
+    margin-bottom: 12px;
 }
 .search-icon{
     padding: 10px;
@@ -113,24 +117,22 @@ body{
 }
 /* -------------------------------------------- */
 .List-Song{
-    height: 100%;
-    max-height: 720px;
+    height: 75%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    
 }
 
 .List-Song::-webkit-scrollbar {
     background-color: var(--primary);
-    width: 0;
+    width: 6px;
 }
 
 .List-Song::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
+    background-color: var(--text);
     border-radius: 4px;
-    width: 0;
+    width: 6px;
 }
 
 
@@ -194,7 +196,7 @@ body{
 
 .infomusic img{
     width: 100%;
-    height: 100%;
+    height: auto;
     max-width: 290px;
     max-height:290px;
     margin: 12px;
@@ -204,6 +206,7 @@ body{
 .music-info {
     color:var(--text);
     margin-left: 12px;
+    margin-bottom: 12px;
 }
 .album-right {
     color:var(--text);
@@ -392,9 +395,12 @@ body{
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    padding-bottom: 12px;
+    overflow-y: hidden;
 }
 .main__upper {
     flex: 1;
+    min-height: 85%;
 }
 
 .main__side-info {
@@ -421,6 +427,7 @@ body{
 }
 .main__middle {
     overflow-y: hidden;
+    height: 100%;
 }
 
 .song img {
@@ -443,4 +450,43 @@ body{
 
 .long-bar img {
     object-fit: cover;
+}
+
+.select-playlist__wrapper {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 12px;
+}
+
+.playlist__select {
+    background-color: var(--primary);
+    color: var(--text);
+    border: 1px solid var(--primary2);
+    border-radius: 12px;
+}
+#playlist__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.playlist__info h3,p {
+    margin: 0;
+}
+
+.green-text {
+    color: var(--primary2);
+}
+.blue-text {
+    color: var(--links);
+}
+.yellow-text {
+    color: var(--yellow);
+}
+.orange-text {
+    color: var(--orange);
 }

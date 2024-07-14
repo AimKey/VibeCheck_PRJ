@@ -7,7 +7,7 @@
     <form class="songUploadForm" action="UploadSong" method="post" enctype="multipart/form-data" multiple>
         <label for="songsUpload" class="button button-action">Choose files to upload</label>
 
-        <input type="file" name="songsUpload" id="songsUpload" multiple class="songUploadForm__input"/>
+        <input type="file" name="songsUpload" id="songsUpload" multiple accept=".mp3" class="songUploadForm__input"/>
         <input type="hidden" name="action" value="uploadSong" >
     </form>
 

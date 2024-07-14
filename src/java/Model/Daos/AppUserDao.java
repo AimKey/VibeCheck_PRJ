@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,14 +18,15 @@ public class AppUserDao implements Dao<AppUser> {
 
     @Override
     public Optional<AppUser> get(int id) {
+        System.out.println("Getting user with id: " + id);
         AppUser a = new AppUser();
         try (Connection con = db.getConnection();) {
-
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM AppUser a WHERE a.userId = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-
+            System.out.println("Executing...");
             while (rs.next()) {
+                System.out.println("Getting user...");
                 String name = rs.getString("username");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
@@ -35,12 +35,13 @@ public class AppUserDao implements Dao<AppUser> {
                 String profilePicPath = rs.getString("profilePicPath");
                 Boolean isAdmin = rs.getBoolean("isAdmin");
                 a = new AppUser(id, name, email, password, profilePicPath, dateJoined, isAdmin);
+                System.out.println("New user: " + a);
             }
 
             stmt.close();
             rs.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("What the fuck: " + e.getMessage());
         }
         return Optional.ofNullable(a);
     }
@@ -70,7 +71,6 @@ public class AppUserDao implements Dao<AppUser> {
         }
         return list;
     }
-
 
     public void registerUser(AppUser user) throws ClassNotFoundException, SQLException, ServletException, IOException {
         System.out.println("registerUser: Entering method");
@@ -108,6 +108,7 @@ public class AppUserDao implements Dao<AppUser> {
         }
         System.out.println("registerUser: Exiting method");
     }
+
     public boolean delete(int id) {
         try (Connection con = db.getConnection()) {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM AppUser WHERE userId = ?");
@@ -127,7 +128,7 @@ public class AppUserDao implements Dao<AppUser> {
             PreparedStatement stmt = con.prepareStatement("UPDATE AppUser SET isAdmin = 1 WHERE userId = ?");
             stmt.setInt(1, id);
             int row = stmt.executeUpdate();
-            
+
             stmt.close();
             return row > 0;
         } catch (Exception e) {
