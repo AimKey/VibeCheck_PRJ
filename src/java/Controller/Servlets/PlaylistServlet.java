@@ -14,10 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jakarta.servlet.http.Cookie;
-import java.util.function.Supplier;
 import java.util.ArrayList;
 
 public class PlaylistServlet extends HttpServlet {
@@ -87,7 +83,7 @@ public class PlaylistServlet extends HttpServlet {
             case "updatePName" -> {
                 String pName = request.getParameter("pName");
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
-                LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}", new Object[]{pName, pId});
+//                LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}", new Object[]{pName, pId});
                 // Here you should implement the update logic
                 Playlist pl = new PlaylistDao().get(pId).orElse(null);
                 Boolean r = new PlaylistDao().update(pl, new String[]{pName});
@@ -111,7 +107,7 @@ public class PlaylistServlet extends HttpServlet {
                 }
             }
             default -> {
-                LOGGER.log(Level.SEVERE, "Unknown action: {0}", param);
+//                LOGGER.log(Level.SEVERE, "Unknown action: {0}", param);
                 throw new AssertionError();
             }
         }

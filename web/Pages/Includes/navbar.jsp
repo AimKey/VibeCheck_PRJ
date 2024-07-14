@@ -12,7 +12,7 @@
         </div>
         <ul class="navbar-nav text-white flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="/main"><i class="fa-solid fa-home"></i> Home</a>
+                <a class="nav-link" href="main"><i class="fa-solid fa-home"></i> Home</a>
             </li>
 
             <li class="nav-item">

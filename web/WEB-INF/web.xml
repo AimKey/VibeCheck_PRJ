@@ -101,6 +101,7 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Settings</servlet-name>
         <url-pattern>/settings</url-pattern>

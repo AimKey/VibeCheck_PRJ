@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // @author phamm
-public class AppUserDao implements Dao {
+public class AppUserDao implements Dao<AppUser> {
 
     DatabaseInformation db = new DatabaseInformation();
 
