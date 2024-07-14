@@ -14,7 +14,11 @@ public class AppUser {
     private LocalDate dateJoined;
     private boolean isAdmin;
 
-    public AppUser() {
+    public AppUser(String username, String email, String password, boolean isAdmin) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public AppUser(int userId, String username, String email, String profilePicPath, boolean isAdmin) {
@@ -42,6 +46,10 @@ public class AppUser {
         this.profilePicPath = profilePicPath;
         this.dateJoined = LocalDate.parse(dateJoined, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.isAdmin = isAdmin;
+    }
+
+    public AppUser() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getUserId() {

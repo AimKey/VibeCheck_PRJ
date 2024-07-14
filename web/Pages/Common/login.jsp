@@ -1,10 +1,12 @@
 <%-- 
     Document   : login
-    Created on : Jun 21, 2024, 12:04:04 AM
+    Created on : Jun 21, 2024, 12:04:04 AM
     Author     : phamm
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" errorPage="errorpage.jsp"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,7 +24,6 @@
                 <a href="#">About</a>
                 <a href="#">Service</a>
                 <a href="#">Contact</a>
-
                 <button class="btnLogin-popup">Login</button>
             </nav>
         </header>
@@ -65,27 +66,27 @@
 
             <div class="form-box signup">
                 <h2>Sign Up</h2>
-                <form action="login" method="post">
+                <form action="RegisterServlet" method="post">
                     <div class="input-box">
                         <span class="icon">
                             <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type="text" required value="Minhkiet"/>
+                        <input type="text" name="username" required value="Huydaucac"/>
                         <label>Username</label>
                     </div>
                     <div class="input-box">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
-                        <input type="password" required value="123456"/>
+                        <input type="password" name="password" required value="123456"/>
                         <label>Password</label>
                     </div>
                     <div class="input-box">
                         <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <ion-icon name="mail-outline"></ion-icon>
                         </span>
-                        <input type="password" required />
-                        <label>Confirm Password</label>
+                        <input type="text" name="email" required />
+                        <label>Email</label>
                     </div>
                     <button type="submit" class="btn-submit">Sign Up</button>
                     <div class="signup">
@@ -95,6 +96,9 @@
                         </p>
                     </div>
                 </form>
+                <c:if test="${param.status == 'fail'}">
+                    <p style="color:red;">Registration failed. Please try again.</p>
+                </c:if>
             </div>
         </div>
 
@@ -107,4 +111,3 @@
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </body>
 </html>
-

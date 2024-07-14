@@ -1,5 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="errorpage.jsp"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.util.ArrayList, Model.Song, Model.Daos.SongDao" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +10,7 @@
         <title>MainPage</title>
         <link rel = "stylesheet" href = "assets/CSS/bootstrap.css">
         <link rel="stylesheet" href="assets/CSS/main.css">
+
     </head>
 
     <body>
@@ -42,50 +44,60 @@
                         <input type="text" class="search-input" placeholder="What are you looking for ~">
                     </div>
 
-                    <p class="text1">Tên Playlist ở đây</p>
+                    <p class="text1">Tên Playlist o đây</p>
                     <div class="text-container">
                         <p class="text2">Details</p>
-                        <p class="text3">Date added</p>
+                        <p class="text3">Album</p>
                         <p class="text4">Duration</p>
                     </div>
 
-                    <div class="song">
-                        <div class="song-detailed">
-                            <img src="assets/images/demo.jpg" alt="demo" class="img-fluid">
-                            <div class="song-info">
-                                <h2 class="song-title">Song Title</h2>
-                                <p class="artist-name">Artist Name</p>
+                    <div class="List-Song">
+                        <c:forEach var="s" items="${songs}">
+                            <div class="song">
+                                <div class="song-detailed">
+                                    <img src="${s.songImagePath}" alt="demo" class="img-fluid">
+                                    <div class="song-info">
+                                        <h2 class="song-title">${s.title}</h2>
+                                        <p class="artist-name">${s.artist}</p>
+                                        <input type="hidden" name="${s.songId}" value ="${s.songFilePath}" id="srcsong" >
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <p class="album">${s.album}</p>
+                                    <p class="duration">${s.duration}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="conkec">
-                            <p class="date-added">12-3-2024</p>
-                            <p class="duration">4:14</p>
-                        </div>
+                        </c:forEach>
                     </div>
+
+                    <audio id="song" src="">
+
+                    </audio> 
+
                 </div>
 
                 <!------------------------------------------------------------------------------------------->
                 <div class="col-3">
                     <div class="infomusic">
                         <div class="music">
-                            <img src="assets/images/demo.jpg" alt="demo" class="img-fluid">
+                            <img src="" id="bigImg" alt="demo" >
                             <div class="music-info">
                                 <h4 class="music-title">Song Title</h4>
                                 <p class="artist-name">Artist Name</p>
                             </div>
-                            <div class="genres">
-                                <h4 class="music-genres">Genres</h4>
-                                <p class="type">Yeu em</p>
+                            <div class="album-right">
+                                <h4 class="music-album">Album</h4>
+                                <p class="name-album"></p>
                             </div>
 
-                            <div class="allnext">
+                            <div class="allnext">   
                                 <h5 class="up-next">Up Next:</h5>
                                 <div class="songnext">
                                     <div class="song-detailed">
-                                        <img src="assets/images/demo1.jpg" alt="demo" class="img-fluid">
+                                        <img src="assets/images/demo1.jpg" alt="demo" id="midImg">
                                         <div class="song-info">
-                                            <h2 class="song-title">Song Title</h2>
-                                            <p class="artist-name">Artist Name</p>
+                                            <h2 class="next-song-title">Song Title</h2>
+                                            <p class="next-artist-name">Artist Name</p>
                                         </div>
                                     </div>
                                 </div>
@@ -95,45 +107,43 @@
                 </div>
 
                 <!------------------------------------------------------------------------------------------->
-
             </div>
             <div class="row2">
                 <div class="control-bar">
-
                     <div class="col">
                         <div class="song-play">
-                            <img src="assets/images/demo.jpg" alt="demo" class="img-fluid">
-                            <div class="song-info">
-                                <p class="song-title">Bài gì cũng đc, nhưng mà không phải bài đó </p>
+                            <img src="assets/images/demo.jpg" alt="demo" id="smallImg">
+                            <div class="song-info bottom">
+                                <p class="music-title">Song Title</p>
                                 <p class="artist-name">Artist Name</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="col">
                         <div class="control">
-
                             <div class="allicon">
-                                <span class="icon">
+                                <span class="icon active" id="shuffBtn">
                                     <ion-icon name="shuffle-outline"></ion-icon>
                                 </span>
-                                <span class="icon">
-                                    <ion-icon name="play-skip-back-outline"></ion-icon>
+                                <span class="icon active" id="prevBtn">
+                                    <ion-icon name="play-skip-back-outline" ></ion-icon>
                                 </span>
-                                <span class="icon">
-                                    <ion-icon name="play-outline"></ion-icon>
-                                </span>
-                                <span class="icon">
+                                <button class="icon-play" id="ctrlIcon">
+                                    <ion-icon name="play" ></ion-icon>
+                                </button>
+                                <span class="icon active" id="nextBtn" >
                                     <ion-icon name="play-skip-forward-outline"></ion-icon>
                                 </span>
-                                <span class="icon">
+                                <span class="icon active" id="reBtn">
                                     <ion-icon name="repeat-outline"></ion-icon>
                                 </span>
                             </div>
 
                             <div class="progress-bar">
-                                <span class="current-time">1:22</span>
+                                <span class="current-time"> </span>
                                 <input type="range" class="progress" value="0" id="progress">
-                                <span class="total-time">4:14</span>
+                                <span class="total-time"> </span>
                             </div>
                         </div>
                     </div>
@@ -146,15 +156,17 @@
                             <span class="icon">
                                 <ion-icon name="volume-low-outline"></ion-icon>
                             </span>
-                            <input type="range" class="volume-bar" value="100" id="volume">
+                            <input type="range" class="volume" value="100" id="volume">
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-        <!-- <script src="scripts/JS/JS_Main.js"></script>
-        <script src="scripts/JS/bootstrap.js"></script> -->
+        <script type="module" src="scripts/JS/JS_Main.js"></script> 
+        <!-- <script src="scripts/JS/JS_Main/test.js"></script> -->
+        <script src="scripts/JS/bootstrap.js"></script>
 
         <script 
             type="module" 

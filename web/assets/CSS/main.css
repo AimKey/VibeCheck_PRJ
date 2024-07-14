@@ -20,7 +20,7 @@ body{
 .long-bar{
     background-color: #4C566A;
     margin-top: 12px;
-    min-height: 100%;
+    min-height: 98%;
     width: 80%;
     border-radius: 15px;
     display: flex;
@@ -73,30 +73,40 @@ body{
 .text1{
     color: white;
     font-size: 30px;
+
 }
 .text2{
     color: #D9D9D9;
     font-size: 15px;
-    margin-left:105px;
+    margin-left: 100px;
 }
 .text3{
     color:#D9D9D9;
     font-size: 15px;
-    margin-left: 58%;
+    margin-left:63%;
 }
 .text4{
     color:#D9D9D9;
     font-size: 15px;
 }
+
+
 .text-container {
     display: flex;
     justify-content: space-between;
 }
 /* -------------------------------------------- */
+.List-Song{
+    height: 450px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #76ABAE white;
+}
 .song{
     color:white;
     display: flex;
     justify-content: space-between;
+
 }
 .song img {
     width: 60px;
@@ -109,18 +119,18 @@ body{
     flex-direction: column;
 }
 .song-title {
-    font-size: 2em; 
+    font-size: 2em;
 }
 .artist-name {
-    font-size: 1em; 
+    font-size: 1em;
 }
-.date-added{
+.album{
     margin-right: 35px;
-    margin-top:20px;
+    margin-top:25px;
 }
 .duration{
     margin-right:15px;
-    margin-top:20px;
+    margin-top:25px;
 }
 
 .song-detailed{
@@ -128,10 +138,10 @@ body{
     justify-content: space-between;
     gap:40px;
 }
-.conkec{
+.info{
     display:flex;
     justify-content: center;
-    align-items: center;
+    text-align: center;
     gap:40px;
 }
 /* ---------------------------------------------------------------------- */
@@ -144,7 +154,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;    
+
 }
 
 .infomusic img{
@@ -153,13 +163,12 @@ body{
     margin: 12px;
     border-radius: 10px;
 }
+
 .music-info {
     color:white;
     margin-left: 12px;
-
-
 }
-.genres {
+.album-right {
     color:white;
     margin-left: 12px;
 }
@@ -167,7 +176,7 @@ body{
 .allnext{
     background-color: #2e3440;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     margin: 10px;
     box-sizing: border-box;
     margin-top: 40px;
@@ -187,13 +196,13 @@ body{
     margin-left:5px;
     border-radius: 10px;
 }
-.songnext .song-title {
-    font-size: 1em; 
+.songnext .next-song-title {
+    font-size: 1em;
     margin-left: 10px;
-    
+
 }
-.songnext .artist-name {
-    font-size: 0.75em; 
+.songnext .next-artist-name {
+    font-size: 0.75em;
     margin-left: 10px;
 }
 .songnext .song-detailed{
@@ -213,8 +222,9 @@ body{
     align-items: center;
     border-radius: 10px;
     background-color: #4C566A;
-    margin-top: 25px;
-    padding: 7px;
+    padding: 15px;
+    height: 90px;
+    margin-top: 10px;
 }
 
 .control-bar img{
@@ -229,17 +239,17 @@ body{
     flex-wrap: wrap;
     align-items: center;
     gap: 5px;
-    
+
 }
-.song-play .song-title {
+.song-play .music-title {
     color: white;
-    font-size: 1em; 
+    font-size: 1em;
     margin-left: 10px;
     margin-top: 9px;
 }
 .song-play .artist-name {
     color: white;
-    font-size: 0.75em; 
+    font-size: 0.75em;
     margin-left: 10px;
     margin-bottom: 8px;
     margin-top: -10px;
@@ -252,10 +262,26 @@ body{
     color: white;
     font-size: 30px;
     margin: 0 10px;
+    cursor: pointer;
+
 }
 
+.control .icon-play{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50%;
+    color: black;
+    font-size: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-color: white;
+    border: solid #76ABAE;
+
+}
 .control .progress-bar{
-    background-color: #4C566A;
+    background-color: transparent;
     display:flex;
     flex-direction: row;
     justify-content: center;
@@ -269,9 +295,19 @@ body{
     height:6px;
     background: white;
     border-radius: 4px;
-    cursor: pointer;
+    overflow: hidden;
+
 }
-#progress:-webkit-progress-bar{
+#progress::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background: #76ABAE;
+    width: 5px;
+    height: 10px;
+    cursor: pointer;
+    box-shadow: -400px 0 0 400px #76ABAE;
+}
+
+#progress:-webkit-progre ss-bar{
     background: #4C566A;
     border-radius: 4px;
     width: 30px;
@@ -280,27 +316,38 @@ body{
 
 #volume{
     -webkit-appearance: none;
-    width: 25%;
+    width: 20%;
     border-radius: 4px;
     height:4px;
-    background: white;
-    cursor: pointer;
+    background: #fff;
     margin-top: 16px;
+    overflow: hidden;
 }
-#volume:-webkit-progress-bar {
-    background: #4C566A;
-    border-radius: 4px;
-    width: 30px;
-    height:30px;
-
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #76ABAE;
+    width: 5px;
+    height: 10px;
+    cursor: pointer;
+    box-shadow: -400px 0 0 400px #76ABAE;
 }
 
 .volume .icon{
     color: white;
-    font-size: 30px;   
+    font-size: 30px;
     margin: 0 5px;
+    cursor: pointer;
 }
 .volume{
     display: flex;
     justify-content: flex-end;
+    margin-top: 10px;
+}
+.allicon .icon.active {
+    color: #ffffff;
+}
+
+.allicon .icon.clicked {
+    color: #76ABAE; /* or any other color you want */
+    transition: color 0.2s; /* add a transition effect */
 }

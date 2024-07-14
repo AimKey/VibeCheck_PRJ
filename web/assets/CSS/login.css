@@ -89,9 +89,16 @@ header {
 .wrapper {
   height: 450px;
   width: 400px;
-  background-color: #3b4252;
+/*  background-color: #3b4252;
   border: 2px solid #8FBCBB;
-  border-radius: 15px;
+  border-radius: 15px;*/
+background: rgba(255, 255, 255, 0.27);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(2.8px);
+-webkit-backdrop-filter: blur(2.8px);
+border: 1px solid rgba(255, 255, 255, 0.66);
+
   display: flex;
   justify-content: center;
   align-items: center;

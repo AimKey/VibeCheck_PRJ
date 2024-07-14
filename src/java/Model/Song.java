@@ -31,7 +31,6 @@ public class Song {
         this.songImagePath = songImagePath;
         this.album = album;
     }
-
     public String getTitle() {
         return title;
     }
@@ -76,7 +75,6 @@ public class Song {
         this.songId = songId;
     }
 //    Return duration in string format
-
     public String getDuration() {
         int minutes = duration / 60;
         int seconds = duration % 60;

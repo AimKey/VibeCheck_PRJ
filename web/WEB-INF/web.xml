@@ -36,10 +36,13 @@
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>Controller.Servlets.UserServlet</servlet-class>
     </servlet>
-    <!--Settings servlet-->
     <servlet>
-        <servlet-name>Settings</servlet-name>
-        <servlet-class>Controller.Servlets.Settings</servlet-class>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>Controller.Servlets.Main</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Controller.Servlets.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteServlet</servlet-name>
@@ -66,15 +69,12 @@
         <servlet-name>LoginPage</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-
+        <!--Settings servlet-->
     <servlet>
-        <servlet-name>Main</servlet-name>
-        <jsp-file>/Pages/Common/main.jsp</jsp-file>
+        <servlet-name>Settings</servlet-name>
+        <servlet-class>Controller.Servlets.Settings</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Main</servlet-name>
-        <url-pattern>/main</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>SaveSong</servlet-name>
         <url-pattern>/SaveSong</url-pattern>
@@ -91,7 +91,14 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/UserServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>Main</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Settings</servlet-name>
         <url-pattern>/settings</url-pattern>

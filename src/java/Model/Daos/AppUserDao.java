@@ -2,11 +2,15 @@ package Model.Daos;
 
 import Database.DatabaseInformation;
 import Model.AppUser;
+import jakarta.servlet.ServletException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // @author phamm
 public class AppUserDao implements Dao<AppUser> {
@@ -67,7 +71,43 @@ public class AppUserDao implements Dao<AppUser> {
         return list;
     }
 
-    @Override
+
+    public void registerUser(AppUser user) throws ClassNotFoundException, SQLException, ServletException, IOException {
+        System.out.println("registerUser: Entering method");
+
+        String query = "INSERT INTO AppUser(username, password, email, isAdmin) OUTPUT inserted.userId VALUES(?,?,?,?)";
+
+        try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(query)) {
+
+            System.out.println("registerUser: Connection established");
+
+            statement.setString(1, user.getUsername());
+            System.out.println("registerUser: Set username = " + user.getUsername());
+
+            statement.setString(2, user.getPassword());
+            System.out.println("registerUser: Set password = " + user.getPassword());
+
+            statement.setString(3, user.getEmail());
+            System.out.println("registerUser: Set email = " + user.getEmail());
+
+            statement.setBoolean(4, user.getIsAdmin());
+            try (ResultSet rs = statement.executeQuery()) {
+                System.out.println("registerUser: Executed query");
+
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    System.out.println("registerUser: Inserted user ID = " + id);
+                } else {
+                    System.out.println("registerUser: No ID returned");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppUserDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("registerUser: SQLException - " + ex.getMessage());
+            throw ex; // Re-throw the exception if needed
+        }
+        System.out.println("registerUser: Exiting method");
+    }
     public boolean delete(int id) {
         try (Connection con = db.getConnection()) {
             PreparedStatement stmt = con.prepareStatement("DELETE FROM AppUser WHERE userId = ?");
