@@ -83,12 +83,6 @@ public class PlaylistServlet extends HttpServlet {
             case "updatePName" -> {
                 String pName = request.getParameter("pName");
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
-
-//                LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}",
-//                        new Object[] { pName, pId });
-
-//                LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}", new Object[]{pName, pId});
-                // Here you should implement the update logic
                 Playlist pl = new PlaylistDao().get(pId).orElse(null);
                 Boolean r = new PlaylistDao().update(pl, new String[] { pName });
                 response.sendRedirect("settings");
@@ -111,18 +105,9 @@ public class PlaylistServlet extends HttpServlet {
                 }
             }
             default -> {
-//                LOGGER.log(Level.SEVERE, "Unknown action: {0}", param);
                 throw new AssertionError();
             }
         }
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 
     @Override
