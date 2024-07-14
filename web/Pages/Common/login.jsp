@@ -20,10 +20,10 @@
         <header>
             <h2 class="logo">Logo</h2>
             <nav class="navigation">
-                <a href="#">Home</a>
+<!--                <a href="#">Home</a>
                 <a href="#">About</a>
                 <a href="#">Service</a>
-                <a href="#">Contact</a>
+                <a href="#">Contact</a>-->
                 <button class="btnLogin-popup">Login</button>
             </nav>
         </header>
@@ -101,6 +101,15 @@
                 </c:if>
             </div>
         </div>
+
+        <div id="video-container">
+            <video id="video-bg" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+                <source src="assets/images/login.mp4" type="video/mp4">
+                Sorry, your browser does not support HTML5 video.
+            </video>
+        </div>
+
+        
 
         <script src="scripts/JS/JS_LogIn.js"></script>
         <script src="scripts/JS/bootstrap.js"></script>

@@ -28,10 +28,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#edit-song"><i class="fa-solid fa-pen-to-square"></i> Edit songs</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#edit-playlist"><i class="fa-solid fa-sliders"></i> Edit playlist</a>
-                </li>
             </c:if>
+            <li class="nav-item">
+                <a class="nav-link" href="#edit-playlist"><i class="fa-solid fa-sliders"></i> Edit playlist</a>
+            </li>
             <li class="nav-item" style="align-self: center;">
                 <form action="LoginHandler" method="get" class="container-fluid justify-content-start">
                     <input type="submit" name="logout" value="Logout" class="btn btn-outline-danger me-2">

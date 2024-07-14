@@ -4,8 +4,8 @@ function getSongs() {
         const songFilePath = element.value;
         const songID = element.name;
         
-         console.log(`Retrieved songFilePath: ${songFilePath}`);
-        console.log(`Retrieved songID: ${songID}`);
+        //  console.log(`Retrieved songFilePath: ${songFilePath}`);
+        // console.log(`Retrieved songID: ${songID}`);
         songs.push({ songFilePath, songID });
     });
     return songs;

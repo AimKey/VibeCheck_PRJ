@@ -19,25 +19,42 @@
                 <div class="col-1">
                     <div class="col-9">
                         <div class="long-bar">
-                            <img src="assets/images/demo.jpg" alt="demo" class="logo">
-                            <span class="icon">
-                                <ion-icon name="home-outline"></ion-icon>
-                            </span>
-                            <span class="icon">
-                                <ion-icon name="settings-outline"></ion-icon>
-                            </span>
-                            <span class="icon">
-                                <ion-icon name="add-circle-outline"></ion-icon>
-                            </span>
-                            <span class="icon">
-                                <ion-icon name="pencil-outline"></ion-icon>
-                            </span>
+                            <a href="settings#user">
+                                <img src="${user.profilePicPath}" alt="demo" class="logo">
+                            </a>
+                            <c:if test="${user.isAdmin == true}">
+                                <a href="settings#user-list">
+                                    <span class="icon">
+                                        <ion-icon name="settings-outline"></ion-icon>
+                                    </span>
+                                </a>
+                                <a href="settings#upload">
+                                    <span class="icon">
+                                        <ion-icon name="cloud-upload-outline"></ion-icon>
+                                    </span>
+                                </a>
+                                <a href="settings#edit-song">
+                                    <span class="icon">
+                                        <ion-icon name="musical-notes-outline"></ion-icon>
+                                    </span>
+                                </a>
+                            </c:if>
+                            <a href="settings#edit-playlist">
+                                <span class="icon">
+                                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#eeeeee"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.192"></g><g id="SVGRepo_iconCarrier"> <path d="M18 18H20M22 18H20M20 18V16M20 18V20" stroke="<svg viewBox=" 0="" 24="" 24"="" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 18H20M22 18H20M20 18V16M20 18V20" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 11L20 11" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 17L14 17" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 5L20 5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g>" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"&gt;</path> <path d="M2 11L20 11" stroke="<svg viewBox=" 0="" 24="" 24"="" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 18H20M22 18H20M20 18V16M20 18V20" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 11L20 11" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 17L14 17" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 5L20 5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g>" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"&gt;</path> <path d="M2 17L14 17" stroke="<svg viewBox=" 0="" 24="" 24"="" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 18H20M22 18H20M20 18V16M20 18V20" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 11L20 11" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 17L14 17" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 5L20 5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g>" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"&gt;</path> <path d="M2 5L20 5" stroke="<svg viewBox=" 0="" 24="" 24"="" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 18H20M22 18H20M20 18V16M20 18V20" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 11L20 11" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 17L14 17" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 5L20 5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g>" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"&gt;</path> </g></svg>
+                                </span>
+                            </a>
+                            <a href="LoginHandler?">
+                                <span class="icon" style="color: #bf616a;">
+                                    <ion-icon name="log-out-outline"></ion-icon>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------------->
                 <div class="col main__middle">
-                    <div class="search-bar">
+                    <div class="search-bar" id="main__middle__searchbar">
                         <span class="search-icon">
                             <ion-icon name="search-outline"></ion-icon>
                         </span>
@@ -170,11 +187,13 @@
         <!-- <script src="scripts/JS/JS_Main/test.js"></script> -->
         <script src="scripts/JS/bootstrap.js"></script>
 
+        <script src="https://kit.fontawesome.com/ba8c3661b4.js" crossorigin="anonymous"></script>
         <script 
             type="module" 
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
         </script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="scripts/JS/searchbar.js"></script>
     </body>
 
 </html>

@@ -17,6 +17,7 @@ body{
     padding: 0;
     width: 100%;
     height: 100vh;
+    background-image: url();
 }
 
 .col-9{
@@ -45,6 +46,13 @@ body{
     color: var(--text);
     font-size: 30px;
     margin-top: 10px;
+    transition: all ease 0.2s;
+}
+
+.long-bar .icon:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    color: var(--primary2);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -421,4 +429,18 @@ body{
 }
 .song img:hover {
     opacity: 0.6;
+}
+
+.hide {
+    display: none;
+}
+
+.long-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.long-bar img {
+    object-fit: cover;
 }
