@@ -14,10 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jakarta.servlet.http.Cookie;
-import java.util.function.Supplier;
 import java.util.ArrayList;
 
 public class PlaylistServlet extends HttpServlet {
@@ -59,10 +55,6 @@ public class PlaylistServlet extends HttpServlet {
                 String jsonResult = new JSONWriter<List<String>>().getJSONString(songFilePaths);
                 response.getWriter().write(jsonResult);
             }
-<<<<<<< HEAD
-=======
-            
->>>>>>> 4d3ef1a5a6eb2906654532c8dbae3aa946e2bce3
             default -> {
                 System.out.println("Action: " + param);
                 throw new AssertionError();
@@ -91,8 +83,6 @@ public class PlaylistServlet extends HttpServlet {
             case "updatePName" -> {
                 String pName = request.getParameter("pName");
                 Integer pId = Integer.valueOf(request.getParameter("pId"));
-                LOGGER.log(Level.INFO, "Updating playlist name to: {0} for playlistId: {1}", new Object[]{pName, pId});
-                // Here you should implement the update logic
                 Playlist pl = new PlaylistDao().get(pId).orElse(null);
                 Boolean r = new PlaylistDao().update(pl, new String[]{pName});
                 response.sendRedirect("settings");
@@ -115,18 +105,9 @@ public class PlaylistServlet extends HttpServlet {
                 }
             }
             default -> {
-                LOGGER.log(Level.SEVERE, "Unknown action: {0}", param);
                 throw new AssertionError();
             }
         }
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 
     @Override
