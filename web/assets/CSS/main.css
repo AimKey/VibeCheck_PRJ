@@ -1,7 +1,7 @@
 :root {
     --primary: #222831;
     --secondary: #31363f;
-    --primary2: #76abae;
+    --primary2: #76ABAE;
     --links: #5c98d3;
     --orange: #d08770;
     --red: #bf616a;
@@ -11,7 +11,7 @@
 }
 
 body{
-    background-color: #2e3440;
+    background-color: var(--primary);
     height: 100%;
     margin: 0;
     padding: 0;
@@ -22,12 +22,13 @@ body{
 .col-9{
     height: 100%;
     width: 70%;
+    padding-bottom: 12px;
 }
 
 .long-bar{
-    background-color: #4C566A;
+    background-color: var(--secondary);
     margin-top: 12px;
-    min-height: 98%;
+    height: 100%;
     width: 80%;
     border-radius: 15px;
     display: flex;
@@ -110,16 +111,18 @@ body{
     display: flex;
     flex-direction: column;
     gap: 12px;
+    
 }
 
 .List-Song::-webkit-scrollbar {
     background-color: var(--primary);
-    width: 6px;
+    width: 0;
 }
 
 .List-Song::-webkit-scrollbar-thumb {
-    background-color: var(--text);
+    background-color: var(--primary);
     border-radius: 4px;
+    width: 0;
 }
 
 
@@ -173,7 +176,7 @@ body{
 /* ---------------------------------------------------------------------- */
 
 .infomusic{
-    background-color: #4C566A;
+    background-color: var(--secondary);
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -200,7 +203,7 @@ body{
 }
 
 .allnext{
-    background-color: #2e3440;
+    background-color: var(--primary);
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
@@ -247,7 +250,7 @@ body{
     justify-content:space-between;
     align-items: center;
     border-radius: 10px;
-    background-color: #4C566A;
+    background-color: var(--secondary);
     padding: 12px;
     height: 90px;
     margin-top: 10px;
@@ -261,10 +264,9 @@ body{
 }
 .song-play{
     display:flex;
-    flex-wrap: wrap;
     align-items: center;
     gap: 5px;
-
+    overflow: hidden;
 }
 .song-play .music-title {
     color: var(--text);
@@ -333,7 +335,7 @@ body{
 }
 
 #progress:-webkit-progre ss-bar{
-    background: #4C566A;
+    background: var(--secondary);
     border-radius: 4px;
     width: 30px;
     height:30px;
@@ -390,9 +392,11 @@ body{
 .main__side-info {
     display: flex;
     justify-content: end;
+    padding-top: 12px;
 }
 
 .infomusic {
+    width: 80%;
     padding: 12px 16px;
 }
 
@@ -409,4 +413,12 @@ body{
 }
 .main__middle {
     overflow-y: hidden;
+}
+
+.song img {
+    cursor: pointer;
+    transition: all ease 0.2s;
+}
+.song img:hover {
+    opacity: 0.6;
 }
