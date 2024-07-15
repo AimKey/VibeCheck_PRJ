@@ -18,7 +18,8 @@
     </head>
     <body>
         <header>
-            <h2 class="logo">Logo</h2>
+            <h2 class="logo">Vibe check ✅</h2>
+            
             <nav class="navigation">
 <!--                <a href="#">Home</a>
                 <a href="#">About</a>

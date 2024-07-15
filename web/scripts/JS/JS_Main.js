@@ -28,14 +28,14 @@ let nameAlbum = document.querySelector(".album-right .name-album");
 ////////////////Load the song///////////////////////////
 function loadSong(index) {
     //Get the song at index
-    const selectedSong = songs[index];  
+    const selectedSong = songs[index];
 
     // Check if selectedSong is valid
     if (!selectedSong) {
         console.error(`Song at index ${index} not found.`);
         return;
     }
-    
+
     console.log(`Loading song: ${selectedSong.songFilePath}`);
     song.src = selectedSong.songFilePath; //Set the song file path for the song object
     song.load(); // Load the song
@@ -57,7 +57,7 @@ function loadSong(index) {
     bigImg.src = songSrc;
     smallImg.src = songSrc;
 
-    rightTitle.textContent = title;     
+    rightTitle.textContent = title;
     rightArtist.textContent = artist;
     bottomTitle.textContent = title;
     bottomArtist.textContent = artist;
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('listBtn');
     const infomusicDiv = document.getElementById('infomusic');
     const queueDiv = document.getElementById('queue');
-
+    const queueList = document.getElementById('queueList');
     toggleButton.addEventListener('click', function () {
         if (infomusicDiv.style.display === 'none') {
             infomusicDiv.style.display = 'flex';
@@ -288,6 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
             infomusicDiv.style.display = 'none';
             queueDiv.style.display = 'flex';
         }
+        queueDiv.classList.toggle('active');
     });
 });
 ///////////////////Queue//////////////////////
@@ -296,19 +297,19 @@ function updateQueue() {
     queueDiv.innerHTML = ''; // Clear current queue content
 
     songs.forEach((song, index) => {
-        if(song == ' '){
-        }else{
-        const songElement = document.createElement('div');
-        songElement.classList.add('song');
-        songElement.innerHTML = `
+        if (song == ' ') {
+        } else {
+            const songElement = document.createElement('div');
+            songElement.classList.add('song');
+            songElement.innerHTML = `
             <img src="${song.songSrc}" alt="${song.songID}">
             <div class="song-info">
                 <div class="song-title">${song.title}</div>
                 <div class="artist-name">${song.artist}</div>
             </div>
         `;
-        queueDiv.appendChild(songElement);
-    }
+            queueDiv.appendChild(songElement);
+        }
     });
 }
 
@@ -407,6 +408,7 @@ playlistSelect.addEventListener("change", async (evt) => {
                 tbody.appendChild(songHTML);
             }
             songs = getSongs();
+            updateQueue();
             currentSongIndex = songs[0] ? 0 : -1;
             // Add event listeners to song images
             document.querySelectorAll('.song img').forEach((img, index) => {

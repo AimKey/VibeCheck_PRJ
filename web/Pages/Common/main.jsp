@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     
-                    <div class="queue" id="queue" style="display: none;">
+                    <div class="queue fly-in" id="queue" style="display: none;">
                         <h3>Queue</h3>
                         <div class="List-Song" id="queueList">
                             <div class="song">
