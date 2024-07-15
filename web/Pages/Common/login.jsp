@@ -52,9 +52,7 @@
                         <input type="password" name="pass" required value="123456"/>
                         <label>Password</label>
                     </div>
-                    <div class="forgot">
-                        <a href="#">Forgot Password?</a>
-                    </div>
+
                     <button type="submit" class="btn-submit">Login</button>
                 </form>
                 <div class="signup">
