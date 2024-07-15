@@ -18,7 +18,6 @@
          data-bs-toggle="tooltip"
          data-bs-placement="top"
          title="Choose a playlist"
-         onchange="handlePlaylistChange(this.value)"
       >
          <option value="null">Select a playlist</option>
          <c:forEach var="p" items="${playlists}">

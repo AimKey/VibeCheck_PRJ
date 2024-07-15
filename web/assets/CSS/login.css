@@ -89,14 +89,23 @@ header {
 .wrapper {
     height: 450px;
     width: 400px;
-    
-    /* From https://css.glass */
+
+/*     From https://css.glass -- white 
     background: rgba(255, 255, 255, 0.21);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.2px);
     -webkit-backdrop-filter: blur(8.2px);
-    border: 1px solid rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 1);*/
+
+
+    /* From https://css.glass */
+    background: rgba(34, 40, 49, 0.68);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(34, 40, 49, 0.3);
 
 
     display: flex;

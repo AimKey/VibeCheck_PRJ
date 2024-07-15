@@ -258,8 +258,6 @@ nextBtn.addEventListener('click', () => {
 });
 
 
-
-
 // Handle playlist stuff FRICK
 // Setup for display loading
 
