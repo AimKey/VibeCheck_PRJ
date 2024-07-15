@@ -52,14 +52,16 @@
                     </div>
 
                     <div class="List-Song">
-                        <c:forEach var="s" items="${songs}">
-                            <div class="song">
+                            <c:forEach var="s" items="${songs}">
+                            <div class="song" >
                                 <div class="song-detailed">
                                     <img src="${s.songImagePath}" alt="demo" class="img-fluid">
                                     <div class="song-info">
                                         <h2 class="song-title">${s.title}</h2>
                                         <p class="artist-name">${s.artist}</p>
-                                        <input type="hidden" name="${s.songId}" value ="${s.songFilePath}" id="srcsong" >
+                                        <input type="hidden" name="${s.songId}" 
+                                                                      value ="${s.songFilePath}" 
+                                                                       id="srcsong" >
                                     </div>
                                 </div>
                                 <div class="info">
@@ -78,9 +80,9 @@
 
                 <!------------------------------------------------------------------------------------------->
                 <div class="col-3 main__side-info">
-                    <div class="infomusic">
+                    <div class="infomusic" id="infomusic" >
                         <div class="music">
-                            <div class="muisc__info-wrapper">
+                            <div class="music__info-wrapper">
                                 <img src="" id="bigImg" alt="demo" >
                                 <div class="music-info">
                                     <h4 class="music-title">Song Title</h4>
@@ -106,8 +108,21 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="queue" id="queue" style="display: none;">
+                        <h3>Queue</h3>
+                        <div class="List-Song" id="queueList">
+                            <div class="song">
+                                <img src="" alt="Song Image">
+                                <div class="song-info">
+                                    <h2 class="song-title"></h2>
+                                    <p class="artist-name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                
                 <!------------------------------------------------------------------------------------------->
             </div>
             <div class="row2">
@@ -152,7 +167,7 @@
 
                     <div class="col">
                         <div class="volume">
-                            <span class="icon">
+                            <span class="icon active" id="listBtn">
                                 <ion-icon name="list-outline"></ion-icon>
                             </span>
                             <span class="icon">

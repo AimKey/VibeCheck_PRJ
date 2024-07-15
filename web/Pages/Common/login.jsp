@@ -71,14 +71,14 @@
                         <span class="icon">
                             <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type="text" name="username" required value="Huydaucac"/>
+                        <input type="text" name="username" required />
                         <label>Username</label>
                     </div>
                     <div class="input-box">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
-                        <input type="password" name="password" required value="123456"/>
+                        <input type="password" name="password" required />
                         <label>Password</label>
                     </div>
                     <div class="input-box">

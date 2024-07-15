@@ -2,7 +2,6 @@ import { getSongs } from './Data.js';
 //State
 let replay = false;
 
-
 // DOM elements
 let progress = document.getElementById('progress');
 let song = document.getElementById('song');
@@ -11,10 +10,10 @@ let volume = document.getElementById('volume');
 
 // Initialize the first song
 let songs = getSongs();
-let currentSongIndex = songs[0] ? 0 : -1;
+let currentSongIndex = songs[0] ? 0 : -1;  //Check songs have songs[0] or no, if have = 0, no = -1
 
 console.log(currentSongIndex);
-if (currentSongIndex === -1)
+if (currentSongIndex === -1)  // if =-1 -> let =0
     currentSongIndex = 0;
 
 let bigImg = document.getElementById('bigImg');
@@ -28,21 +27,22 @@ let nameAlbum = document.querySelector(".album-right .name-album");
 
 ////////////////Load the song///////////////////////////
 function loadSong(index) {
-    const selectedSong = songs[index];
+    //Get the song at index
+    const selectedSong = songs[index];  
 
     // Check if selectedSong is valid
     if (!selectedSong) {
         console.error(`Song at index ${index} not found.`);
         return;
     }
-
+    
     console.log(`Loading song: ${selectedSong.songFilePath}`);
-    song.src = selectedSong.songFilePath;
-    song.load();
+    song.src = selectedSong.songFilePath; //Set the song file path for the song object
+    song.load(); // Load the song
     currentSongIndex = index;  // Update the current song index
     console.log(`Loaded song: ${selectedSong.songFilePath}`);
 
-    // Update song information (image, title, artist)
+    // Update song information 
     let parent = document.querySelector(`.song input[name="${selectedSong.songID}"]`).closest(".song");
     let songSrc = parent.querySelector(".song-detailed img").src;
     let title = parent.querySelector(".song-detailed .song-info h2").textContent;
@@ -57,7 +57,7 @@ function loadSong(index) {
     bigImg.src = songSrc;
     smallImg.src = songSrc;
 
-    rightTitle.textContent = title;
+    rightTitle.textContent = title;     
     rightArtist.textContent = artist;
     bottomTitle.textContent = title;
     bottomArtist.textContent = artist;
@@ -112,8 +112,6 @@ function playPause() {
 }
 
 /////////////Automatically play the next song///////////////////////////
-song.addEventListener('ended', playNextSong);
-
 function playNextSong() {
     if (replay === false) {
         currentSongIndex = (currentSongIndex + 1) % songs.length; // Move to the next song, wrap to the start if at the end
@@ -200,11 +198,57 @@ function replaySong(btn) {
     console.log(btn);
     replay = !replay;
 }
+
 document.getElementById('reBtn').addEventListener('click', (evt) => {
     let btn = evt.target;
     replaySong(btn);
-    
 });
+///////////////////////Shuffle Song Button//////////////////////////
+function shuffle(array) {
+    let currentIndex = array.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+        // Pick a remaining element...
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+}
+
+let isShuffle = false;
+let tempIndex = 0;
+let tempSongs = songs.map((song) => song); // clone
+let shuffleBtn = document.querySelector('#shuffBtn');
+
+shuffleBtn.addEventListener('click', (evt) => {
+    isShuffle = !isShuffle;
+    if (isShuffle) {
+        let newSongs = songs.filter((song, index) => {
+            return index !== currentSongIndex;
+        });
+        shuffle(newSongs);
+        newSongs.unshift(' ');
+        songs = newSongs;
+        tempIndex = currentSongIndex;
+        currentSongIndex = 0;
+        console.log("Turning on shuffle: ");
+        console.log(songs);
+    } else {
+        songs = tempSongs.map((song) => song);
+        currentSongIndex = tempIndex;
+        console.log("Turning off shuffle: ");
+        console.log(songs);
+    }
+//    song.play();
+    updateQueue();
+    infoUpNext();
+});
+
 ///////////////////////Process Duration////////////////////////////
 document.addEventListener('DOMContentLoaded', function () {
     const audioElement = document.querySelector('audio'); // Assuming you have an <audio> element
@@ -231,6 +275,48 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//////////////////Appear Queue///////////////////////
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.getElementById('listBtn');
+    const infomusicDiv = document.getElementById('infomusic');
+    const queueDiv = document.getElementById('queue');
+
+    toggleButton.addEventListener('click', function () {
+        if (infomusicDiv.style.display === 'none') {
+            infomusicDiv.style.display = 'flex';
+            queueDiv.style.display = 'none';
+        } else {
+            infomusicDiv.style.display = 'none';
+            queueDiv.style.display = 'flex';
+        }
+    });
+});
+///////////////////Queue//////////////////////
+function updateQueue() {
+    const queueDiv = document.querySelector('.queue .List-Song');
+    queueDiv.innerHTML = ''; // Clear current queue content
+
+    songs.forEach((song, index) => {
+        if(song == ' '){
+        }else{
+        const songElement = document.createElement('div');
+        songElement.classList.add('song');
+        songElement.innerHTML = `
+            <img src="${song.songSrc}" alt="${song.songID}">
+            <div class="song-info">
+                <div class="song-title">${song.title}</div>
+                <div class="artist-name">${song.artist}</div>
+            </div>
+        `;
+        queueDiv.appendChild(songElement);
+    }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadSong(currentSongIndex);
+    updateQueue();
+});
 //////////////Change color button///////////////////
 const icons = document.querySelectorAll('.allicon .icon');
 
