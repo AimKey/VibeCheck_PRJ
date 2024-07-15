@@ -121,7 +121,6 @@ function playNextSong() {
     console.log(`Playing next song: index ${currentSongIndex}`);
     loadSong(currentSongIndex); // Load the next song
     song.play(); // Play the loaded song
-
 }
 /////////////Up next///////////////////////////
 let nextTitle = document.querySelector(".song-info .next-song-title");

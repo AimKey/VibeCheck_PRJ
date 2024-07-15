@@ -90,10 +90,9 @@ body{
     color: var(--text);
 }
 /* -------------------------------------------- */
-.text1{
+.text1 {
     color: var(--text);
     font-size: 30px;
-
 }
 .text2{
     color: #D9D9D9;
@@ -130,7 +129,7 @@ body{
 }
 
 .List-Song::-webkit-scrollbar-thumb {
-    background-color: var(--text);
+    background-color: var(--primary);
     border-radius: 4px;
     width: 6px;
 }
