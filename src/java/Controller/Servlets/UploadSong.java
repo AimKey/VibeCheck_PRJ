@@ -1,83 +1,67 @@
-
 package Controller.Servlets;
 
-import Database.DatabaseInformation;
+import Model.Daos.SongDao;
+import Model.Song;
+import Utils.Helpers;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.nio.file.Paths;
+import java.util.Collection;
 
-/**
- *
- * @author lethimcook
- */
+@MultipartConfig
 public class UploadSong extends HttpServlet {
-    
-    private DatabaseInformation db;
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        db = new DatabaseInformation();
-        
-        String title = request.getParameter("title");
-        int duration = Integer.parseInt(request.getParameter("duration"));
-        String filePath = request.getParameter("filePath");
-        String genre = request.getParameter("genre");
-        String artistName = request.getParameter("artistName");
-        String bio = request.getParameter("bio");
-        String picturePath = request.getParameter("picturePath");
-        
-        try (Connection con = db.getConnection()) {
-            // check if artist exist
-            int artistId = -1;
-            PreparedStatement stmt = con.prepareStatement("select artistId from Artist where artist name = ?");
-            stmt.setString(1, artistName);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()){
-                artistId = rs.getInt("artistId");
-            } else {
-                // insert new artist
-                stmt = con.prepareStatement("insert into artist (artistName, bio, profile_picture_link) values (?,?,?)", 
-                        Statement.RETURN_GENERATED_KEYS);
-                stmt.setString(1, artistName);
-                stmt.setString(2, bio);
-                stmt.setString(3, picturePath);
-                stmt.executeUpdate();
-                rs = stmt.getGeneratedKeys();
-                if (rs.next()) {
-                    artistId = rs.getInt(1);
+        Helpers utils = new Helpers();
+        String param = request.getParameter("action");
+        System.out.println("Action: " + param);
+        // Define the base directory where songs will be saved
+        String baseDir = getServletContext().getRealPath("/") + "songs/";
+        baseDir = Paths.get(baseDir).normalize().toString();  // Normalize the path to remove any redundant elements
+        Collection<Part> parts = request.getParts();
+//        System.out.println("Reading base dir: " + baseDir);
+        int count = 0;
+        try {
+            for (Part part : parts) {
+                System.out.println("Getting file: " + part.getSubmittedFileName());
+                if (part.getName().equals("songsUpload") && part.getSize() > 0) {
+                    String fileName = utils.getFileNameWithoutExtension(part.getSubmittedFileName());
+                    String songDir = "songs\\" + fileName + "\\";
+                    String fullPath = baseDir + File.separator + fileName + File.separator + part.getSubmittedFileName();
+
+                    System.out.println("Reveive songs: " + part.getSubmittedFileName());
+                    count++;
+                    // Ensure the song directory exists and save the file
+                    utils.setupSongFolder(fullPath, part);
+
+                    // Read song metadata
+                    Song song = utils.readSongMetadata(new File(fullPath), true, baseDir + File.separator + fileName + File.separator + fileName + ".jpg");
+                    song.setSongFilePath(songDir + part.getSubmittedFileName());
+                    song.setSongImagePath(songDir + fileName + ".jpg");
+
+//                    // Log metadata for debugging
+//                    System.out.println("Title: " + song.getTitle());
+//                    System.out.println("Artist: " + song.getArtist());
+//                    System.out.println("Album: " + song.getAlbum());
+//                    System.out.println("Duration: " + song.getDuration());
+//                    System.out.println("File Path: " + songDir + part.getSubmittedFileName());
+//                    System.out.println("Image Path: " + songDir + fileName + ".jpg");
+                    // Bro put it in the SongDao
+                    System.out.println("[SONG DAO DEBUG] :: " + new SongDao().insertWithMsg(song));
                 }
             }
-            
-            // check if song exists
-            stmt = con.prepareStatement("select songId from Song where title = ? and artistId = ?");
-            stmt.setString(1, title);
-            stmt.setInt(2, artistId);
-            rs = stmt.executeQuery();
-            if (!rs.next()) {
-                // insert new song
-                stmt = con.prepareStatement("insert into Song (artistId, title, duration, file_path, genre, cover_picture_link) values (?, ?, ?, ?, ?, ?)");
-                stmt.setInt(1, artistId);
-                stmt.setString(2, title);
-                stmt.setInt(3, duration);
-                stmt.setString(4, filePath);
-                stmt.setString(5, genre);
-                stmt.setString(6, picturePath);
-                stmt.executeUpdate();
-            }
-            rs.close();
-            stmt.close();
+            response.getWriter().write("Uploaded " + count + " songs successfuly!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            response.getWriter().write("Upload error: " + e.getMessage());
         }
-        // insert upload_success.html
-        response.sendRedirect("smh");
     }
-    
 }

@@ -4,40 +4,33 @@
  */
 package Model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author phamm
  */
 public class Song {
 
-    private int songId, artistId, duration;
+    private int songId, duration;
+    // In the model, the song has string of artst, but in DB, it should contain artist
+    // id only
+    private String artist;
     // Song filePath is songs/sth/sth.mp3
     // Song img path is songs/sth/sth.jpeg;
     private String title, songFilePath, songImagePath;
     private String album;
 
-    public Song(int artistId, int duration, String tittle, String filePath, String album) {
-        this.artistId = artistId;
-        this.duration = duration;
-        this.title = tittle;
-        this.songFilePath = filePath;
-        this.album = album;
+    public Song() {
     }
 
-    public Song(int songId, int artistId, int duration, String title, String songFilePath, String songImagePath, String album) {
+    public Song(int songId, int duration, String artist, String title, String songFilePath, String songImagePath, String album) {
         this.songId = songId;
-        this.artistId = artistId;
         this.duration = duration;
+        this.artist = artist;
         this.title = title;
         this.songFilePath = songFilePath;
         this.songImagePath = songImagePath;
         this.album = album;
     }
-    
-    
-
     public String getTitle() {
         return title;
     }
@@ -47,7 +40,19 @@ public class Song {
     }
 
     public String getSongFilePath() {
+        return songFilePath.replace("\\", "/");
+    }
+
+    public String getSongFilePathOgh() {
+        return songFilePath.replace("\\", "/");
+    }
+    
+    public String getOriginalFilePath() {
         return songFilePath;
+    }
+    
+    public String getOriginalImagePath() {
+        return songImagePath;
     }
 
     public void setSongFilePath(String songFilePath) {
@@ -55,7 +60,7 @@ public class Song {
     }
 
     public String getSongImagePath() {
-        return songImagePath;
+        return songImagePath.replace("\\", "/");
     }
 
     public void setSongImagePath(String songImagePath) {
@@ -69,29 +74,24 @@ public class Song {
     public void setSongId(int songId) {
         this.songId = songId;
     }
-
-    public int getArtistId() {
-        return artistId;
+//    Return duration in string format
+    public String getDuration() {
+        int minutes = duration / 60;
+        int seconds = duration % 60;
+        String secs = String.valueOf(seconds);
+//        If seconds is a digit
+        if (seconds / 10 == 0) {
+            secs = "0" + secs;
+        }
+        return String.format("%d:%s", minutes, secs);
     }
 
-    public void setArtistId(int artistId) {
-        this.artistId = artistId;
-    }
-
-    public int getDuration() {
-        return duration;
+    public int getDurationInNumbers() {
+        return this.duration;
     }
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public String getFilePath() {
-        return songFilePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.songFilePath = filePath;
     }
 
     public String getAlbum() {
@@ -100,6 +100,19 @@ public class Song {
 
     public void setAlbum(String album) {
         this.album = album;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" + "songId=" + songId + ", duration=" + duration + ", artist=" + artist + ", title=" + title + ", songFilePath=" + songFilePath + ", songImagePath=" + songImagePath + ", album=" + album + '}';
     }
 
 }

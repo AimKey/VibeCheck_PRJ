@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <!--    <filter>
+        <filter-name>SettingPageOnLoad</filter-name>
+        <filter-class>Controller.Filters.SettingPageOnLoad</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SettingPageOnLoad</filter-name>
+        <url-pattern>/settings</url-pattern>
+    </filter-mapping>-->
     <servlet>
         <servlet-name>LoginHandler</servlet-name>
         <servlet-class>Controller.Servlets.LoginHandler</servlet-class>
@@ -9,12 +17,36 @@
         <servlet-class>Controller.Servlets.UploadSong</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetSongServlet</servlet-name>
-        <servlet-class>Controller.Servlets.GetSongServlet</servlet-class>
+        <servlet-name>SongServlet</servlet-name>
+        <servlet-class>Controller.Servlets.SongServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditSong</servlet-name>
-        <servlet-class>Controller.EditSong</servlet-class>
+        <servlet-name>PlaylistSongsServlet</servlet-name>
+        <servlet-class>Controller.Servlets.PlaylistSongsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlaylistServlet</servlet-name>
+        <servlet-class>Controller.Servlets.PlaylistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveSong</servlet-name>
+        <servlet-class>Controller.Servlets.SaveSong</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>Controller.Servlets.UserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>Controller.Servlets.Main</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Controller.Servlets.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>Controller.Servlets.DeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
@@ -25,27 +57,60 @@
         <url-pattern>/UploadSong</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetSongServlet</servlet-name>
-        <url-pattern>/GetSongServlet</url-pattern>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/SongServlet</url-pattern>
     </servlet-mapping>
-    <!-- Admin route -->
+    <!-- Login route -->
     <servlet>
-        <servlet-name>Admin</servlet-name>
-        <jsp-file>/Pages/Admin/admin.jsp</jsp-file>
+        <servlet-name>LoginPage</servlet-name>
+        <jsp-file>/Pages/Common/login.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Admin</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <servlet-name>LoginPage</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    <!-- Main route -->
+        <!--Settings servlet-->
     <servlet>
-        <servlet-name>Main</servlet-name>
-        <jsp-file>/Pages/Common/main.html</jsp-file>
+        <servlet-name>Settings</servlet-name>
+        <servlet-class>Controller.Servlets.Settings</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SaveSong</servlet-name>
+        <url-pattern>/SaveSong</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlaylistSongsServlet</servlet-name>
+        <url-pattern>/PlaylistSongsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlaylistServlet</servlet-name>
+        <url-pattern>/PlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Main</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Settings</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/DeleteServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <!-- Timeout in minutes -->
+    </session-config>
     <welcome-file-list>
         <welcome-file>Pages/Common/login.jsp</welcome-file>
     </welcome-file-list>

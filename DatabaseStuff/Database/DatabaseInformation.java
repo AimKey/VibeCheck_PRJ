@@ -11,7 +11,6 @@ import java.sql.SQLException;
 public class DatabaseInformation {
     private String serverName, dbName, dbUser, dbPassword;
     
-    // TODO: Change this to your database configs
     public DatabaseInformation() {
         this("KUUL", "AppMusicDatabase", "sa", "123456");
     }

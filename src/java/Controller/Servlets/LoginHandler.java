@@ -11,6 +11,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*; // What the frick netbeans frick yourself
 
@@ -20,22 +21,35 @@ import java.sql.*; // What the frick netbeans frick yourself
  */
 public class LoginHandler extends HttpServlet {
 
-    private DatabaseInformation db;
+    private DatabaseInformation db = new DatabaseInformation();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("Connecting..., Method: " + request.getMethod());
-        db = new DatabaseInformation();
     }
 
+    // Logout
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
+        // Deactivate session
+        HttpSession s = request.getSession();
+        if (s != null) {
+            s.invalidate();
+        }
+        // Delete all cookies
+        Cookie[] cs = request.getCookies();
+        if (cs != null) {
+            for (Cookie c : cs) {
+                c.setMaxAge(0);
+            }
+        }
+        response.sendRedirect("login");
     }
 
+    // Login
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -70,7 +84,7 @@ public class LoginHandler extends HttpServlet {
         // No user found
         if (aUser == null) {
             request.setAttribute("msg", "Wrong user account!");
-            request.getRequestDispatcher("Pages/Common/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login").forward(request, response);
         } else {
             // Found user, logging in
             // Creating cookies
@@ -87,20 +101,19 @@ public class LoginHandler extends HttpServlet {
             response.addCookie(userC);
             response.addCookie(adminC);
             response.addCookie(idC);
-
+            
             // Setting the user session
-            request.getSession().setAttribute("user", aUser.getUsername());
-            request.getSession().setAttribute("id", aUser.getUserId());
-            request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
-            request.getSession().setAttribute("isAdmin", aUser.getIsAdmin());
+            request.getSession().setAttribute("user", aUser);
 
             // Dispatch
             if (aUser.getIsAdmin()) {
 //                    request.getRequestDispatcher("admin.jsp").forward(request, response);
-                response.sendRedirect("admin");
-            } else {
+                response.sendRedirect("settings");
+            } else if (aUser.getIsAdmin() == false) {
 //                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                response.sendRedirect("Pages/Common/main.html");
+                response.sendRedirect("main");
+            } else {
+                response.sendRedirect("login");
             }
         }
 

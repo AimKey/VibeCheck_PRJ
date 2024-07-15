@@ -11,12 +11,24 @@ public class Playlist {
 
     private int playlistId, userId;
     private String name;
-    int numSong;
-    LocalDate creationDate;
+    private int numberOfSongs;
+    private LocalDate creationDate;
 
+    public Playlist(String name, int numberOfSongs) {
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+    }
+
+    public Playlist(int playlistId, int userId, String name, int numberOfSongs) {
+        this.playlistId = playlistId;
+        this.userId = userId;
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+    }
+    
     public Playlist(String name, int numSong, String creationDate) {
         this.name = name;
-        this.numSong = numSong;
+        this.numberOfSongs = numSong;
         this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
@@ -24,8 +36,23 @@ public class Playlist {
         this.playlistId = playlistId;
         this.userId = userId;
         this.name = name;
-        this.numSong = numSong;
+        this.numberOfSongs = numSong;
         this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public Playlist(int userId, String name, int numberOfSongs, LocalDate creationDate) {
+        this.userId = userId;
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+        this.creationDate = creationDate;
+    }
+    
+    public Playlist(int playlistId, int userId, String name, int numberOfSongs, LocalDate creationDate) {
+        this.playlistId = playlistId;
+        this.userId = userId;
+        this.name = name;
+        this.numberOfSongs = numberOfSongs;
+        this.creationDate = creationDate;
     }
 
     public int getPlaylistId() {
@@ -52,12 +79,12 @@ public class Playlist {
         this.name = name;
     }
 
-    public int getNumSong() {
-        return numSong;
+    public int getNumberOfSongs() {
+        return numberOfSongs;
     }
 
-    public void setNumSong(int numSong) {
-        this.numSong = numSong;
+    public void setNumberOfSongs(int numberOfSongs) {
+        this.numberOfSongs = numberOfSongs;
     }
 
     public String getCreationDate() {
@@ -71,7 +98,7 @@ public class Playlist {
     @Override
     public String toString() {
         return "Playlist{" + "playlistId=" + playlistId + ", userId=" + userId
-                + ", name=" + name + ", numSong=" + numSong + ", creationDate=" + getCreationDate() + '}';
+                + ", name=" + name + ", numSong=" + numberOfSongs + ", creationDate=" + getCreationDate() + '}';
     }
 
 }

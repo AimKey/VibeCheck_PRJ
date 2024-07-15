@@ -5,14 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div
-    class="modal fade"
+    class="modal fade add-song"
     id="add-song-modal"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
     >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered box-shadow add-song__modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Select songs to add</h5>
@@ -39,58 +40,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="song-selection">
-                                <th class="song-img">
-                                    <img src="assets/images/demo.jpg" alt="User picture here" />
-                                </th>
-                                <td class="song-title">
-                                    フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                                </td>
-                                <td class="song-artist">Shibayan records</td>
-                                <td class="song-album">
-                                    フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                                </td>
-                                <td class="song-duration">4:12</td>
-                                <td>
-                                    <!-- TODO: On click, query and delete song -->
-                                    <!-- IMPORTANT: use JS to send a request to server without redirecting user.
-                                    Then remove this element from the DOM -->
-                                    <button onclick="handleDeleteSong(this)">
-                                        <i class="fa-solid fa-circle-plus"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="song-selection">
-                                <th class="song-img">
-                                    <img src="assets/images/demo.jpg" alt="User picture here" />
-                                </th>
-                                <td class="song-title">
-                                    フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                                </td>
-                                <td class="song-artist">Shibayan records</td>
-                                <td class="song-album">
-                                    フォニイ (feat. 宵崎奏&朝比奈まふゆ&東雲絵名&暁山瑞希&MEIKO)
-                                </td>
-                                <td class="song-duration">4:12</td>
-                                <td>
-                                    <!-- TODO: On click, query and delete song -->
-                                    <!-- IMPORTANT: use JS to send a request to server without redirecting user.
-                                    Then remove this element from the DOM -->
-                                    <button onclick="handleDeleteSong(this)">
-                                        <i class="fa-solid fa-circle-check"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <c:if test="${songs == null}">
+                            <h3>System songs is empty, go and add some !</h3>
+                        </c:if>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="button button-grey" data-bs-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="button button-confirm">Save changes</button>
+                <form action="PlaylistSongsServlet" method="post" class="add-song-modal__form">
+                    <input type="hidden" value="insertSongs" name="action">
+                    <input type="hidden" value="" name="songIds">
+                    <input type="hidden" value="" name="playlistId">
+                    <button type="button" class="button button-confirm">
+                        Save
+                    </button>
+                </form>
+                <button type="button" class="button button-danger add-song-modal__cancel-btn" data-bs-dismiss="modal">Cancel</button>
+
+                <!--<button type="button" class="button button-confirm">Save changes</button>-->
             </div>
         </div>
     </div>
