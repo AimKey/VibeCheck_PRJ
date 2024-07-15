@@ -15,8 +15,8 @@ function getSongs() {
         console.log(`Retrieved title: ${title}`);
         console.log(`Retrieved artist: ${artist}`);
 
-
-        songs.push({songFilePath, songID, songSrc, title, artist});
+        
+        songs.push({ songFilePath, songID, songSrc, title, artist });
     });
     return songs;
 }
