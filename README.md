@@ -8,7 +8,8 @@ A PRJ project that use Java to build a CRUD application with SQL server
 4. Resolve merge conflict if exists
 5. Copy the database config class in `/DatabaseStuff/Database` into `/src/java` folder  
    5.1 Run any sql scripts inside of the `/DatabaseStuff` to init the database in SQL Server.
-   5.2. **IMPORTANT**, Read the TODOs in `DatabaseInformation.java` first to change to your database config.  
+   5.2. **IMPORTANT**, Read the TODOs in `DatabaseInformation.java` first to change to your database config.
+6. All of the libraries used are located in `/jars` folder  
 7. Close netbeans or the project you just created, run/open the project again, click clean and build.
 8. Run.
 # Introduction
